@@ -1,18 +1,25 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {LoginStackParamList} from '@screens/types';
+import {LoginStackParamList, MainStackParamList} from '~/screens/@types';
 import SignInScreen from '@screens/SignInScreen';
 import SignUpScreen from '@screens/SignUpScreen';
 import HomeScreen from './screens/HomeScreen';
 import ViewScreen from './screens/ViewScreen/index';
-import {createDrawerNavigator} from '@react-navigation/drawer';
+import {
+  DrawerContentComponentProps,
+  DrawerContentScrollView,
+  DrawerItem,
+  DrawerItemList,
+  createDrawerNavigator,
+} from '@react-navigation/drawer';
 import ProfileScreen from './screens/ProfileScreen';
 import {NavigationContainer} from '@react-navigation/native';
 import SearchScreen from './screens/SearchScreen';
-import {Button} from 'react-native';
+import {Button, View} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const AuthStack = createNativeStackNavigator<LoginStackParamList>();
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<MainStackParamList>();
 const Drawer = createDrawerNavigator();
 
 const Navigator = () => {
@@ -37,13 +44,25 @@ const AuthStackNavi = () => {
 const MainStackNavi = () => {
   return (
     <Stack.Navigator>
-      <Stack.Group
-        screenOptions={({navigation}) => ({
-          headerLeft: () => (
-            <Button title="Open" onPress={() => navigation.openDrawer()} />
-          ),
-        })}>
-        <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Group>
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={({navigation}) => ({
+            headerTitle: '',
+            headerStyle: {
+              backgroundColor: 'transparent',
+            },
+            headerLeft: () => (
+              <Icon
+                name="bars"
+                size={20}
+                onPress={() => navigation.openDrawer()}
+              />
+            ),
+            headerRight: () => <Icon name="user-circle-o" size={20} />,
+          })}
+        />
         <Stack.Screen name="View" component={ViewScreen} />
         <Stack.Screen name="Auth" component={AuthStackNavi} />
         <Stack.Screen name="Profile" component={ProfileScreen} />
@@ -52,11 +71,74 @@ const MainStackNavi = () => {
   );
 };
 
+const SearchStackNavi = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={({navigation}) => ({
+        headerLeft: () => (
+          <Icon name="bars" size={20} onPress={() => navigation.openDrawer()} />
+        ),
+        headerStyle: {
+          backgroundColor: 'transparent',
+        },
+      })}>
+      <Stack.Screen name="Search" component={SearchScreen} />
+    </Stack.Navigator>
+  );
+};
+
+const CustomDrawer = (props: DrawerContentComponentProps) => {
+  return (
+    <DrawerContentScrollView {...props}>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+        }}>
+        <DrawerItemList {...props} />
+        <DrawerItem label="Logout" onPress={() => console.log('out')} />
+      </View>
+    </DrawerContentScrollView>
+  );
+};
+
 const DrawerNavi = () => {
   return (
-    <Drawer.Navigator>
-      <Drawer.Screen name="Home" component={MainStackNavi} />
-      <Drawer.Screen name="Discover" component={SearchScreen} />
+    <Drawer.Navigator
+      drawerContent={props => <CustomDrawer {...props} />}
+      screenOptions={{
+        drawerActiveTintColor: '#FB5839',
+        drawerActiveBackgroundColor: 'transparent',
+        headerShown: false,
+        drawerStyle: {
+          backgroundColor: 'white',
+          width: '70%',
+        },
+      }}>
+      <Drawer.Screen
+        name="Main"
+        component={MainStackNavi}
+        options={{
+          drawerLabel: 'HOME',
+          drawerIcon: ({focused}) => (
+            <Icon name="home" size={20} color={focused ? '#FB5839' : 'black'} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Discover"
+        component={SearchStackNavi}
+        options={{
+          drawerLabel: 'DISCOVER',
+          drawerIcon: ({focused}) => (
+            <Icon
+              name="rocket"
+              size={20}
+              color={focused ? '#FB5839' : 'black'}
+            />
+          ),
+        }}
+      />
     </Drawer.Navigator>
   );
 };

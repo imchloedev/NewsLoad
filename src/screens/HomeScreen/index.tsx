@@ -1,8 +1,19 @@
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useState} from 'react';
 import {Button, Text, View} from 'react-native';
+import {MainStackParamList} from '../@types';
+import {useNewsQuery} from '~/hooks/useNewsQuery';
+import Config from 'react-native-config';
 
-const HomeScreen = ({navigation}) => {
+type HomeScreenProps = NativeStackScreenProps<MainStackParamList, 'Home'>;
+
+const HomeScreen = ({navigation}: HomeScreenProps) => {
   const [user, setUser] = useState(true);
+
+  const {news} = useNewsQuery();
+  console.log(news);
+
+  // console.log(Config);
 
   return (
     <View>
@@ -15,6 +26,9 @@ const HomeScreen = ({navigation}) => {
         }
       />
       <Text>Home</Text>
+      {news.map(li => (
+        <Text>{li.title}</Text>
+      ))}
     </View>
   );
 };

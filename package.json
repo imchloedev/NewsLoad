@@ -3,8 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
+    "android:dev": "react-native run-android --variant=develop",
+    "android:prod": "react-native run-android --variant=product",
+    "ios": "react-native run-ios --scheme Develop",
+    "ios:prod": "react-native run-ios --scheme Production",
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest"
@@ -16,7 +18,6 @@
     "axios": "^1.5.0",
     "react": "18.2.0",
     "react-native": "0.72.4",
-    "react-native-dotenv": "^3.4.9",
     "react-native-gesture-handler": "^2.12.1",
     "react-native-reanimated": "^3.4.2",
     "react-native-safe-area-context": "^4.7.2",
@@ -47,6 +48,7 @@
     "jest": "^29.2.1",
     "metro-react-native-babel-preset": "0.76.8",
     "prettier": "^2.4.1",
+    "react-native-config": "^1.5.1",
     "react-test-renderer": "18.2.0",
     "typescript": "4.8.4"
   },
