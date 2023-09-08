@@ -53,14 +53,18 @@ const MainStackNavi = () => {
             headerStyle: {
               backgroundColor: 'transparent',
             },
+            headerTransparent: true,
             headerLeft: () => (
               <Icon
                 name="bars"
                 size={20}
+                color={'white'}
                 onPress={() => navigation.openDrawer()}
               />
             ),
-            headerRight: () => <Icon name="user-circle-o" size={20} />,
+            headerRight: () => (
+              <Icon name="user-circle-o" size={20} color={'white'} />
+            ),
           })}
         />
         <Stack.Screen name="View" component={ViewScreen} />
