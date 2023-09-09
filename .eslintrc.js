@@ -7,5 +7,6 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react/no-unstable-nested-components': 'off',
     'react-native/no-inline-styles': 0,
+    'no-trailing-spaces': 0,
   },
 };

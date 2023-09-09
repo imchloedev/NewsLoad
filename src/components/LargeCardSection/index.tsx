@@ -7,17 +7,10 @@ import {
   NativeSyntheticEvent,
   NativeScrollEvent,
   Dimensions,
-  Animated,
 } from 'react-native';
 import LargeCardItem from '@components/LargeCardItem';
 import {useNewsQuery} from '~/hooks/useNewsQuery';
 import {IArticle} from '~/store/atom';
-
-// interface ILargeCardSectionProps {
-
-// }
-
-// 📌 캐러셀 autoplay 구현하기
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -54,7 +47,7 @@ const LargeCardSection = () => {
     const autoScroll = setInterval(() => {
       const nextPage = (currentPage + 1) % news.length;
       scrollToPage(nextPage);
-    }, 3000);
+    }, 5000);
 
     return () => clearInterval(autoScroll);
   }, [currentPage, news]);
@@ -79,8 +72,9 @@ const LargeCardSection = () => {
               <TouchableOpacity
                 key={index}
                 style={{
-                  width: 16,
-                  height: 2,
+                  width: 8,
+                  height: 8,
+                  borderRadius: 8,
                   backgroundColor: currentPage === index ? '#FB6A00' : 'white',
                 }}
               />
@@ -96,8 +90,9 @@ export default LargeCardSection;
 
 const SCardContainer = styled.View`
   position: relative;
-  border-radius: 0 0 40px 40px;
+  border-radius: 20px;
   overflow: hidden;
+  margin: 10px 18px 0 18px;
 `;
 
 const SPaginationContainer = styled.View`
@@ -105,7 +100,7 @@ const SPaginationContainer = styled.View`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  /* gap: 10px; */
+  gap: 8px;
   position: absolute;
   left: 0;
   right: 0;

@@ -15,8 +15,8 @@ import {
 import ProfileScreen from './screens/ProfileScreen';
 import {NavigationContainer} from '@react-navigation/native';
 import SearchScreen from './screens/SearchScreen';
-import {Button, View} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import {View} from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const AuthStack = createNativeStackNavigator<LoginStackParamList>();
 const Stack = createNativeStackNavigator<MainStackParamList>();
@@ -53,17 +53,17 @@ const MainStackNavi = () => {
             headerStyle: {
               backgroundColor: 'transparent',
             },
-            headerTransparent: true,
+            // headerTransparent: true,
             headerLeft: () => (
               <Icon
-                name="bars"
+                name="menu-outline"
                 size={20}
-                color={'white'}
+                color={'black'}
                 onPress={() => navigation.openDrawer()}
               />
             ),
             headerRight: () => (
-              <Icon name="user-circle-o" size={20} color={'white'} />
+              <Icon name="person-outline" size={20} color={'black'} />
             ),
           })}
         />
@@ -79,8 +79,13 @@ const SearchStackNavi = () => {
   return (
     <Stack.Navigator
       screenOptions={({navigation}) => ({
+        headerTitle: '',
         headerLeft: () => (
-          <Icon name="bars" size={20} onPress={() => navigation.openDrawer()} />
+          <Icon
+            name="menu-outline"
+            size={20}
+            onPress={() => navigation.openDrawer()}
+          />
         ),
         headerStyle: {
           backgroundColor: 'transparent',
@@ -125,7 +130,11 @@ const DrawerNavi = () => {
         options={{
           drawerLabel: 'HOME',
           drawerIcon: ({focused}) => (
-            <Icon name="home" size={20} color={focused ? '#FB5839' : 'black'} />
+            <Icon
+              name="home-outline"
+              size={20}
+              color={focused ? '#FB5839' : 'black'}
+            />
           ),
         }}
       />
@@ -136,7 +145,7 @@ const DrawerNavi = () => {
           drawerLabel: 'DISCOVER',
           drawerIcon: ({focused}) => (
             <Icon
-              name="rocket"
+              name="rocket-outline"
               size={20}
               color={focused ? '#FB5839' : 'black'}
             />

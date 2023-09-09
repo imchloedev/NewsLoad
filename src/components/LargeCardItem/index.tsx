@@ -21,12 +21,11 @@ const LargeCardItem = ({article}: ILargeCardItemProps) => {
       <Image
         source={{uri: article.urlToImage}}
         style={{
-          width: windowWidth,
+          width: windowWidth - 36,
           height: windowHeight / 2,
           resizeMode: 'cover',
         }}
       />
-
       <SArticleTitleContainer>
         <SArticleTitle>{article.title}</SArticleTitle>
       </SArticleTitleContainer>
@@ -38,7 +37,7 @@ export default LargeCardItem;
 
 const styles = StyleSheet.create({
   linearGradient: {
-    width: windowWidth,
+    width: windowWidth - 36,
     height: '100%',
     position: 'absolute',
     top: 0,
