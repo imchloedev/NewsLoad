@@ -1,13 +1,39 @@
-import DefaultTheme from '@react-navigation/native';
+import {ITheme} from 'styled-components/native';
 
-const MyTheme = {
-  dark: false,
+const common = {
   colors: {
-    primary: 'rgb(255, 45, 85)',
-    background: 'rgb(242, 242, 242)',
-    card: 'rgb(255, 255, 255)',
-    text: 'rgb(28, 28, 30)',
-    border: 'rgb(199, 199, 204)',
-    notification: 'rgb(255, 69, 58)',
+    primary: '#FB5839',
+    gray: '#bebebe',
+    middleGray: '#808080',
+    darkGray: '#333',
+    white: '#fff',
+    black: '#000',
   },
 };
+
+const flex = (direction = 'row', justify = 'center', align = 'center') => `
+display: flex;
+flex-direction: ${direction};
+justify-content: ${justify};
+align-items: ${align};
+`;
+
+const theme: ITheme = {
+  lightTheme: {
+    colors: {
+      background: '#eee',
+      card: '#fff',
+      text: '#000',
+      ...common.colors,
+    },
+  },
+  darkTheme: {
+    colors: {background: '#222', card: '#222', text: '#fff', ...common.colors},
+  },
+  variables: {
+    flex: flex,
+  },
+};
+
+const {lightTheme, darkTheme, variables} = theme;
+export {lightTheme, darkTheme, variables};
