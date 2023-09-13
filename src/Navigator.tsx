@@ -1,10 +1,8 @@
 import React from 'react';
+import {View, useColorScheme} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {LoginStackParamList, MainStackParamList} from '~/screens/@types';
-import SignInScreen from '@screens/SignInScreen';
-import SignUpScreen from '@screens/SignUpScreen';
-import HomeScreen from './screens/HomeScreen';
-import ViewScreen from './screens/ViewScreen/index';
+import {DarkTheme, DefaultTheme} from '@react-navigation/native';
 import {
   DrawerContentComponentProps,
   DrawerContentScrollView,
@@ -12,19 +10,25 @@ import {
   DrawerItemList,
   createDrawerNavigator,
 } from '@react-navigation/drawer';
-import ProfileScreen from './screens/ProfileScreen';
-import {NavigationContainer} from '@react-navigation/native';
-import SearchScreen from './screens/SearchScreen';
-import {View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {LoginStackParamList, MainStackParamList} from '~/screens/@types';
+import SignInScreen from '@screens/SignInScreen';
+import SignUpScreen from '@screens/SignUpScreen';
+import HomeScreen from '@screens/HomeScreen';
+import ViewScreen from '@screens/ViewScreen';
+import ProfileScreen from '@screens/ProfileScreen';
+import SearchScreen from '@screens/SearchScreen';
+import useThemeColors from '~/hooks/useThemeColors';
 
 const AuthStack = createNativeStackNavigator<LoginStackParamList>();
 const Stack = createNativeStackNavigator<MainStackParamList>();
 const Drawer = createDrawerNavigator();
 
 const Navigator = () => {
+  const scheme = useColorScheme();
+
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>
       <DrawerNavi />
     </NavigationContainer>
   );
@@ -42,6 +46,8 @@ const AuthStackNavi = () => {
 };
 
 const MainStackNavi = () => {
+  const theme = useThemeColors();
+
   return (
     <Stack.Navigator>
       <Stack.Group>
@@ -53,17 +59,16 @@ const MainStackNavi = () => {
             headerStyle: {
               backgroundColor: 'transparent',
             },
-            // headerTransparent: true,
             headerLeft: () => (
               <Icon
                 name="menu-outline"
                 size={20}
-                color={'black'}
+                color={theme.colors.text}
                 onPress={() => navigation.openDrawer()}
               />
             ),
             headerRight: () => (
-              <Icon name="person-outline" size={20} color={'black'} />
+              <Icon name="person-outline" size={20} color={theme.colors.text} />
             ),
           })}
         />
@@ -76,22 +81,29 @@ const MainStackNavi = () => {
 };
 
 const SearchStackNavi = () => {
+  const theme = useThemeColors();
+
   return (
-    <Stack.Navigator
-      screenOptions={({navigation}) => ({
-        headerTitle: '',
-        headerLeft: () => (
-          <Icon
-            name="menu-outline"
-            size={20}
-            onPress={() => navigation.openDrawer()}
-          />
-        ),
-        headerStyle: {
-          backgroundColor: 'transparent',
-        },
-      })}>
-      <Stack.Screen name="Search" component={SearchScreen} />
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Search"
+        component={SearchScreen}
+        options={({navigation}) => ({
+          headerTitle: '',
+          headerLeft: () => (
+            <Icon
+              name="menu-outline"
+              size={20}
+              color={theme.colors.text}
+              onPress={() => navigation.openDrawer()}
+            />
+          ),
+          headerStyle: {
+            backgroundColor: 'transparent',
+          },
+        })}
+      />
+      <Stack.Screen name="View" component={ViewScreen} />
     </Stack.Navigator>
   );
 };
@@ -112,15 +124,18 @@ const CustomDrawer = (props: DrawerContentComponentProps) => {
 };
 
 const DrawerNavi = () => {
+  const theme = useThemeColors();
+
   return (
     <Drawer.Navigator
       drawerContent={props => <CustomDrawer {...props} />}
       screenOptions={{
-        drawerActiveTintColor: '#FB5839',
+        drawerActiveTintColor: theme.colors.primary,
+        drawerInactiveTintColor: theme.colors.text,
         drawerActiveBackgroundColor: 'transparent',
         headerShown: false,
         drawerStyle: {
-          backgroundColor: 'white',
+          backgroundColor: theme.colors.background,
           width: '70%',
         },
       }}>
@@ -133,7 +148,7 @@ const DrawerNavi = () => {
             <Icon
               name="home-outline"
               size={20}
-              color={focused ? '#FB5839' : 'black'}
+              color={focused ? theme.colors.primary : theme.colors.text}
             />
           ),
         }}
@@ -147,7 +162,7 @@ const DrawerNavi = () => {
             <Icon
               name="rocket-outline"
               size={20}
-              color={focused ? '#FB5839' : 'black'}
+              color={focused ? theme.colors.primary : theme.colors.text}
             />
           ),
         }}

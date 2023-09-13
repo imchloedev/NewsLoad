@@ -28,7 +28,12 @@ const theme: ITheme = {
     },
   },
   darkTheme: {
-    colors: {background: '#222', card: '#222', text: '#fff', ...common.colors},
+    colors: {
+      background: '#222',
+      card: '#222',
+      text: '#fff',
+      ...common.colors,
+    },
   },
   variables: {
     flex: flex,

@@ -3,7 +3,7 @@ import {instance} from '~/apis/client';
 import Config from 'react-native-config';
 import {IArticle} from '~/store/atom';
 
-const getNews = async (): Promise<IArticle[]> => {
+export const getNews = async (): Promise<IArticle[]> => {
   const {data} = await instance.get(
     `/v2/top-headlines?country=us&apiKey=${Config.API_KEY}`,
   );

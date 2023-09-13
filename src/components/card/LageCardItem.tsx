@@ -1,19 +1,28 @@
 import React from 'react';
-import {Image, StyleSheet, Dimensions, View} from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  Dimensions,
+  View,
+  TouchableOpacity,
+} from 'react-native';
 import {styled} from 'styled-components/native';
 import LinearGradient from 'react-native-linear-gradient';
 import {IArticle} from '~/store/atom';
+import {TOnMoveToScreen} from '~/components/card/LargeCardSection';
 
 interface ILargeCardItemProps {
   article: IArticle;
+  onMoveToScreen: TOnMoveToScreen;
 }
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const LargeCardItem = ({article}: ILargeCardItemProps) => {
+const LargeCardItem = ({article, onMoveToScreen}: ILargeCardItemProps) => {
   return (
-    <View>
+    <TouchableOpacity
+      onPress={() => onMoveToScreen(article.title, article.url)}>
       <LinearGradient
         style={styles.linearGradient}
         colors={['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0.8)']}
@@ -29,7 +38,7 @@ const LargeCardItem = ({article}: ILargeCardItemProps) => {
       <SArticleTitleContainer>
         <SArticleTitle>{article.title}</SArticleTitle>
       </SArticleTitleContainer>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -54,8 +63,7 @@ const SArticleTitleContainer = styled.View`
 `;
 
 const SArticleTitle = styled.Text`
-  color: white;
-  /* line-height: 20px; */
+  color: ${({theme}) => theme.style.colors.white};
   font-weight: bold;
   font-size: 20px;
 `;

@@ -1,30 +1,33 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useState} from 'react';
-import {View, ScrollView, Text} from 'react-native';
-import {MainStackParamList} from '../@types';
-import LargeCardSection from '@components/LargeCardSection';
-import Layout from '@components/Layout';
-import SubTitle from '~/components/SubTitle';
+import {ScrollView, View} from 'react-native';
 import {styled} from 'styled-components/native';
+import {MainStackParamList} from '../@types';
+import LargeCardSection from '@components/card/LargeCardSection';
+import Layout from '@components/common/Layout';
+import Title from '@components/common/Title';
+import SmallCardSection from '@components/card/SmallCardSection';
 import {useNewsQuery} from '~/hooks/useNewsQuery';
-import SmallCardSection from '~/components/SmallCardSection';
 
 type HomeScreenProps = NativeStackScreenProps<MainStackParamList, 'Home'>;
 
 const HomeScreen = ({navigation}: HomeScreenProps) => {
   const [user, setUser] = useState(true);
-
   const {news} = useNewsQuery(5);
-  console.log(news);
+
+  const onMoveToScreen = (title: string, url: string) => {
+    navigation.navigate('View', {title: title, url: url});
+  };
 
   return (
     <Layout>
       <ScrollView>
-        <LargeCardSection />
-
+        <LargeCardSection onMoveToScreen={onMoveToScreen} />
         <SContentWrapper>
-          <SubTitle title="Top Headlines" />
-          <SmallCardSection />
+          <STitleWrapper>
+            <Title titleRole="sub" title="Top Headlines" />
+          </STitleWrapper>
+          <SmallCardSection onMoveToScreen={onMoveToScreen} />
         </SContentWrapper>
       </ScrollView>
     </Layout>
@@ -49,4 +52,9 @@ export default HomeScreen;
 
 const SContentWrapper = styled.View`
   padding: 40px 18px;
+`;
+
+const STitleWrapper = styled.View`
+  padding-top: 40px;
+  padding-bottom: 20px;
 `;

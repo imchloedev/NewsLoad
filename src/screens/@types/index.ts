@@ -7,7 +7,7 @@ export type LoginStackParamList = {
 
 export type MainStackParamList = {
   Home: undefined;
-  View: undefined;
+  View: {title: string; url: string};
   Auth: NavigatorScreenParams<LoginStackParamList>;
   Profile: undefined;
   Search: undefined;

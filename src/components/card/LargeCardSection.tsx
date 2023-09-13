@@ -8,13 +8,21 @@ import {
   NativeScrollEvent,
   Dimensions,
 } from 'react-native';
-import LargeCardItem from '@components/LargeCardItem';
+import LargeCardItem from '~/components/card/LageCardItem';
 import {useNewsQuery} from '~/hooks/useNewsQuery';
 import {IArticle} from '~/store/atom';
+import useThemeColors from '~/hooks/useThemeColors';
+import {variables} from '../../styles/theme';
 
 const windowWidth = Dimensions.get('window').width;
 
-const LargeCardSection = () => {
+export type TOnMoveToScreen = (title: string, url: string) => void;
+
+interface ILargeCardSectionProps {
+  onMoveToScreen: TOnMoveToScreen;
+}
+
+const LargeCardSection = ({onMoveToScreen}: ILargeCardSectionProps) => {
   const {news} = useNewsQuery(0, 5);
   const [currentPage, setCurrentPage] = useState(0);
   const flatListRef = useRef<FlatList | null>(null);
@@ -60,7 +68,9 @@ const LargeCardSection = () => {
             ref={flatListRef}
             data={news}
             pagingEnabled
-            renderItem={({item}) => <LargeCardItem article={item} />}
+            renderItem={({item}) => (
+              <LargeCardItem article={item} onMoveToScreen={onMoveToScreen} />
+            )}
             horizontal
             showsHorizontalScrollIndicator={false}
             onScroll={onScroll}
@@ -96,10 +106,7 @@ const SCardContainer = styled.View`
 `;
 
 const SPaginationContainer = styled.View`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  ${({theme}) => theme.variables.flex('row', 'center', 'center')};
   gap: 8px;
   position: absolute;
   left: 0;

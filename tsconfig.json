@@ -11,12 +11,13 @@
     "noEmit": true,
     "strict": true,
     "target": "esnext",
-    "baseUrl": "./src",
+    "baseUrl": "src",
     "paths": {
       "~/*": ["./*"],
-      "@components/*": ["components/*"],
-      "@screens/*": ["screens/*"],
-      "@config/*": ["config/*"]
+      "@components/*": ["./components/*"],
+      "@screens/*": ["./screens/*"],
+      "@hooks/*": ["./hooks/*"],
+      "@config/*": ["./config/*"]
     }
   },
   "exclude": [
