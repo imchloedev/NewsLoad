@@ -8,13 +8,48 @@ import {
   NativeScrollEvent,
   Dimensions,
 } from 'react-native';
-import LargeCardItem from '~/components/card/LageCardItem';
-import {useNewsQuery} from '~/hooks/useNewsQuery';
+import LargeCardItem from '@components/card/LageCardItem';
+import {useNewsQuery} from '~/hooks';
 import {IArticle} from '~/store/atom';
-import useThemeColors from '~/hooks/useThemeColors';
-import {variables} from '../../styles/theme';
+import {getCardStyle} from '~/utils';
 
-const windowWidth = Dimensions.get('window').width;
+const news = [
+  {
+    num: 1,
+    color: '#86E3CE',
+    title: 'DFffdf',
+    urlToImage:
+      'https://images.unsplash.com/photo-1554147090-e1221a04a025?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1696&q=80',
+  },
+  {
+    num: 2,
+    color: '#D0E6A5',
+    title: 'DFffdf',
+    urlToImage:
+      'https://images.unsplash.com/photo-1554147090-e1221a04a025?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1696&q=80',
+  },
+  {
+    num: 3,
+    color: '#FFDD94',
+    title: 'DFffdf',
+    urlToImage:
+      'https://images.unsplash.com/photo-1554147090-e1221a04a025?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1696&q=80',
+  },
+  {
+    num: 4,
+    color: '#FA897B',
+    title: 'DFffdf',
+    urlToImage:
+      'https://images.unsplash.com/photo-1554147090-e1221a04a025?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1696&q=80',
+  },
+  {
+    num: 5,
+    color: '#CCABD8',
+    title: 'DFffdf',
+    urlToImage:
+      'https://images.unsplash.com/photo-1554147090-e1221a04a025?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1696&q=80',
+  },
+];
 
 export type TOnMoveToScreen = (title: string, url: string) => void;
 
@@ -22,10 +57,14 @@ interface ILargeCardSectionProps {
   onMoveToScreen: TOnMoveToScreen;
 }
 
+const windowWidth = Dimensions.get('window').width;
+
 const LargeCardSection = ({onMoveToScreen}: ILargeCardSectionProps) => {
-  const {news} = useNewsQuery(0, 5);
+  // const {news} = useNewsQuery(0, 5);
   const [currentPage, setCurrentPage] = useState(0);
   const flatListRef = useRef<FlatList | null>(null);
+  //   console.log('currentPage', currentPage);
+  const {gap, pageWidth} = getCardStyle(windowWidth);
 
   const scrollToPage = (pageIndex: number) => {
     setCurrentPage(pageIndex);
@@ -34,31 +73,33 @@ const LargeCardSection = ({onMoveToScreen}: ILargeCardSectionProps) => {
 
   const onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const offsetX = event.nativeEvent.contentOffset.x;
-    const currentIndex = Math.round(offsetX / windowWidth);
+    const currentIndex = Math.round(offsetX / pageWidth);
     setCurrentPage(currentIndex);
   };
 
   const onScrollEndDrag = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const offsetX = event.nativeEvent.contentOffset.x;
-    const currentIndex = Math.round(offsetX / windowWidth);
+    const currentIndex = Math.round(offsetX / pageWidth);
 
     if (news && currentIndex === news.length - 1) {
       scrollToPage(0);
     }
   };
 
-  useEffect(() => {
-    if (!news) {
-      return;
-    }
+  // 📌 pagination 확인하기 --> currentPage가 0 -> 1 -> 2가 아닌 0 -> 1 -> 0 -> 1 왔다갔다함..
 
-    const autoScroll = setInterval(() => {
-      const nextPage = (currentPage + 1) % news.length;
-      scrollToPage(nextPage);
-    }, 5000);
+  // useEffect(() => {
+  //   if (!news) {
+  //     return;
+  //   }
 
-    return () => clearInterval(autoScroll);
-  }, [currentPage, news]);
+  //   const autoScroll = setInterval(() => {
+  //     const nextPage = (currentPage + 1) % news.length;
+  //     scrollToPage(nextPage);
+  //   }, 5000);
+
+  //   return () => clearInterval(autoScroll);
+  // }, [currentPage, news]);
 
   return (
     <SCardContainer>
@@ -76,9 +117,16 @@ const LargeCardSection = ({onMoveToScreen}: ILargeCardSectionProps) => {
             onScroll={onScroll}
             initialScrollIndex={currentPage}
             onScrollEndDrag={onScrollEndDrag}
+            contentContainerStyle={{
+              paddingRight: gap,
+              marginLeft: gap / 2,
+            }}
+            snapToInterval={pageWidth}
+            decelerationRate="fast"
+            snapToAlignment="start"
           />
           <SPaginationContainer>
-            {news.map((_: IArticle, index: number) => (
+            {news.map((_: any, index: number) => (
               <TouchableOpacity
                 key={index}
                 style={{
@@ -99,17 +147,12 @@ const LargeCardSection = ({onMoveToScreen}: ILargeCardSectionProps) => {
 export default LargeCardSection;
 
 const SCardContainer = styled.View`
-  position: relative;
-  border-radius: 20px;
   overflow: hidden;
-  margin: 10px 18px 0 18px;
+  margin: 10px 0 0 0px;
 `;
 
 const SPaginationContainer = styled.View`
   ${({theme}) => theme.variables.flex('row', 'center', 'center')};
   gap: 8px;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 20px;
+  padding-top: 20px;
 `;

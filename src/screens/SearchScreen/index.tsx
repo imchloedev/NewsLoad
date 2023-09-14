@@ -12,7 +12,6 @@ import ThirdTab from '@components/Tabs/ThirdTab';
 import CustomButton from '~/components/common/CustomButton';
 import {MainStackParamList} from '../@types';
 import useThemeColors from '~/hooks/useThemeColors';
-import {variables} from '../../styles/theme';
 
 type SearchScreenProps = NativeStackScreenProps<MainStackParamList, 'Search'>;
 
@@ -111,18 +110,11 @@ const SSearchInputWrapper = styled.View`
   margin: 10px 18px 20px 18px;
   padding: 0 10px;
   ${({theme}) => theme.variables.flex('row', 'space-between', 'center')}
-  /* display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between; */
   gap: 10px;
 `;
 
 const SSearchInputFirstGroup = styled.View`
   ${({theme}) => theme.variables.flex('row', 'flex-start', 'center')}
-  /* display: flex;
-  flex-direction: row;
-  align-items: center; */
   gap: 10px;
   flex-grow: 1;
   flex-shrink: 1;
