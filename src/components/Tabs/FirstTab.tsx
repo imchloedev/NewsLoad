@@ -2,7 +2,8 @@ import React from 'react';
 import {ActivityIndicator, FlatList} from 'react-native';
 import {styled} from 'styled-components/native';
 import {FetchNextPageOptions, UseInfiniteQueryResult} from 'react-query';
-import SmallCardItem from '@components/card/SmallCardItem';
+import {SmallCardItem} from '@components/card';
+import {SCustomText} from '@components/common';
 import {TOnMoveToScreen} from '@components/card/LargeCardSection';
 import {useNewsInfiniteQuery} from '~/hooks';
 
@@ -52,7 +53,7 @@ export const STabContainer = styled.View`
   padding: 20px 18px;
 `;
 
-export const SListFooterCopy = styled.Text`
+export const SListFooterCopy = styled(SCustomText)`
   text-align: center;
   padding: 20px 0;
 `;

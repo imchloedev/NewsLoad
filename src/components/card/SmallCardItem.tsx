@@ -4,7 +4,8 @@ import {styled} from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {IArticle} from '~/store/atom';
 import {dateToString} from '~/utils/dateToString';
-import {TOnMoveToScreen} from '~/components/card/LargeCardSection';
+import {TOnMoveToScreen} from '@components/card/LargeCardSection';
+import {SCustomText} from '@components/common';
 
 interface SSmallCardItemProps {
   article: IArticle;
@@ -70,7 +71,7 @@ const SArticleInfo = styled.View`
   ${({theme}) => theme.variables.flex('column', 'center', 'flex-start')}
 `;
 
-const SArticleTitle = styled.Text.attrs({numberOfLines: 2})`
+const SArticleTitle = styled(SCustomText).attrs({numberOfLines: 2})`
   font-size: 16px;
   margin-bottom: 10px;
 `;
@@ -80,12 +81,12 @@ const SIconTextWrapper = styled.View`
   gap: 6px;
 `;
 
-const SDateCopy = styled.Text`
+const SDateCopy = styled(SCustomText)`
   color: gray;
   font-size: 12px;
 `;
 
-const SAuthorCopy = styled.Text.attrs({numberOfLines: 1})`
+const SAuthorCopy = styled(SCustomText).attrs({numberOfLines: 1})`
   color: gray;
   font-size: 12px;
   margin-bottom: 5px;
@@ -93,7 +94,7 @@ const SAuthorCopy = styled.Text.attrs({numberOfLines: 1})`
   flex-shrink: 1;
 `;
 
-const SImageCopy = styled.Text`
+const SImageCopy = styled(SCustomText)`
   color: gray;
   font-size: 12px;
   text-align: center;

@@ -1,5 +1,6 @@
 import React from 'react';
 import {styled} from 'styled-components/native';
+import {SCustomText} from '@components/common';
 
 interface ISubTitleProps {
   title: string;
@@ -12,7 +13,7 @@ const Title = ({titleRole, title}: ISubTitleProps) => {
 
 export default Title;
 
-const STitleCopy = styled.Text<{titleRole: string}>`
+const STitleCopy = styled(SCustomText)<{titleRole: string}>`
   font-size: ${({titleRole}) => (titleRole === 'main' ? '24px' : '20px')};
   font-weight: bold;
   color: ${({theme}) => theme.style.colors.text};

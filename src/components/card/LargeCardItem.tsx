@@ -4,6 +4,7 @@ import {styled} from 'styled-components/native';
 import LinearGradient from 'react-native-linear-gradient';
 import {IArticle} from '~/store/atom';
 import {TOnMoveToScreen} from '@components/card/LargeCardSection';
+import {SCustomText} from '@components/common';
 import {getCardStyle, windowHeight} from '~/utils';
 
 interface ILargeCardItemProps {
@@ -65,7 +66,7 @@ const SArticleTitleContainer = styled.View`
   padding: 30px 18px;
 `;
 
-const SArticleTitle = styled.Text.attrs({numberOfLines: 2})`
+const SArticleTitle = styled(SCustomText).attrs({numberOfLines: 2})`
   color: ${({theme}) => theme.style.colors.text};
   font-size: 16px;
 `;

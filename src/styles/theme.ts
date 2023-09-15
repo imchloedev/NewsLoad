@@ -2,7 +2,7 @@ import {ITheme} from 'styled-components/native';
 
 const common = {
   colors: {
-    primary: '#FB5839',
+    primary: '#1cd760',
     gray: '#bebebe',
     middleGray: '#808080',
     darkGray: '#333',
@@ -24,6 +24,7 @@ const theme: ITheme = {
       background: '#eee',
       card: '#fff',
       text: '#000',
+      inactive: '#ececec',
       ...common.colors,
     },
   },
@@ -32,6 +33,7 @@ const theme: ITheme = {
       background: '#222',
       card: '#222',
       text: '#fff',
+      inactive: '#333',
       ...common.colors,
     },
   },
