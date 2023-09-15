@@ -14,6 +14,7 @@ declare module 'styled-components/native' {
         darkGray: string;
         white: string;
         black: string;
+        inactive: string;
       };
     };
     darkTheme: {
@@ -27,6 +28,7 @@ declare module 'styled-components/native' {
         darkGray: string;
         white: string;
         black: string;
+        inactive: string;
       };
     };
     variables: {

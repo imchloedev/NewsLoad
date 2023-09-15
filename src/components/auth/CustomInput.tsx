@@ -10,7 +10,6 @@ import {
 import useThemeColors from '~/hooks/useThemeColors';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styled from 'styled-components/native';
-import {variables} from '~/styles/theme';
 
 interface ICustomInput {
   name: string;
@@ -42,7 +41,7 @@ const CustomInput = ({
       <Icon
         name="checkmark-outline"
         size={20}
-        color={isValid ? theme.colors.primary : theme.colors.middleGray}
+        color={isValid ? theme.colors.primary : theme.colors.gray}
       />
     </SInputWrapper>
   );
@@ -55,11 +54,12 @@ const SInputWrapper = styled.View<{isValid: boolean}>`
   border-bottom-width: 1px;
   margin: 10px 18px;
   border-bottom-color: ${({theme, isValid}) =>
-    isValid ? theme.style.colors.primary : 'white'};
+    isValid ? theme.style.colors.primary : '#eee'};
   ${({theme}) => theme.variables.flex('row', 'center', 'center')}
 `;
 
 const STextInput = styled.TextInput`
+  font-family: 'Poppins-Regular';
   flex-grow: 1;
   flex-shrink: 1;
   color: ${({theme}) => theme.style.colors.text};

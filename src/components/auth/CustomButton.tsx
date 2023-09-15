@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
+import {SCustomText} from '@components/common';
 
 interface ICustomButton {
   active?: boolean;
@@ -19,14 +20,14 @@ export default CustomButton;
 
 const SButtonWrapper = styled.TouchableOpacity<{active: boolean}>`
   background-color: ${({theme, active}) =>
-    active ? theme.style.colors.primary : theme.style.colors.white};
+    active ? theme.style.colors.primary : theme.style.colors.inactive};
   height: 44px;
   border-radius: 20px;
   margin: 0 18px;
   ${({theme}) => theme.variables.flex('row', 'center', 'center')}
 `;
 
-const SButtonText = styled.Text<{active: boolean}>`
+const SButtonText = styled(SCustomText)<{active: boolean}>`
   font-size: 16px;
   color: ${({theme, active}) =>
     active ? theme.style.colors.white : theme.style.colors.middleGray};
