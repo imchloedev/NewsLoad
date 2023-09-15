@@ -9,24 +9,22 @@ import {
 } from 'react-native';
 import useThemeColors from '~/hooks/useThemeColors';
 import Icon from 'react-native-vector-icons/Ionicons';
+import styled from 'styled-components/native';
+import {variables} from '~/styles/theme';
 
 interface ICustomInput {
   name: string;
   placeholder: string;
   isValid: boolean;
-  styles: {
-    wrapper: StyleProp<ViewStyle>;
-    input: StyleProp<TextStyle>;
-  };
   handleChange: (text: string, name: string) => void;
   secureTextEntry: boolean;
   returnKeyType: ReturnKeyType;
+  autoCapitalize: 'none' | 'sentences' | 'words' | 'characters';
 }
 
 const CustomInput = ({
   name,
   handleChange,
-  styles,
   isValid,
   ...others
 }: ICustomInput) => {
@@ -34,27 +32,37 @@ const CustomInput = ({
   const theme = useThemeColors();
 
   return (
-    <View
-      style={[
-        styles.wrapper,
-        {borderBottomColor: isValid ? theme.colors.primary : 'white'},
-      ]}>
-      <TextInput
-        style={styles.input}
-        autoCapitalize={'none'}
+    <SInputWrapper isValid={isValid}>
+      <STextInput
         onChangeText={txt => handleChange(txt, name)}
         onBlur={() => setIsFocused(false)}
         onFocus={() => setIsFocused(true)}
         {...others}
       />
-
       <Icon
         name="checkmark-outline"
         size={20}
         color={isValid ? theme.colors.primary : theme.colors.middleGray}
       />
-    </View>
+    </SInputWrapper>
   );
 };
 
 export default CustomInput;
+
+const SInputWrapper = styled.View<{isValid: boolean}>`
+  border-style: 'solid';
+  border-bottom-width: 1px;
+  margin: 10px 18px;
+  border-bottom-color: ${({theme, isValid}) =>
+    isValid ? theme.style.colors.primary : 'white'};
+  ${({theme}) => theme.variables.flex('row', 'center', 'center')}
+`;
+
+const STextInput = styled.TextInput`
+  flex-grow: 1;
+  flex-shrink: 1;
+  color: ${({theme}) => theme.style.colors.text};
+  font-size: 16px;
+  padding: 10px;
+`;
