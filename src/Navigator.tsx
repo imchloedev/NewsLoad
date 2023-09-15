@@ -11,14 +11,17 @@ import {
   createDrawerNavigator,
 } from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {LoginStackParamList, MainStackParamList} from '~/screens/@types';
-import SignInScreen from '@screens/SignInScreen';
-import SignUpScreen from '@screens/SignUpScreen';
-import HomeScreen from '@screens/HomeScreen';
-import ViewScreen from '@screens/ViewScreen';
-import ProfileScreen from '@screens/ProfileScreen';
-import SearchScreen from '@screens/SearchScreen';
+import {
+  HomeScreen,
+  SignInScreen,
+  SignUpScreen,
+  ProfileScreen,
+  ViewScreen,
+  SearchScreen,
+} from '~/screens';
+import {LoginStackParamList, MainStackParamList} from '@screens/@types';
 import useThemeColors from '~/hooks/useThemeColors';
+import auth from '@react-native-firebase/auth';
 
 const AuthStack = createNativeStackNavigator<LoginStackParamList>();
 const Stack = createNativeStackNavigator<MainStackParamList>();
@@ -37,9 +40,33 @@ const Navigator = () => {
 export default Navigator;
 
 const AuthStackNavi = () => {
+  const theme = useThemeColors();
+
   return (
-    <AuthStack.Navigator>
-      <AuthStack.Screen name="SignIn" component={SignInScreen} />
+    <AuthStack.Navigator
+      screenOptions={({navigation}) => ({
+        headerTransparent: true,
+        headerTitle: '',
+        headerTintColor: theme.colors.text,
+        headerStyle: {
+          backgroundColor: 'transparent',
+        },
+        headerLeft: () => (
+          <Icon
+            name="arrow-back-outline"
+            size={22}
+            color={theme.colors.text}
+            onPress={() => navigation.goBack()}
+          />
+        ),
+      })}>
+      <AuthStack.Screen
+        name="SignIn"
+        component={SignInScreen}
+        options={({navigation}) => ({
+          // headerShown: false,
+        })}
+      />
       <AuthStack.Screen name="SignUp" component={SignUpScreen} />
     </AuthStack.Navigator>
   );
@@ -47,6 +74,7 @@ const AuthStackNavi = () => {
 
 const MainStackNavi = () => {
   const theme = useThemeColors();
+  const user = auth().currentUser;
 
   return (
     <Stack.Navigator>
@@ -62,18 +90,33 @@ const MainStackNavi = () => {
             headerLeft: () => (
               <Icon
                 name="menu-outline"
-                size={20}
+                size={22}
                 color={theme.colors.text}
                 onPress={() => navigation.openDrawer()}
               />
             ),
             headerRight: () => (
-              <Icon name="person-outline" size={20} color={theme.colors.text} />
+              <Icon
+                name="person-outline"
+                size={22}
+                color={theme.colors.text}
+                onPress={() =>
+                  user
+                    ? navigation.navigate('Profile')
+                    : navigation.navigate('Auth', {screen: 'SignIn'})
+                }
+              />
             ),
           })}
         />
         <Stack.Screen name="View" component={ViewScreen} />
-        <Stack.Screen name="Auth" component={AuthStackNavi} />
+        <Stack.Screen
+          name="Auth"
+          component={AuthStackNavi}
+          options={({navigation}) => ({
+            headerShown: false,
+          })}
+        />
         <Stack.Screen name="Profile" component={ProfileScreen} />
       </Stack.Group>
     </Stack.Navigator>

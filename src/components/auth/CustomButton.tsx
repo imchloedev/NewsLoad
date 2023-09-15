@@ -7,19 +7,19 @@ import {
   ViewStyle,
 } from 'react-native';
 
-interface CustomButton {
+interface ICustomButton {
   title: string;
-  onPress: (query?: string) => void;
+  onPress: (() => void) | undefined;
   styles: {
     wrapper: StyleProp<ViewStyle>;
     text: StyleProp<TextStyle>;
   };
 }
 
-const CustomButton = ({title, onPress, styles}: CustomButton) => {
+const CustomButton = ({title, onPress, styles}: ICustomButton) => {
   return (
     <TouchableOpacity
-      onPress={() => onPress()}
+      onPress={onPress}
       style={[
         styles.wrapper,
         {

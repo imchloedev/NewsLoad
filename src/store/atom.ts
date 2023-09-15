@@ -1,3 +1,6 @@
+import {FirebaseAuthTypes} from '@react-native-firebase/auth';
+import {atom} from 'recoil';
+
 export interface IArticle {
   source: {
     id: string | null;
@@ -11,3 +14,10 @@ export interface IArticle {
   publishedAt: string;
   content: string;
 }
+
+export type TUser = FirebaseAuthTypes.User | null;
+
+export const userState = atom<TUser>({
+  key: 'userState',
+  default: null,
+});

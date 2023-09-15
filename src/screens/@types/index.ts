@@ -1,4 +1,5 @@
 import {NavigatorScreenParams} from '@react-navigation/native';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 export type LoginStackParamList = {
   SignIn: undefined;
@@ -12,3 +13,33 @@ export type MainStackParamList = {
   Profile: undefined;
   Search: undefined;
 };
+
+export type HomeScreenProps = NativeStackScreenProps<
+  MainStackParamList,
+  'Home'
+>;
+
+export type ProfileScreenProps = NativeStackScreenProps<
+  MainStackParamList,
+  'Profile'
+>;
+
+export type SearchScreenProps = NativeStackScreenProps<
+  MainStackParamList,
+  'Search'
+>;
+
+export type ViewScreenProps = NativeStackScreenProps<
+  MainStackParamList,
+  'View'
+>;
+
+export type SignInScreenProps = NativeStackScreenProps<
+  LoginStackParamList,
+  'SignIn'
+>;
+
+export type SignUpScreenProps = NativeStackScreenProps<
+  LoginStackParamList,
+  'SignUp'
+>;

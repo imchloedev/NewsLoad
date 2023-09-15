@@ -8,5 +8,6 @@ module.exports = {
     'react/no-unstable-nested-components': 'off',
     'react-native/no-inline-styles': 0,
     'no-trailing-spaces': 0,
+    'react-hooks/exhaustive-deps': 0,
   },
 };
