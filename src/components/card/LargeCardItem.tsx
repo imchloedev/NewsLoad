@@ -4,18 +4,15 @@ import {styled} from 'styled-components/native';
 import LinearGradient from 'react-native-linear-gradient';
 import {IArticle} from '~/store/atom';
 import {TOnMoveToScreen} from '@components/card/LargeCardSection';
-import {getCardStyle} from '~/utils';
+import {getCardStyle, windowHeight} from '~/utils';
 
 interface ILargeCardItemProps {
   article: IArticle;
   onMoveToScreen: TOnMoveToScreen;
 }
 
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
-
 const LargeCardItem = ({article, onMoveToScreen}: ILargeCardItemProps) => {
-  const {cardWidth, pageWidth} = getCardStyle(windowWidth);
+  const {cardWidth, pageWidth} = getCardStyle();
 
   return (
     <SCard pageWidth={pageWidth}>

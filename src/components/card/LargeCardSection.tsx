@@ -57,13 +57,11 @@ interface ILargeCardSectionProps {
   onMoveToScreen: TOnMoveToScreen;
 }
 
-const windowWidth = Dimensions.get('window').width;
-
 const LargeCardSection = ({onMoveToScreen}: ILargeCardSectionProps) => {
   const {news} = useNewsQuery(0, 5);
   const [currentPage, setCurrentPage] = useState<number>(0);
   const flatListRef = useRef<FlatList | null>(null);
-  const {gap, pageWidth} = getCardStyle(windowWidth);
+  const {gap, pageWidth} = getCardStyle();
 
   const scrollToPage = (pageIndex: number) => {
     flatListRef.current?.scrollToIndex({animated: true, index: pageIndex});

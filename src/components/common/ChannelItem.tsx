@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import {Dimensions} from 'react-native';
+import {windowWidth} from '~/utils';
 
 interface IChannelItem {
   channel: {
@@ -8,8 +8,6 @@ interface IChannelItem {
     component: React.JSX.Element;
   };
 }
-
-const windowWidth = Dimensions.get('window').width;
 
 const ChannelItem = ({channel}: IChannelItem) => {
   return (

@@ -47,8 +47,6 @@ const SmallCardItem = ({article, onMoveToScreen}: SSmallCardItemProps) => {
 export default SmallCardItem;
 
 const SSmallCardWrapper = styled.TouchableOpacity`
-  /* display: flex;
-  flex-direction: row; */
   ${({theme}) => theme.variables.flex('row', 'flex-start', 'flex-start')}
   gap: 16px;
   padding: 10px 10px;
@@ -62,30 +60,22 @@ const SImageWrapper = styled.View`
   height: 100px;
   border-radius: 10px;
   overflow: hidden;
-  ${({theme}) =>
-    theme.variables.flex('row', 'center', 'center')}/* display: flex;
-  align-items: center;
-  justify-content: center; */
+  ${({theme}) => theme.variables.flex('row', 'center', 'center')}
 `;
 
 const SArticleInfo = styled.View`
   flex-shrink: 1;
   flex-grow: 1;
-  /* display: flex;
-  justify-content: center; */
+
   ${({theme}) => theme.variables.flex('column', 'center', 'flex-start')}
 `;
 
 const SArticleTitle = styled.Text.attrs({numberOfLines: 2})`
-  /* font-weight: bold; */
   font-size: 16px;
   margin-bottom: 10px;
 `;
 
 const SIconTextWrapper = styled.View`
-  /* display: flex;
-  flex-direction: row;
-  align-items: center; */
   ${({theme}) => theme.variables.flex('row', 'flex-start', 'center')}
   gap: 6px;
 `;

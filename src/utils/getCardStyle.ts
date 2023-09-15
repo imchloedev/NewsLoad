@@ -1,4 +1,9 @@
-export const getCardStyle = (windowWidth: number) => {
+import {Dimensions} from 'react-native';
+
+export const windowWidth = Dimensions.get('window').width;
+export const windowHeight = Dimensions.get('window').height;
+
+export const getCardStyle = () => {
   const gap = 18; // 카드 사이 간격
   const offset = 36; // 다음 카드가 보여질 공간
   const cardWidth = windowWidth - offset - gap * 2; // 카드의 너비

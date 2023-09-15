@@ -1,10 +1,8 @@
-import React, {useState} from 'react';
-import {FlatList, Text, View} from 'react-native';
-import {getNews, useNewsQuery} from '~/hooks/useNewsQuery';
+import React from 'react';
+import {View} from 'react-native';
+import {useNewsQuery} from '~/hooks/useNewsQuery';
 import SmallCardItem from './SmallCardItem';
 import {TOnMoveToScreen} from '~/components/card/LargeCardSection';
-import {useInfiniteQuery} from 'react-query';
-import {useNewsInfiniteQuery} from '~/hooks/useNewsInfiniteQuery';
 
 interface ISmallCardSectionProps {
   onMoveToScreen: TOnMoveToScreen;
