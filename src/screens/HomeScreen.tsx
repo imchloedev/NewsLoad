@@ -76,26 +76,6 @@ const CHANNELS = [
 ];
 
 const HomeScreen = ({navigation}: HomeScreenProps) => {
-  const [currentUser, setCurrentUser] = useRecoilState(userState);
-  const [initializing, setInitializing] = useState(true);
-
-  console.log(currentUser);
-
-  useEffect(() => {
-    const handleUser = subscribeAuth(user => {
-      if (user) {
-        setCurrentUser(user);
-      } else {
-        setCurrentUser(null);
-      }
-      if (initializing) {
-        setInitializing(false);
-      }
-    });
-
-    return handleUser;
-  }, [setCurrentUser]);
-
   const onMoveToScreen = (title: string, url: string) => {
     navigation.navigate('View', {title: title, url: url});
   };

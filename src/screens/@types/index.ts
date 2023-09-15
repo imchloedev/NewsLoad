@@ -1,17 +1,12 @@
-import {NavigatorScreenParams} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-
-export type LoginStackParamList = {
-  SignIn: undefined;
-  SignUp: undefined;
-};
 
 export type MainStackParamList = {
   Home: undefined;
   View: {title: string; url: string};
-  Auth: NavigatorScreenParams<LoginStackParamList>;
   Profile: undefined;
   Search: undefined;
+  SignIn: undefined;
+  SignUp: undefined;
 };
 
 export type HomeScreenProps = NativeStackScreenProps<
@@ -35,11 +30,11 @@ export type ViewScreenProps = NativeStackScreenProps<
 >;
 
 export type SignInScreenProps = NativeStackScreenProps<
-  LoginStackParamList,
+  MainStackParamList,
   'SignIn'
 >;
 
 export type SignUpScreenProps = NativeStackScreenProps<
-  LoginStackParamList,
+  MainStackParamList,
   'SignUp'
 >;

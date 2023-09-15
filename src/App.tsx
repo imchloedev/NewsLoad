@@ -19,6 +19,23 @@ const queryClient = new QueryClient();
 
 function App() {
   const scheme = useColorScheme();
+  const [_, setCurrentUser] = useState(null);
+  const [initializing, setInitializing] = useState(true);
+
+  useEffect(() => {
+    const handleUser = subscribeAuth(user => {
+      if (!user) {
+        setCurrentUser(user);
+      } else {
+        setCurrentUser(null);
+      }
+      if (initializing) {
+        setInitializing(false);
+      }
+    });
+
+    return handleUser;
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>

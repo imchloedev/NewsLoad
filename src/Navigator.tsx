@@ -19,11 +19,10 @@ import {
   ViewScreen,
   SearchScreen,
 } from '~/screens';
-import {LoginStackParamList, MainStackParamList} from '@screens/@types';
+import {MainStackParamList} from '@screens/@types';
 import useThemeColors from '~/hooks/useThemeColors';
 import auth from '@react-native-firebase/auth';
 
-const AuthStack = createNativeStackNavigator<LoginStackParamList>();
 const Stack = createNativeStackNavigator<MainStackParamList>();
 const Drawer = createDrawerNavigator();
 
@@ -38,39 +37,6 @@ const Navigator = () => {
 };
 
 export default Navigator;
-
-const AuthStackNavi = () => {
-  const theme = useThemeColors();
-
-  return (
-    <AuthStack.Navigator
-      screenOptions={({navigation}) => ({
-        headerTransparent: true,
-        headerTitle: '',
-        headerTintColor: theme.colors.text,
-        headerStyle: {
-          backgroundColor: 'transparent',
-        },
-        headerLeft: () => (
-          <Icon
-            name="arrow-back-outline"
-            size={22}
-            color={theme.colors.text}
-            onPress={() => navigation.goBack()}
-          />
-        ),
-      })}>
-      <AuthStack.Screen
-        name="SignIn"
-        component={SignInScreen}
-        options={({navigation}) => ({
-          // headerShown: false,
-        })}
-      />
-      <AuthStack.Screen name="SignUp" component={SignUpScreen} />
-    </AuthStack.Navigator>
-  );
-};
 
 const MainStackNavi = () => {
   const theme = useThemeColors();
@@ -103,21 +69,40 @@ const MainStackNavi = () => {
                 onPress={() =>
                   user
                     ? navigation.navigate('Profile')
-                    : navigation.navigate('Auth', {screen: 'SignIn'})
+                    : navigation.navigate('SignIn')
                 }
               />
             ),
           })}
         />
         <Stack.Screen name="View" component={ViewScreen} />
+        <Stack.Screen name="Profile" component={ProfileScreen} />
+      </Stack.Group>
+      <Stack.Group
+        screenOptions={({navigation}) => ({
+          headerTransparent: true,
+          headerTitle: '',
+          headerTintColor: theme.colors.text,
+          headerStyle: {
+            backgroundColor: 'transparent',
+          },
+          headerLeft: () => (
+            <Icon
+              name="arrow-back-outline"
+              size={22}
+              color={theme.colors.text}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+        })}>
         <Stack.Screen
-          name="Auth"
-          component={AuthStackNavi}
+          name="SignIn"
+          component={SignInScreen}
           options={({navigation}) => ({
-            headerShown: false,
+            // headerShown: false,
           })}
         />
-        <Stack.Screen name="Profile" component={ProfileScreen} />
+        <Stack.Screen name="SignUp" component={SignUpScreen} />
       </Stack.Group>
     </Stack.Navigator>
   );
