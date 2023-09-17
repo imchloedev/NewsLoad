@@ -1,26 +1,15 @@
 import React from 'react';
 import {ActivityIndicator, FlatList} from 'react-native';
 import {styled} from 'styled-components/native';
-import {FetchNextPageOptions, UseInfiniteQueryResult} from 'react-query';
 import {SmallCardItem} from '@components/card';
-import {SCustomText} from '@components/common';
+import {ListFooter} from '@components/common';
 import {TOnMoveToScreen} from '@components/card/LargeCardSection';
 import {useNewsInfiniteQuery} from '~/hooks';
+import {loadMoreData} from '~/utils';
 
 export interface ITabProps {
   onMoveToScreen: TOnMoveToScreen;
 }
-
-export const handleLoadMore = (
-  hasMore: boolean | undefined,
-  fetchMore: (
-    options?: FetchNextPageOptions,
-  ) => Promise<UseInfiniteQueryResult>,
-) => {
-  if (hasMore) {
-    fetchMore();
-  }
-};
 
 const FirstTab = ({onMoveToScreen}: ITabProps) => {
   const {news, fetchNextPage, isLoading, isFetching, hasNextPage} =
@@ -30,17 +19,12 @@ const FirstTab = ({onMoveToScreen}: ITabProps) => {
     <STabContainer>
       <FlatList
         data={news?.pages}
-        onEndReached={() => handleLoadMore(hasNextPage, fetchNextPage)}
+        onEndReached={() => loadMoreData(hasNextPage, fetchNextPage)}
         onEndReachedThreshold={0.5}
         renderItem={({item}) => (
           <SmallCardItem article={item} onMoveToScreen={onMoveToScreen} />
         )}
-        ListFooterComponent={() =>
-          !isLoading &&
-          !hasNextPage && (
-            <SListFooterCopy>All articles loaded.👋</SListFooterCopy>
-          )
-        }
+        ListFooterComponent={() => !isLoading && !hasNextPage && <ListFooter />}
       />
       {isFetching && <ActivityIndicator />}
     </STabContainer>
@@ -51,9 +35,4 @@ export default FirstTab;
 
 export const STabContainer = styled.View`
   padding: 20px 18px;
-`;
-
-export const SListFooterCopy = styled(SCustomText)`
-  text-align: center;
-  padding: 20px 0;
 `;

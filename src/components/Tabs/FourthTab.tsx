@@ -1,13 +1,10 @@
 import React from 'react';
 import {FlatList, ActivityIndicator} from 'react-native';
-import SmallCardItem from '~/components/card/SmallCardItem';
+import {SmallCardItem} from '@components/card';
+import {ListFooter} from '@components/common';
 import {useNewsInfiniteQuery} from '~/hooks';
-import {
-  ITabProps,
-  STabContainer,
-  handleLoadMore,
-  SListFooterCopy,
-} from './FirstTab';
+import {ITabProps, STabContainer} from './FirstTab';
+import {loadMoreData} from '~/utils';
 
 const FourthTab = ({onMoveToScreen}: ITabProps) => {
   const {news, fetchNextPage, isLoading, isFetching, hasNextPage} =
@@ -17,17 +14,12 @@ const FourthTab = ({onMoveToScreen}: ITabProps) => {
     <STabContainer>
       <FlatList
         data={news?.pages}
-        onEndReached={() => handleLoadMore(hasNextPage, fetchNextPage)}
+        onEndReached={() => loadMoreData(hasNextPage, fetchNextPage)}
         onEndReachedThreshold={0.5}
         renderItem={({item}) => (
           <SmallCardItem article={item} onMoveToScreen={onMoveToScreen} />
         )}
-        ListFooterComponent={() =>
-          !isLoading &&
-          !hasNextPage && (
-            <SListFooterCopy>All articles loaded.👋</SListFooterCopy>
-          )
-        }
+        ListFooterComponent={() => !isLoading && !hasNextPage && <ListFooter />}
       />
       {isFetching && <ActivityIndicator />}
     </STabContainer>
