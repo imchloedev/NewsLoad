@@ -25,7 +25,7 @@ export const useNewsInfiniteQuery = (category: string) => {
     isLoading,
     hasNextPage,
   } = useInfiniteQuery(
-    ['news', 'headlines', category],
+    ['news', 'headlines', {category: category}],
     ({pageParam = 1}) => getNewsByCategory({pageParam, category}),
     {
       getNextPageParam: (lastPage, allPages) => {
