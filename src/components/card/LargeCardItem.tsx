@@ -4,7 +4,6 @@ import {styled} from 'styled-components/native';
 import LinearGradient from 'react-native-linear-gradient';
 import {IArticle} from '~/store/atom';
 import {TOnMoveToScreen} from '@components/card/LargeCardSection';
-import {SCustomText} from '@components/common';
 import {getCardStyle, windowHeight} from '~/utils';
 
 interface ILargeCardItemProps {
@@ -58,7 +57,7 @@ const SCard = styled.View<{pageWidth: number}>`
 const SCardWrapper = styled.TouchableOpacity<{cardWidth: number}>`
   width: ${({cardWidth}) => cardWidth}px;
   overflow: hidden;
-  background-color: white;
+  background-color: ${({theme}) => theme.style.colors.card};
   border-radius: 20px;
 `;
 
@@ -66,7 +65,8 @@ const SArticleTitleContainer = styled.View`
   padding: 30px 18px;
 `;
 
-const SArticleTitle = styled(SCustomText).attrs({numberOfLines: 2})`
+const SArticleTitle = styled.Text.attrs({numberOfLines: 2})`
+  font-family: 'Poppins-Regular';
   color: ${({theme}) => theme.style.colors.text};
   font-size: 16px;
 `;

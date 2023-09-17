@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
 import styled from 'styled-components/native';
-import {STitle, STitleContainer, STitleWrapper, SWrapper} from './SignInScreen';
+import {SContainer, STitleWrapper, SWrapper} from './SignInScreen';
 import {CustomButton, CustomInput} from '@components/auth';
-import {} from '~/utils/validateAuth';
-import {windowHeight, validateEmail, validatePassword} from '~/utils';
+import {Title} from '@components/common';
+import {validateEmail, validatePassword} from '~/utils';
 import {onSignUp} from '~/apis/auth';
 import {SignUpScreenProps} from './@types';
 
@@ -36,14 +35,11 @@ const SignUpScreen = ({navigation}: SignUpScreenProps) => {
   };
 
   return (
-    <SWrapper>
-      <STitleSingUpContainer>
+    <SContainer>
+      <SWrapper>
         <STitleWrapper>
-          <STitle>Create an Account</STitle>
+          <Title titleRole="main" title="Create an account" />
         </STitleWrapper>
-      </STitleSingUpContainer>
-
-      <View>
         <CustomInput
           name="name"
           isValid={fullName.length > 0}
@@ -77,16 +73,12 @@ const SignUpScreen = ({navigation}: SignUpScreenProps) => {
             onPress={isOkaySignUp ? handleSignUp : undefined}
           />
         </SButtonWrapper>
-      </View>
-    </SWrapper>
+      </SWrapper>
+    </SContainer>
   );
 };
 
 export default SignUpScreen;
-
-const STitleSingUpContainer = styled(STitleContainer)`
-  height: ${windowHeight / 2.5}px;
-`;
 
 const SButtonWrapper = styled.View`
   padding-top: 40px;

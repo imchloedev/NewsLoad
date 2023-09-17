@@ -30,8 +30,8 @@ const theme: ITheme = {
   },
   darkTheme: {
     colors: {
-      background: '#222',
-      card: '#222',
+      background: '#000',
+      card: '#111',
       text: '#fff',
       inactive: '#333',
       ...common.colors,

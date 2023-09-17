@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
 import styled from 'styled-components/native';
 import {SignInScreenProps} from '@screens/@types';
 import {CustomButton, CustomInput} from '@components/auth';
@@ -10,6 +9,7 @@ import {
   validateEmail,
   validatePassword,
 } from '~/utils';
+import {Title} from '~/components/common';
 
 const SignInScreen = ({navigation}: SignInScreenProps) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -38,15 +38,13 @@ const SignInScreen = ({navigation}: SignInScreenProps) => {
   };
 
   return (
-    <SWrapper>
-      <STitleContainer>
+    <SContainer>
+      <SWrapper>
         <STitleWrapper>
-          <STitle>Sign In</STitle>
+          <Title titleRole="main" title="Sign In" />
           <SSubCopy>To sign in please enter email and password</SSubCopy>
         </STitleWrapper>
-      </STitleContainer>
 
-      <View>
         <CustomInput
           name="email"
           isValid={validateEmail(email)}
@@ -76,43 +74,34 @@ const SignInScreen = ({navigation}: SignInScreenProps) => {
             onPress={() => navigation.navigate('SignUp')}
           />
         </SButtonGroup>
-      </View>
-    </SWrapper>
+      </SWrapper>
+    </SContainer>
   );
 };
 
 export default SignInScreen;
 
-export const SWrapper = styled.View`
+export const SContainer = styled.View`
   flex: 1;
-  justify-content: space-between;
-  padding-bottom: 100px;
+  justify-content: flex-end;
 `;
 
-export const STitleContainer = styled.View`
+export const SWrapper = styled.View`
   width: ${windowWidth}px;
-  height: ${windowHeight / 2}px;
-  background-color: ${({theme}) => theme.style.colors.white};
-  border-radius: 0 0 60px 60px;
-  position: relative;
-`;
-
-export const STitle = styled.Text`
-  font-size: 24px;
-  font-weight: bold;
-  color: ${({theme}) => theme.style.colors.primary};
+  height: ${windowHeight / 1.5}px;
+  background-color: ${({theme}) => theme.style.colors.card};
+  border-radius: 60px 60px 0 0;
+  ${({theme}) => theme.variables.flex('column', 'center', 'stretch')};
 `;
 
 const SSubCopy = styled.Text`
+  font-family: 'Poppins-Regular';
   margin-top: 5px;
-  color: ${({theme}) => theme.style.colors.primary};
+  color: ${({theme}) => theme.style.colors.text};
 `;
 
 export const STitleWrapper = styled.View`
-  padding: 0 18px;
-  position: absolute;
-  top: 50%;
-  left: 0;
+  padding: 0px 18px 60px 18px;
 `;
 
 const SButtonGroup = styled.View`

@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import {SCustomText} from '@components/common';
 
 interface ICustomButton {
   active?: boolean;
@@ -27,7 +26,8 @@ const SButtonWrapper = styled.TouchableOpacity<{active: boolean}>`
   ${({theme}) => theme.variables.flex('row', 'center', 'center')}
 `;
 
-const SButtonText = styled(SCustomText)<{active: boolean}>`
+const SButtonText = styled.Text<{active: boolean}>`
+  font-family: 'Poppins-Regular';
   font-size: 16px;
   color: ${({theme, active}) =>
     active ? theme.style.colors.white : theme.style.colors.middleGray};

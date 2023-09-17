@@ -5,7 +5,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {IArticle} from '~/store/atom';
 import {dateToString} from '~/utils/dateToString';
 import {TOnMoveToScreen} from '@components/card/LargeCardSection';
-import {SCustomText} from '@components/common';
 
 interface SSmallCardItemProps {
   article: IArticle;
@@ -32,12 +31,18 @@ const SmallCardItem = ({article, onMoveToScreen}: SSmallCardItemProps) => {
         <View>
           <SIconTextWrapper>
             <Icon name="pencil-sharp" size={14} color={'gray'} />
-            <SAuthorCopy>{article.author}</SAuthorCopy>
+            <SAuthorCopy>
+              {article.author && article.author?.length > 0
+                ? article.author
+                : 'Author not provided.'}
+            </SAuthorCopy>
           </SIconTextWrapper>
 
           <SIconTextWrapper>
             <Icon name="time-outline" size={14} color={'gray'} />
-            <SDateCopy>{dateToString(article.publishedAt)}</SDateCopy>
+            <SDateCopy style={{color: 'gray', fontSize: 12}}>
+              {dateToString(article.publishedAt)}
+            </SDateCopy>
           </SIconTextWrapper>
         </View>
       </SArticleInfo>
@@ -71,9 +76,11 @@ const SArticleInfo = styled.View`
   ${({theme}) => theme.variables.flex('column', 'center', 'flex-start')}
 `;
 
-const SArticleTitle = styled(SCustomText).attrs({numberOfLines: 2})`
+const SArticleTitle = styled.Text.attrs({numberOfLines: 2})`
+  font-family: 'Poppins-Regular';
   font-size: 16px;
   margin-bottom: 10px;
+  color: ${({theme}) => theme.style.colors.text};
 `;
 
 const SIconTextWrapper = styled.View`
@@ -81,20 +88,22 @@ const SIconTextWrapper = styled.View`
   gap: 6px;
 `;
 
-const SDateCopy = styled(SCustomText)`
+const SDateCopy = styled.Text`
   color: gray;
   font-size: 12px;
+  font-family: 'Poppins-Regular';
 `;
 
-const SAuthorCopy = styled(SCustomText).attrs({numberOfLines: 1})`
-  color: gray;
+const SAuthorCopy = styled.Text.attrs({numberOfLines: 1})`
+  font-family: 'Poppins-Regular';
+  color: ${({theme}) => theme.style.colors.middleGray};
   font-size: 12px;
   margin-bottom: 5px;
   flex-grow: 1;
   flex-shrink: 1;
 `;
 
-const SImageCopy = styled(SCustomText)`
+const SImageCopy = styled.Text`
   color: gray;
   font-size: 12px;
   text-align: center;
