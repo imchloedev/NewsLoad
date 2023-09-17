@@ -1,12 +1,5 @@
 import React, {useState} from 'react';
-import {
-  View,
-  TextInput,
-  StyleProp,
-  ViewStyle,
-  TextStyle,
-  ReturnKeyType,
-} from 'react-native';
+import {ReturnKeyType} from 'react-native';
 import useThemeColors from '~/hooks/useThemeColors';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styled from 'styled-components/native';
@@ -54,7 +47,7 @@ const SInputWrapper = styled.View<{isValid: boolean}>`
   border-bottom-width: 1px;
   margin: 10px 18px;
   border-bottom-color: ${({theme, isValid}) =>
-    isValid ? theme.style.colors.primary : '#eee'};
+    isValid ? theme.style.colors.primary : theme.style.colors.gray};
   ${({theme}) => theme.variables.flex('row', 'center', 'center')}
 `;
 
@@ -63,6 +56,6 @@ const STextInput = styled.TextInput`
   flex-grow: 1;
   flex-shrink: 1;
   color: ${({theme}) => theme.style.colors.text};
-  font-size: 16px;
+  font-size: 14px;
   padding: 10px;
 `;

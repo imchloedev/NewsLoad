@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import styled from 'styled-components/native';
-import {SContainer, STitleWrapper, SWrapper} from './SignInScreen';
+import {SContainer, STitleWrapper} from './SignInScreen';
 import {CustomButton, CustomInput} from '@components/auth';
 import {Title} from '@components/common';
 import {validateEmail, validatePassword} from '~/utils';
@@ -36,44 +36,46 @@ const SignUpScreen = ({navigation}: SignUpScreenProps) => {
 
   return (
     <SContainer>
-      <SWrapper>
-        <STitleWrapper>
-          <Title titleRole="main" title="Create an account" />
-        </STitleWrapper>
-        <CustomInput
-          name="name"
-          isValid={fullName.length > 0}
-          placeholder="Full Name"
-          handleChange={handleChange}
-          secureTextEntry={false}
-          returnKeyType={'next'}
-          autoCapitalize={'words'}
+      <STitleWrapper>
+        <Title
+          titleRole="main"
+          title="Create an account"
+          styles={{textAlign: 'center'}}
         />
-        <CustomInput
-          name="email"
-          isValid={validateEmail(email)}
-          placeholder="Email"
-          handleChange={handleChange}
-          secureTextEntry={false}
-          returnKeyType={'next'}
-          autoCapitalize={'none'}
+      </STitleWrapper>
+      <CustomInput
+        name="name"
+        isValid={fullName.length > 0}
+        placeholder="Full Name"
+        handleChange={handleChange}
+        secureTextEntry={false}
+        returnKeyType={'next'}
+        autoCapitalize={'words'}
+      />
+      <CustomInput
+        name="email"
+        isValid={validateEmail(email)}
+        placeholder="Email"
+        handleChange={handleChange}
+        secureTextEntry={false}
+        returnKeyType={'next'}
+        autoCapitalize={'none'}
+      />
+      <CustomInput
+        name="password"
+        isValid={validatePassword(password)}
+        placeholder="Password"
+        handleChange={handleChange}
+        secureTextEntry={true}
+        returnKeyType={'next'}
+        autoCapitalize={'none'}
+      />
+      <SButtonWrapper>
+        <CustomButton
+          title="Sign Up"
+          onPress={isOkaySignUp ? handleSignUp : undefined}
         />
-        <CustomInput
-          name="password"
-          isValid={validatePassword(password)}
-          placeholder="Password"
-          handleChange={handleChange}
-          secureTextEntry={true}
-          returnKeyType={'next'}
-          autoCapitalize={'none'}
-        />
-        <SButtonWrapper>
-          <CustomButton
-            title="Sign Up"
-            onPress={isOkaySignUp ? handleSignUp : undefined}
-          />
-        </SButtonWrapper>
-      </SWrapper>
+      </SButtonWrapper>
     </SContainer>
   );
 };

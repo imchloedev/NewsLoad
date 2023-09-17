@@ -7,7 +7,7 @@ const ListFooter = () => {
 
 export default ListFooter;
 
-const SListFooterCopy = styled.View`
+const SListFooterCopy = styled.Text`
   text-align: center;
   padding: 20px 0;
   font-family: 'Poppins-Regular';

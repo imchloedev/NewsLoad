@@ -39,42 +39,44 @@ const SignInScreen = ({navigation}: SignInScreenProps) => {
 
   return (
     <SContainer>
-      <SWrapper>
-        <STitleWrapper>
-          <Title titleRole="main" title="Sign In" />
-          <SSubCopy>To sign in please enter email and password</SSubCopy>
-        </STitleWrapper>
+      <STitleWrapper>
+        <Title
+          titleRole="main"
+          title="Sign In"
+          styles={{textAlign: 'center'}}
+        />
+        <SSubCopy>To sign in please enter email and password</SSubCopy>
+      </STitleWrapper>
 
-        <CustomInput
-          name="email"
-          isValid={validateEmail(email)}
-          placeholder="Email"
-          handleChange={handleChange}
-          secureTextEntry={false}
-          returnKeyType={'next'}
-          autoCapitalize={'none'}
+      <CustomInput
+        name="email"
+        isValid={validateEmail(email)}
+        placeholder="Email"
+        handleChange={handleChange}
+        secureTextEntry={false}
+        returnKeyType={'next'}
+        autoCapitalize={'none'}
+      />
+      <CustomInput
+        name="password"
+        isValid={validatePassword(password)}
+        placeholder="Password"
+        handleChange={handleChange}
+        secureTextEntry={true}
+        returnKeyType={'next'}
+        autoCapitalize={'none'}
+      />
+      <SButtonGroup>
+        <CustomButton
+          title="Sign In"
+          onPress={isOkayLogin ? handleSignIn : undefined}
         />
-        <CustomInput
-          name="password"
-          isValid={validatePassword(password)}
-          placeholder="Password"
-          handleChange={handleChange}
-          secureTextEntry={true}
-          returnKeyType={'next'}
-          autoCapitalize={'none'}
+        <CustomButton
+          active={false}
+          title="Sign Up"
+          onPress={() => navigation.navigate('SignUp')}
         />
-        <SButtonGroup>
-          <CustomButton
-            title="Sign In"
-            onPress={isOkayLogin ? handleSignIn : undefined}
-          />
-          <CustomButton
-            active={false}
-            title="Sign Up"
-            onPress={() => navigation.navigate('SignUp')}
-          />
-        </SButtonGroup>
-      </SWrapper>
+      </SButtonGroup>
     </SContainer>
   );
 };
@@ -83,21 +85,15 @@ export default SignInScreen;
 
 export const SContainer = styled.View`
   flex: 1;
-  justify-content: flex-end;
-`;
-
-export const SWrapper = styled.View`
-  width: ${windowWidth}px;
-  height: ${windowHeight / 1.5}px;
-  background-color: ${({theme}) => theme.style.colors.card};
-  border-radius: 60px 60px 0 0;
-  ${({theme}) => theme.variables.flex('column', 'center', 'stretch')};
+  justify-content: center;
+  align-items: center;
 `;
 
 const SSubCopy = styled.Text`
   font-family: 'Poppins-Regular';
   margin-top: 5px;
   color: ${({theme}) => theme.style.colors.text};
+  text-align: center;
 `;
 
 export const STitleWrapper = styled.View`

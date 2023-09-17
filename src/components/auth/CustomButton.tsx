@@ -27,8 +27,9 @@ const SButtonWrapper = styled.TouchableOpacity<{active: boolean}>`
 `;
 
 const SButtonText = styled.Text<{active: boolean}>`
+  flex-basis: 100%;
+  text-align: center;
   font-family: 'Poppins-Regular';
-  font-size: 16px;
   color: ${({theme, active}) =>
     active ? theme.style.colors.white : theme.style.colors.middleGray};
 `;
