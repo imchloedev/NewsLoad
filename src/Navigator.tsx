@@ -17,6 +17,7 @@ import {
   SignUpScreen,
   ProfileScreen,
   ViewScreen,
+  DiscoverScreen,
   SearchScreen,
 } from '~/screens';
 import {MainStackParamList} from '@screens/@types';
@@ -83,9 +84,6 @@ const MainStackNavi = () => {
           headerTransparent: true,
           headerTitle: '',
           headerTintColor: theme.colors.text,
-          headerStyle: {
-            backgroundColor: 'transparent',
-          },
           headerLeft: () => (
             <Icon
               name="arrow-back-outline"
@@ -108,14 +106,14 @@ const MainStackNavi = () => {
   );
 };
 
-const SearchStackNavi = () => {
+const DiscoverStackNavi = () => {
   const theme = useThemeColors();
 
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Search"
-        component={SearchScreen}
+        name="Discover"
+        component={DiscoverScreen}
         options={({navigation}) => ({
           headerTitle: '',
           headerLeft: () => (
@@ -132,6 +130,24 @@ const SearchStackNavi = () => {
         })}
       />
       <Stack.Screen name="View" component={ViewScreen} />
+      <Stack.Screen
+        name="Search"
+        component={SearchScreen}
+        options={({navigation}) => ({
+          presentation: 'transparentModal',
+          headerTitle: '',
+          headerTransparent: true,
+          // headerShown: false,
+          // headerLeft: () => (
+          //   <Icon
+          //     name="arrow-back-outline"
+          //     size={22}
+          //     color={theme.colors.text}
+          //     onPress={() => navigation.goBack()}
+          //   />
+          // ),
+        })}
+      />
     </Stack.Navigator>
   );
 };
@@ -182,8 +198,8 @@ const DrawerNavi = () => {
         }}
       />
       <Drawer.Screen
-        name="Discover"
-        component={SearchStackNavi}
+        name="DiscoverNavi"
+        component={DiscoverStackNavi}
         options={{
           drawerLabel: 'DISCOVER',
           drawerIcon: ({focused}) => (

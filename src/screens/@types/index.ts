@@ -4,9 +4,10 @@ export type MainStackParamList = {
   Home: undefined;
   View: {title: string; url: string};
   Profile: undefined;
-  Search: undefined;
+  Discover: undefined;
   SignIn: undefined;
   SignUp: undefined;
+  Search: undefined;
 };
 
 export type HomeScreenProps = NativeStackScreenProps<
@@ -19,9 +20,9 @@ export type ProfileScreenProps = NativeStackScreenProps<
   'Profile'
 >;
 
-export type SearchScreenProps = NativeStackScreenProps<
+export type DiscoverScreenProps = NativeStackScreenProps<
   MainStackParamList,
-  'Search'
+  'Discover'
 >;
 
 export type ViewScreenProps = NativeStackScreenProps<
@@ -37,4 +38,9 @@ export type SignInScreenProps = NativeStackScreenProps<
 export type SignUpScreenProps = NativeStackScreenProps<
   MainStackParamList,
   'SignUp'
+>;
+
+export type SearchScreenProps = NativeStackScreenProps<
+  MainStackParamList,
+  'Search'
 >;
