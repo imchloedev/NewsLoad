@@ -11,6 +11,7 @@ import {
   createDrawerNavigator,
 } from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/Ionicons';
+import auth from '@react-native-firebase/auth';
 import {
   HomeScreen,
   SignInScreen,
@@ -22,7 +23,12 @@ import {
 } from '~/screens';
 import {MainStackParamList} from '@screens/@types';
 import useThemeColors from '~/hooks/useThemeColors';
-import auth from '@react-native-firebase/auth';
+import {
+  handleFirebaseAuthError,
+  isFirebaseAuthError,
+  onSignOut,
+} from '~/apis/auth';
+import {showAlert} from '~/utils';
 
 const Stack = createNativeStackNavigator<MainStackParamList>();
 const Drawer = createDrawerNavigator();
@@ -93,13 +99,7 @@ const MainStackNavi = () => {
             />
           ),
         })}>
-        <Stack.Screen
-          name="SignIn"
-          component={SignInScreen}
-          options={({navigation}) => ({
-            // headerShown: false,
-          })}
-        />
+        <Stack.Screen name="SignIn" component={SignInScreen} />
         <Stack.Screen name="SignUp" component={SignUpScreen} />
       </Stack.Group>
     </Stack.Navigator>
@@ -133,26 +133,31 @@ const DiscoverStackNavi = () => {
       <Stack.Screen
         name="Search"
         component={SearchScreen}
-        options={({navigation}) => ({
+        options={{
           presentation: 'transparentModal',
           headerTitle: '',
           headerTransparent: true,
-          // headerShown: false,
-          // headerLeft: () => (
-          //   <Icon
-          //     name="arrow-back-outline"
-          //     size={22}
-          //     color={theme.colors.text}
-          //     onPress={() => navigation.goBack()}
-          //   />
-          // ),
-        })}
+        }}
       />
     </Stack.Navigator>
   );
 };
 
 const CustomDrawer = (props: DrawerContentComponentProps) => {
+  const user = auth().currentUser;
+
+  const handleLogout = async () => {
+    try {
+      await onSignOut();
+      props.navigation.navigate('Home');
+    } catch (err: unknown) {
+      if (isFirebaseAuthError(err)) {
+        const message = handleFirebaseAuthError(err);
+        showAlert('Failed', message);
+      }
+    }
+  };
+
   return (
     <DrawerContentScrollView {...props}>
       <View
@@ -161,7 +166,19 @@ const CustomDrawer = (props: DrawerContentComponentProps) => {
           justifyContent: 'center',
         }}>
         <DrawerItemList {...props} />
-        <DrawerItem label="Logout" onPress={() => console.log('out')} />
+        {user ? (
+          <DrawerItem
+            label="Sign out"
+            labelStyle={{fontFamily: 'Poppins-Regular'}}
+            onPress={handleLogout}
+          />
+        ) : (
+          <DrawerItem
+            label="Sign In"
+            labelStyle={{fontFamily: 'Poppins-Regular'}}
+            onPress={() => props.navigation.navigate('SignIn')}
+          />
+        )}
       </View>
     </DrawerContentScrollView>
   );
@@ -181,6 +198,9 @@ const DrawerNavi = () => {
         drawerStyle: {
           backgroundColor: theme.colors.background,
           width: '70%',
+        },
+        drawerLabelStyle: {
+          fontFamily: 'Poppins-Regular',
         },
       }}>
       <Drawer.Screen

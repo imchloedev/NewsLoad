@@ -2,14 +2,13 @@ import React, {useState} from 'react';
 import styled from 'styled-components/native';
 import {SignInScreenProps} from '@screens/@types';
 import {CustomButton, CustomInput} from '@components/auth';
-import {onSignIn} from '~/apis/auth';
+import {Title} from '@components/common';
 import {
-  windowWidth,
-  windowHeight,
-  validateEmail,
-  validatePassword,
-} from '~/utils';
-import {Title} from '~/components/common';
+  handleFirebaseAuthError,
+  isFirebaseAuthError,
+  onSignIn,
+} from '~/apis/auth';
+import {validateEmail, validatePassword, showAlert} from '~/utils';
 
 const SignInScreen = ({navigation}: SignInScreenProps) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -30,8 +29,11 @@ const SignInScreen = ({navigation}: SignInScreenProps) => {
       await onSignIn(email, password);
       setUserInfo({email: '', password: ''});
       navigation.navigate('Home');
-    } catch (err) {
-      console.log(err);
+    } catch (err: unknown) {
+      if (isFirebaseAuthError(err)) {
+        const message = handleFirebaseAuthError(err);
+        showAlert('Failed', message);
+      }
     } finally {
       setIsLoading(false);
     }

@@ -3,8 +3,12 @@ import styled from 'styled-components/native';
 import {SContainer, STitleWrapper} from './SignInScreen';
 import {CustomButton, CustomInput} from '@components/auth';
 import {Title} from '@components/common';
-import {validateEmail, validatePassword} from '~/utils';
-import {onSignUp} from '~/apis/auth';
+import {showAlert, validateEmail, validatePassword} from '~/utils';
+import {
+  onSignUp,
+  isFirebaseAuthError,
+  handleFirebaseAuthError,
+} from '~/apis/auth';
 import {SignUpScreenProps} from './@types';
 
 const SignUpScreen = ({navigation}: SignUpScreenProps) => {
@@ -27,8 +31,11 @@ const SignUpScreen = ({navigation}: SignUpScreenProps) => {
       await onSignUp(email, password);
       setUserInfo({fullName: '', email: '', password: ''});
       navigation.navigate('Home');
-    } catch (err) {
-      console.log(err);
+    } catch (err: unknown) {
+      if (isFirebaseAuthError(err)) {
+        const message = handleFirebaseAuthError(err);
+        showAlert('Failed', message);
+      }
     } finally {
       setIsLoading(false);
     }
