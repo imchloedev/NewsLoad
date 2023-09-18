@@ -38,8 +38,7 @@ export default LargeCardItem;
 
 const SCard = styled.View<{pageWidth: number}>`
   width: ${({pageWidth}) => pageWidth}px;
-  display: flex;
-  align-items: center;
+  ${({theme}) => theme.variables.flex('column', 'flex-start', 'center')}
 `;
 
 const SCardWrapper = styled.TouchableOpacity<{cardWidth: number}>`

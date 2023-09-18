@@ -15,6 +15,10 @@ declare module 'styled-components/native' {
         white: string;
         black: string;
         inactive: string;
+        border: string;
+        notification: string;
+        dark?: boolean;
+        light?: boolean;
       };
     };
     darkTheme: {
@@ -29,6 +33,10 @@ declare module 'styled-components/native' {
         white: string;
         black: string;
         inactive: string;
+        border: string;
+        notification: string;
+        dark?: boolean;
+        light?: boolean;
       };
     };
     variables: {

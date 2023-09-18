@@ -11,44 +11,7 @@ import LargeCardItem from '~/components/card/LargeCardItem';
 import {useNewsQuery} from '~/hooks';
 import {getCardStyle} from '~/utils';
 import {IArticle} from '~/store/atom';
-
-// const news = [
-//   {
-//     num: 1,
-//     color: '#86E3CE',
-//     title: 'DFffdf',
-//     urlToImage:
-//       'https://images.unsplash.com/photo-1554147090-e1221a04a025?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1696&q=80',
-//   },
-//   {
-//     num: 2,
-//     color: '#D0E6A5',
-//     title: 'DFffdf',
-//     urlToImage:
-//       'https://images.unsplash.com/photo-1554147090-e1221a04a025?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1696&q=80',
-//   },
-//   {
-//     num: 3,
-//     color: '#FFDD94',
-//     title: 'DFffdf',
-//     urlToImage:
-//       'https://images.unsplash.com/photo-1554147090-e1221a04a025?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1696&q=80',
-//   },
-//   {
-//     num: 4,
-//     color: '#FA897B',
-//     title: 'DFffdf',
-//     urlToImage:
-//       'https://images.unsplash.com/photo-1554147090-e1221a04a025?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1696&q=80',
-//   },
-//   {
-//     num: 5,
-//     color: '#CCABD8',
-//     title: 'DFffdf',
-//     urlToImage:
-//       'https://images.unsplash.com/photo-1554147090-e1221a04a025?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1696&q=80',
-//   },
-// ];
+import useThemeColors from '~/hooks/useThemeColors';
 
 export type TOnMoveToScreen = (article: IArticle) => void;
 
@@ -61,6 +24,7 @@ const LargeCardSection = ({onMoveToScreen}: ILargeCardSectionProps) => {
   const [currentPage, setCurrentPage] = useState<number>(0);
   const flatListRef = useRef<FlatList | null>(null);
   const {gap, pageWidth} = getCardStyle();
+  const theme = useThemeColors();
 
   const scrollToPage = (pageIndex: number) => {
     flatListRef.current?.scrollToIndex({animated: true, index: pageIndex});
@@ -127,7 +91,8 @@ const LargeCardSection = ({onMoveToScreen}: ILargeCardSectionProps) => {
                   width: 8,
                   height: 8,
                   borderRadius: 8,
-                  backgroundColor: currentPage === index ? '#FB6A00' : 'white',
+                  backgroundColor:
+                    currentPage === index ? theme.colors.primary : 'white',
                 }}
               />
             ))}

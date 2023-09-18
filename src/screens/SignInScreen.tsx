@@ -104,6 +104,6 @@ export const STitleWrapper = styled.View`
 
 const SButtonGroup = styled.View`
   padding-top: 40px;
-  display: flex;
+  ${({theme}) => theme.variables.flex('column', 'flex-start', 'flex-start')}
   gap: 20px;
 `;
