@@ -1,13 +1,15 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {IArticle} from '~/store/atom';
 
 export type MainStackParamList = {
   Home: undefined;
-  View: {title: string; url: string};
+  View: {article: IArticle};
   Profile: undefined;
   Discover: undefined;
   SignIn: undefined;
   SignUp: undefined;
   Search: undefined;
+  WebView: undefined;
 };
 
 export type HomeScreenProps = NativeStackScreenProps<
@@ -43,4 +45,9 @@ export type SignUpScreenProps = NativeStackScreenProps<
 export type SearchScreenProps = NativeStackScreenProps<
   MainStackParamList,
   'Search'
+>;
+
+export type WebViewScreenProps = NativeStackScreenProps<
+  MainStackParamList,
+  'WebView'
 >;

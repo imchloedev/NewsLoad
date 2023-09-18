@@ -13,8 +13,7 @@ interface SSmallCardItemProps {
 
 const SmallCardItem = ({article, onMoveToScreen}: SSmallCardItemProps) => {
   return (
-    <SSmallCardWrapper
-      onPress={() => onMoveToScreen(article.title, article.url)}>
+    <SSmallCardWrapper onPress={() => onMoveToScreen(article)}>
       <SImageWrapper>
         {article.urlToImage ? (
           <Image
@@ -40,9 +39,7 @@ const SmallCardItem = ({article, onMoveToScreen}: SSmallCardItemProps) => {
 
           <SIconTextWrapper>
             <Icon name="time-outline" size={14} color={'gray'} />
-            <SDateCopy style={{color: 'gray', fontSize: 12}}>
-              {dateToString(article.publishedAt)}
-            </SDateCopy>
+            <SDateCopy>{dateToString(article.publishedAt)}</SDateCopy>
           </SIconTextWrapper>
         </View>
       </SArticleInfo>

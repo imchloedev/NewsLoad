@@ -9,6 +9,7 @@ import useThemeColors from '~/hooks/useThemeColors';
 import {useSearchNewsQuery} from '~/hooks/useSearchNewsQuery';
 import {loadMoreData} from '~/utils';
 import {SearchScreenProps} from './@types';
+import {IArticle} from '~/store/atom';
 
 const statusBarHeight =
   Platform.OS === 'ios' ? getStatusBarHeight(true) : StatusBar.currentHeight;
@@ -18,6 +19,10 @@ const SearchScreen = ({navigation}: SearchScreenProps) => {
   const [text, setText] = useState('');
   const {news, fetchNextPage, isLoading, isFetching, hasNextPage} =
     useSearchNewsQuery(text);
+
+  const onMoveToScreen = (article: IArticle) => {
+    navigation.push('View', {article});
+  };
 
   useEffect(() => {
     navigation.setOptions({
@@ -42,47 +47,30 @@ const SearchScreen = ({navigation}: SearchScreenProps) => {
   }, []);
 
   return (
-    <SWrapper>
-      <SResultContainer>
-        {news && (
-          <FlatList
-            data={news?.pages}
-            onEndReached={() => loadMoreData(hasNextPage, fetchNextPage)}
-            onEndReachedThreshold={0.5}
-            renderItem={({item}) => (
-              <SmallCardItem
-                article={item}
-                onMoveToScreen={() => console.log('DD')}
-              />
-            )}
-            ListFooterComponent={() =>
-              !isLoading && !hasNextPage && <ListFooter>None found </ListFooter>
-            }
-          />
-        )}
-        {isFetching && <ActivityIndicator />}
-      </SResultContainer>
-    </SWrapper>
+    <SResultContainer>
+      {news && (
+        <FlatList
+          data={news?.pages}
+          onEndReached={() => loadMoreData(hasNextPage, fetchNextPage)}
+          onEndReachedThreshold={0.5}
+          renderItem={({item}) => (
+            <SmallCardItem article={item} onMoveToScreen={onMoveToScreen} />
+          )}
+          ListFooterComponent={() =>
+            !isLoading && !hasNextPage && <ListFooter>None found </ListFooter>
+          }
+        />
+      )}
+      {isFetching && <ActivityIndicator />}
+    </SResultContainer>
   );
 };
 
 export default SearchScreen;
 
-const SWrapper = styled.SafeAreaView`
-  background-color: ${({theme}) => theme.style.colors.background};
-  flex: 1;
-`;
-
 const SResultContainer = styled.View`
   flex: 1;
-  margin-top: 80px;
-  padding: 0 18px;
-`;
-
-const SSearchCopy = styled.Text`
-  font-family: 'Poppins-Regular';
-  text-align: center;
-  color: ${({theme}) => theme.style.colors.middleGray};
+  margin-top: 30px;
   padding: 0 18px;
 `;
 

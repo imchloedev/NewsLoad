@@ -7,6 +7,7 @@ import {FirstTab, SecondTab, ThirdTab, FourthTab} from '@components/Tabs';
 import {SearchInput, Title} from '@components/common';
 import useThemeColors from '@hooks/useThemeColors';
 import {DiscoverScreenProps} from '@screens/@types';
+import {IArticle} from '~/store/atom';
 
 const DiscoverScreen = ({navigation}: DiscoverScreenProps) => {
   const theme = useThemeColors();
@@ -19,8 +20,8 @@ const DiscoverScreen = ({navigation}: DiscoverScreenProps) => {
     {key: 'fourth', title: 'Science'},
   ]);
 
-  const onMoveToScreen = (title: string, url: string) => {
-    navigation.navigate('View', {title: title, url: url});
+  const onMoveToScreen = (article: IArticle) => {
+    navigation.navigate('View', {article});
   };
 
   type TRoute = {

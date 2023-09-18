@@ -5,7 +5,7 @@ export const dateToString = (publishedAt: string) => {
   const year = publishedDate.getFullYear();
   const month = ('0' + (publishedDate.getMonth() + 1)).slice(-2);
   const day = ('0' + publishedDate.getDate()).slice(-2);
-  const dateString = `${year}/${month}/${day}`;
+  const dateString = `${year}.${month}.${day}`;
 
   const diffDate = Number(current) - Number(publishedDate);
   const hoursDiff = Math.floor(diffDate / (1000 * 60 * 60));

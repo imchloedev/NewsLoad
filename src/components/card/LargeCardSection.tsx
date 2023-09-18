@@ -10,6 +10,7 @@ import {
 import LargeCardItem from '~/components/card/LargeCardItem';
 import {useNewsQuery} from '~/hooks';
 import {getCardStyle} from '~/utils';
+import {IArticle} from '~/store/atom';
 
 // const news = [
 //   {
@@ -49,7 +50,7 @@ import {getCardStyle} from '~/utils';
 //   },
 // ];
 
-export type TOnMoveToScreen = (title: string, url: string) => void;
+export type TOnMoveToScreen = (article: IArticle) => void;
 
 interface ILargeCardSectionProps {
   onMoveToScreen: TOnMoveToScreen;

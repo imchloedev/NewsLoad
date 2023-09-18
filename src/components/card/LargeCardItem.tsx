@@ -1,7 +1,6 @@
 import React from 'react';
-import {Image, StyleSheet, Dimensions} from 'react-native';
+import {Image} from 'react-native';
 import {styled} from 'styled-components/native';
-import LinearGradient from 'react-native-linear-gradient';
 import {IArticle} from '~/store/atom';
 import {TOnMoveToScreen} from '@components/card/LargeCardSection';
 import {getCardStyle, windowHeight} from '~/utils';
@@ -18,7 +17,7 @@ const LargeCardItem = ({article, onMoveToScreen}: ILargeCardItemProps) => {
     <SCard pageWidth={pageWidth}>
       <SCardWrapper
         cardWidth={cardWidth}
-        onPress={() => onMoveToScreen(article.title, article.url)}>
+        onPress={() => onMoveToScreen(article)}>
         <Image
           source={{uri: article.urlToImage}}
           style={{
@@ -36,17 +35,6 @@ const LargeCardItem = ({article, onMoveToScreen}: ILargeCardItemProps) => {
 };
 
 export default LargeCardItem;
-
-// const styles = StyleSheet.create({
-//   linearGradient: {
-//     width: windowWidth - 18,
-//     height: '100%',
-//     position: 'absolute',
-//     top: 0,
-//     zIndex: 10,
-//     borderRadius: 20,
-//   },
-// });
 
 const SCard = styled.View<{pageWidth: number}>`
   width: ${({pageWidth}) => pageWidth}px;

@@ -4,6 +4,7 @@ import {styled} from 'styled-components/native';
 import {LargeCardSection, SmallCardSection} from '@components/card';
 import {Title, ChannelItem} from '@components/common';
 import {HomeScreenProps} from '@screens/@types';
+import {IArticle} from '~/store/atom';
 
 // 채널 다크모드 스타일링
 const channelStyle = {width: 30, height: 30};
@@ -74,8 +75,8 @@ const CHANNELS = [
 ];
 
 const HomeScreen = ({navigation}: HomeScreenProps) => {
-  const onMoveToScreen = (title: string, url: string) => {
-    navigation.navigate('View', {title: title, url: url});
+  const onMoveToScreen = (article: IArticle) => {
+    navigation.navigate('View', {article});
   };
 
   return (

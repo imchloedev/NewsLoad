@@ -82,7 +82,23 @@ const MainStackNavi = () => {
             ),
           })}
         />
-        <Stack.Screen name="View" component={ViewScreen} />
+        <Stack.Screen
+          name="View"
+          component={ViewScreen}
+          options={({navigation}) => ({
+            headerTransparent: true,
+            headerTitle: '',
+            headerTintColor: theme.colors.text,
+            headerLeft: () => (
+              <Icon
+                name="arrow-back-outline"
+                size={22}
+                color={theme.colors.text}
+                onPress={() => navigation.goBack()}
+              />
+            ),
+          })}
+        />
         <Stack.Screen name="Profile" component={ProfileScreen} />
       </Stack.Group>
       <Stack.Group
@@ -129,12 +145,27 @@ const DiscoverStackNavi = () => {
           },
         })}
       />
-      <Stack.Screen name="View" component={ViewScreen} />
+      <Stack.Screen
+        name="View"
+        component={ViewScreen}
+        options={({navigation}) => ({
+          headerTransparent: true,
+          headerTitle: '',
+          headerTintColor: theme.colors.text,
+          headerLeft: () => (
+            <Icon
+              name="arrow-back-outline"
+              size={22}
+              color={theme.colors.text}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+        })}
+      />
       <Stack.Screen
         name="Search"
         component={SearchScreen}
         options={{
-          presentation: 'transparentModal',
           headerTitle: '',
           headerTransparent: true,
         }}
