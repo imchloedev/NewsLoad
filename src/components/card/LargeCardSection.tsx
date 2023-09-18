@@ -6,11 +6,9 @@ import {
   TouchableOpacity,
   NativeSyntheticEvent,
   NativeScrollEvent,
-  Dimensions,
 } from 'react-native';
 import LargeCardItem from '~/components/card/LargeCardItem';
 import {useNewsQuery} from '~/hooks';
-import {IArticle} from '~/store/atom';
 import {getCardStyle} from '~/utils';
 
 // const news = [

@@ -1,13 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {FlatList, ScrollView, Image} from 'react-native';
 import {styled} from 'styled-components/native';
 import {LargeCardSection, SmallCardSection} from '@components/card';
 import {Title, ChannelItem} from '@components/common';
 import {HomeScreenProps} from '@screens/@types';
-import {useRecoilState} from 'recoil';
-import {userState} from '~/store/atom';
-import {subscribeAuth} from '~/apis/auth';
 
+// 채널 다크모드 스타일링
 const channelStyle = {width: 30, height: 30};
 const CHANNELS = [
   {
