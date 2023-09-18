@@ -5,3 +5,4 @@ export {default as SignInScreen} from '@screens/SignInScreen';
 export {default as SignUpScreen} from '@screens/SignUpScreen';
 export {default as ViewScreen} from '@screens/ViewScreen';
 export {default as SearchScreen} from '@screens/SearchScreen';
+export {default as WebViewScreen} from '@screens/WebViewScreen';

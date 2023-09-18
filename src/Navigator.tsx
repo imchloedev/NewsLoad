@@ -20,8 +20,13 @@ import {
   ViewScreen,
   DiscoverScreen,
   SearchScreen,
+  WebViewScreen,
 } from '~/screens';
-import {MainStackParamList} from '@screens/@types';
+import {
+  DisCoverStackParamList,
+  MainStackParamList,
+  RootStackParamList,
+} from '@screens/@types';
 import useThemeColors from '~/hooks/useThemeColors';
 import {
   handleFirebaseAuthError,
@@ -29,9 +34,11 @@ import {
   onSignOut,
 } from '~/apis/auth';
 import {showAlert} from '~/utils';
+import CustomHeader from './components/common/CustomHeader';
 
 const Stack = createNativeStackNavigator<MainStackParamList>();
-const Drawer = createDrawerNavigator();
+const DiscoverStack = createNativeStackNavigator<DisCoverStackParamList>();
+const Drawer = createDrawerNavigator<RootStackParamList>();
 
 const Navigator = () => {
   const scheme = useColorScheme();
@@ -56,10 +63,7 @@ const MainStackNavi = () => {
           name="Home"
           component={HomeScreen}
           options={({navigation}) => ({
-            headerTitle: '',
-            headerStyle: {
-              backgroundColor: 'transparent',
-            },
+            ...commonOptions,
             headerLeft: () => (
               <Icon
                 name="menu-outline"
@@ -82,13 +86,23 @@ const MainStackNavi = () => {
             ),
           })}
         />
+        <Stack.Screen name="Profile" component={ProfileScreen} />
+        <Stack.Screen
+          name="Search"
+          component={SearchScreen}
+          options={{
+            headerTitle: '',
+            presentation: 'transparentModal',
+          }}
+        />
+      </Stack.Group>
+      <Stack.Group>
         <Stack.Screen
           name="View"
           component={ViewScreen}
           options={({navigation}) => ({
-            headerTransparent: true,
             headerTitle: '',
-            headerTintColor: theme.colors.text,
+            headerTransparent: true,
             headerLeft: () => (
               <Icon
                 name="arrow-back-outline"
@@ -99,13 +113,18 @@ const MainStackNavi = () => {
             ),
           })}
         />
-        <Stack.Screen name="Profile" component={ProfileScreen} />
+        <Stack.Screen
+          name="WebView"
+          component={WebViewScreen}
+          options={{
+            headerTitle: '',
+          }}
+        />
       </Stack.Group>
       <Stack.Group
         screenOptions={({navigation}) => ({
           headerTransparent: true,
           headerTitle: '',
-          headerTintColor: theme.colors.text,
           headerLeft: () => (
             <Icon
               name="arrow-back-outline"
@@ -126,12 +145,12 @@ const DiscoverStackNavi = () => {
   const theme = useThemeColors();
 
   return (
-    <Stack.Navigator>
-      <Stack.Screen
+    <DiscoverStack.Navigator>
+      <DiscoverStack.Screen
         name="Discover"
         component={DiscoverScreen}
         options={({navigation}) => ({
-          headerTitle: '',
+          ...commonOptions,
           headerLeft: () => (
             <Icon
               name="menu-outline"
@@ -140,37 +159,41 @@ const DiscoverStackNavi = () => {
               onPress={() => navigation.openDrawer()}
             />
           ),
-          headerStyle: {
-            backgroundColor: 'transparent',
-          },
         })}
       />
-      <Stack.Screen
-        name="View"
-        component={ViewScreen}
-        options={({navigation}) => ({
-          headerTransparent: true,
-          headerTitle: '',
-          headerTintColor: theme.colors.text,
-          headerLeft: () => (
-            <Icon
-              name="arrow-back-outline"
-              size={22}
-              color={theme.colors.text}
-              onPress={() => navigation.goBack()}
-            />
-          ),
-        })}
-      />
-      <Stack.Screen
+      <DiscoverStack.Screen
         name="Search"
         component={SearchScreen}
-        options={{
-          headerTitle: '',
-          headerTransparent: true,
-        }}
+        options={({navigation}) => ({
+          header: () => <CustomHeader navigation={navigation} />,
+        })}
       />
-    </Stack.Navigator>
+      <DiscoverStack.Group>
+        <DiscoverStack.Screen
+          name="View"
+          component={ViewScreen}
+          options={({navigation}) => ({
+            headerTransparent: true,
+            headerTitle: '',
+            headerLeft: () => (
+              <Icon
+                name="arrow-back-outline"
+                size={22}
+                color={theme.colors.text}
+                onPress={() => navigation.goBack()}
+              />
+            ),
+          })}
+        />
+        <DiscoverStack.Screen
+          name="WebView"
+          component={WebViewScreen}
+          options={{
+            ...commonOptions,
+          }}
+        />
+      </DiscoverStack.Group>
+    </DiscoverStack.Navigator>
   );
 };
 
@@ -235,7 +258,7 @@ const DrawerNavi = () => {
         },
       }}>
       <Drawer.Screen
-        name="Main"
+        name="MainNavi"
         component={MainStackNavi}
         options={{
           drawerLabel: 'HOME',
@@ -264,4 +287,11 @@ const DrawerNavi = () => {
       />
     </Drawer.Navigator>
   );
+};
+
+const commonOptions = {
+  headerTitle: '',
+  headerStyle: {
+    backgroundColor: 'transparent',
+  },
 };

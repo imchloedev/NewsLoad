@@ -1,10 +1,10 @@
 import React, {useRef} from 'react';
-import {Animated, Image} from 'react-native';
+import {Animated, Image, TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
 import {ViewScreenProps} from './@types';
 import {dateToString, windowHeight, windowWidth} from '~/utils';
 
-const ViewScreen = ({route}: ViewScreenProps) => {
+const ViewScreen = ({navigation, route}: ViewScreenProps) => {
   const {title, author, publishedAt, urlToImage, description, url} =
     route.params.article;
   const scrollY = useRef(new Animated.Value(0)).current;
@@ -52,11 +52,9 @@ const ViewScreen = ({route}: ViewScreenProps) => {
           more recently with desktop publishing software like Aldus PageMaker
           including versions of Lorem Ipsum.
         </SContent>
-        {/* webview로 연결 */}
-
-        <SUrlBtn>
-          <SText>{url}</SText>
-        </SUrlBtn>
+        <TouchableOpacity onPress={() => navigation.navigate('WebView', {url})}>
+          <SUrlBtnCopy>To keep reading this article, Click here!</SUrlBtnCopy>
+        </TouchableOpacity>
       </SInfoWrapper>
     </SContainer>
   );
@@ -108,4 +106,9 @@ const SContent = styled(SText)`
   line-height: 24px;
 `;
 
-const SUrlBtn = styled.TouchableOpacity``;
+const SUrlBtnCopy = styled(SText)`
+  color: ${({theme}) => theme.style.colors.primary};
+  text-align: center;
+  padding: 10px 0;
+  font-weight: 700;
+`;

@@ -1,15 +1,27 @@
+import {NavigatorScreenParams} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {IArticle} from '~/store/atom';
 
+export type DisCoverStackParamList = {
+  Discover: undefined;
+  View: {article: IArticle};
+  WebView: {url: string};
+  Search: undefined;
+};
+
 export type MainStackParamList = {
   Home: undefined;
-  View: {article: IArticle};
   Profile: undefined;
-  Discover: undefined;
   SignIn: undefined;
   SignUp: undefined;
   Search: undefined;
-  WebView: undefined;
+  View: {article: IArticle};
+  WebView: {url: string};
+};
+
+export type RootStackParamList = {
+  MainNavi: NavigatorScreenParams<MainStackParamList>;
+  DiscoverNavi: NavigatorScreenParams<DisCoverStackParamList>;
 };
 
 export type HomeScreenProps = NativeStackScreenProps<
@@ -23,13 +35,8 @@ export type ProfileScreenProps = NativeStackScreenProps<
 >;
 
 export type DiscoverScreenProps = NativeStackScreenProps<
-  MainStackParamList,
+  DisCoverStackParamList,
   'Discover'
->;
-
-export type ViewScreenProps = NativeStackScreenProps<
-  MainStackParamList,
-  'View'
 >;
 
 export type SignInScreenProps = NativeStackScreenProps<
@@ -45,6 +52,11 @@ export type SignUpScreenProps = NativeStackScreenProps<
 export type SearchScreenProps = NativeStackScreenProps<
   MainStackParamList,
   'Search'
+>;
+
+export type ViewScreenProps = NativeStackScreenProps<
+  MainStackParamList,
+  'View'
 >;
 
 export type WebViewScreenProps = NativeStackScreenProps<
