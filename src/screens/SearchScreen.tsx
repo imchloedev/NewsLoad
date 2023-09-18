@@ -44,7 +44,6 @@ const SearchScreen = ({navigation}: SearchScreenProps) => {
   return (
     <SWrapper>
       <SResultContainer>
-        <SSearchCopy>Please search for articles here.</SSearchCopy>
         {news && (
           <FlatList
             data={news?.pages}
@@ -57,7 +56,7 @@ const SearchScreen = ({navigation}: SearchScreenProps) => {
               />
             )}
             ListFooterComponent={() =>
-              !isLoading && !hasNextPage && <ListFooter />
+              !isLoading && !hasNextPage && <ListFooter>None found </ListFooter>
             }
           />
         )}

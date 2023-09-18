@@ -1,8 +1,12 @@
 import React from 'react';
 import styled from 'styled-components/native';
 
-const ListFooter = () => {
-  return <SListFooterCopy>All articles loaded.👋</SListFooterCopy>;
+interface IListFooterProps {
+  children: React.ReactNode;
+}
+
+const ListFooter = ({children}: IListFooterProps) => {
+  return <SListFooterCopy>{children}</SListFooterCopy>;
 };
 
 export default ListFooter;

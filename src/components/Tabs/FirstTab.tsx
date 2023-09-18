@@ -24,7 +24,10 @@ const FirstTab = ({onMoveToScreen}: ITabProps) => {
         renderItem={({item}) => (
           <SmallCardItem article={item} onMoveToScreen={onMoveToScreen} />
         )}
-        ListFooterComponent={() => !isLoading && !hasNextPage && <ListFooter />}
+        ListFooterComponent={() =>
+          !isLoading &&
+          !hasNextPage && <ListFooter>All articles loaded.</ListFooter>
+        }
       />
       {isFetching && <ActivityIndicator />}
     </STabContainer>

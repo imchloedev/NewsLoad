@@ -21,7 +21,7 @@ align-items: ${align};
 const theme: ITheme = {
   lightTheme: {
     colors: {
-      background: '#eee',
+      background: '#efefef',
       card: '#fff',
       text: '#000',
       inactive: '#ececec',
