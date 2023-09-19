@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Image} from 'react-native';
-import {styled} from 'styled-components/native';
+import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {dateToString} from '~/utils/dateToString';
 import {TOnMoveToScreen} from '@components/card/LargeCardSection';

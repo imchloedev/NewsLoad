@@ -304,7 +304,7 @@ const DrawerNavi = () => {
         }}
       />
       <Drawer.Screen
-        name="Bookmark"
+        name="BookmarkNavi"
         component={BookmarkStackNavi}
         options={{
           drawerLabel: 'BOOKMARKS',

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image} from 'react-native';
-import {styled} from 'styled-components/native';
+import styled from 'styled-components/native';
 import {TOnMoveToScreen} from '@components/card/LargeCardSection';
 import {getCardStyle, windowHeight} from '~/utils';
 import {IArticle} from '~/types';

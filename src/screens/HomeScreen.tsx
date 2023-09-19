@@ -1,6 +1,6 @@
 import React from 'react';
-import {FlatList, ScrollView, Image, Button} from 'react-native';
-import {styled} from 'styled-components/native';
+import {FlatList, ScrollView, Image} from 'react-native';
+import styled from 'styled-components/native';
 import {LargeCardSection, SmallCardSection} from '@components/card';
 import {Title, ChannelItem} from '@components/common';
 import {HomeScreenProps} from '@screens/@types';

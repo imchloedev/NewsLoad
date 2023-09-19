@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
 import {View, useWindowDimensions} from 'react-native';
 import {TabView, TabBar} from 'react-native-tab-view';
-import Icon from 'react-native-vector-icons/Ionicons';
-import {styled} from 'styled-components/native';
+import styled from 'styled-components/native';
 import {FirstTab, SecondTab, ThirdTab, FourthTab} from '@components/Tabs';
 import {SearchInput, Title} from '@components/common';
 import useThemeColors from '@hooks/useThemeColors';
