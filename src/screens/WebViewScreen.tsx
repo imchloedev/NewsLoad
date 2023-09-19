@@ -1,12 +1,11 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {BackHandler, Button, Text, TouchableOpacity, View} from 'react-native';
+import {BackHandler, TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
 import WebView, {WebViewNavigation} from 'react-native-webview';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {windowWidth, windowHeight} from '~/utils';
 import {WebViewScreenProps} from './@types';
 import useThemeColors from '~/hooks/useThemeColors';
-import {CustomButton} from '~/components/auth';
 
 const WebViewScreen = ({navigation, route}: WebViewScreenProps) => {
   const {url} = route.params;

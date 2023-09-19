@@ -1,7 +1,7 @@
 import React from 'react';
 import {FlatList, ActivityIndicator} from 'react-native';
 import {SmallCardItem} from '@components/card';
-import {ListFooter} from '@components/common';
+import {ListFooter, Separator} from '@components/common';
 import {useNewsInfiniteQuery} from '~/hooks';
 import {ITabProps, STabContainer} from './FirstTab';
 import {loadMoreData} from '~/utils';
@@ -23,6 +23,7 @@ const FourthTab = ({onMoveToScreen}: ITabProps) => {
           !isLoading &&
           !hasNextPage && <ListFooter>All articles loaded.</ListFooter>
         }
+        ItemSeparatorComponent={() => <Separator />}
       />
       {isFetching && <ActivityIndicator />}
     </STabContainer>

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Image} from 'react-native';
 import {styled} from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {dateToString} from '~/utils/dateToString';
@@ -50,10 +50,10 @@ const SmallCardItem = ({article, onMoveToScreen}: SSmallCardItemProps) => {
 export default SmallCardItem;
 
 const SSmallCardWrapper = styled.TouchableOpacity`
-  ${({theme}) => theme.variables.flex('row', 'flex-start', 'flex-start')}
+  ${({theme}) => theme.variables.flex('row', 'center', 'center')}
   gap: 16px;
+  height: 120px;
   padding: 10px 10px;
-  margin: 10px 0;
   background-color: ${({theme}) => theme.style.colors.card};
   border-radius: 20px;
 `;
