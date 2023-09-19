@@ -1,18 +1,58 @@
-import React, {useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {Animated, Image, TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
+import Icon from 'react-native-vector-icons/Ionicons';
+import auth from '@react-native-firebase/auth';
 import {ViewScreenProps} from './@types';
-import {dateToString, windowHeight, windowWidth} from '~/utils';
+import {dateToString, showAlert, windowHeight, windowWidth} from '~/utils';
+import {useSaveMutation, useSavedNewsQuery} from '~/hooks';
+import {ISavedArticle} from '~/types';
 
 const ViewScreen = ({navigation, route}: ViewScreenProps) => {
   const {title, author, publishedAt, urlToImage, description, url} =
     route.params.article;
+  const currentUser = auth().currentUser;
   const scrollY = useRef(new Animated.Value(0)).current;
+  const {mutation: onSaveArticle} = useSaveMutation();
+  const {saved} = useSavedNewsQuery(currentUser);
+  const isArticleSaved =
+    saved && saved.some((list: ISavedArticle) => list.article.title === title);
 
   const handleScroll = Animated.event(
     [{nativeEvent: {contentOffset: {y: scrollY}}}],
     {useNativeDriver: false},
   );
+
+  const handleBookmark = () => {
+    const savedArticle = {
+      userId: currentUser?.uid,
+      createdAt: Date.now(),
+      article: route.params.article,
+      isSaved: true,
+    };
+
+    if (!isArticleSaved) {
+      onSaveArticle.mutate(savedArticle);
+    } else {
+      showAlert('Alert', 'This article was already in your bookmark list');
+    }
+  };
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Icon
+          name={isArticleSaved ? 'bookmark' : 'bookmark-outline'}
+          size={20}
+          onPress={() =>
+            currentUser
+              ? handleBookmark()
+              : showAlert('Failed', 'Please sign in.')
+          }
+        />
+      ),
+    });
+  }, [isArticleSaved]);
 
   return (
     <SContainer onScroll={handleScroll} scrollEventThrottle={16}>

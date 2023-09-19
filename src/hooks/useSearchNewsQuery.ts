@@ -1,5 +1,5 @@
 import Config from 'react-native-config';
-import {useInfiniteQuery, useQuery} from 'react-query';
+import {useInfiniteQuery} from 'react-query';
 import {instance} from '~/apis/client';
 
 interface IGetSearchResult {

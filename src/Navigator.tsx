@@ -21,12 +21,10 @@ import {
   DiscoverScreen,
   SearchScreen,
   WebViewScreen,
+  BookmarkScreen,
 } from '~/screens';
-import {
-  DisCoverStackParamList,
-  MainStackParamList,
-  RootStackParamList,
-} from '@screens/@types';
+import {MainStackParamList} from '@screens/@types';
+import {CustomHeader} from '@components/common';
 import useThemeColors from '~/hooks/useThemeColors';
 import {
   handleFirebaseAuthError,
@@ -34,11 +32,9 @@ import {
   onSignOut,
 } from '~/apis/auth';
 import {showAlert} from '~/utils';
-import CustomHeader from './components/common/CustomHeader';
 
 const Stack = createNativeStackNavigator<MainStackParamList>();
-const DiscoverStack = createNativeStackNavigator<DisCoverStackParamList>();
-const Drawer = createDrawerNavigator<RootStackParamList>();
+const Drawer = createDrawerNavigator();
 
 const Navigator = () => {
   const scheme = useColorScheme();
@@ -145,8 +141,8 @@ const DiscoverStackNavi = () => {
   const theme = useThemeColors();
 
   return (
-    <DiscoverStack.Navigator>
-      <DiscoverStack.Screen
+    <Stack.Navigator>
+      <Stack.Screen
         name="Discover"
         component={DiscoverScreen}
         options={({navigation}) => ({
@@ -161,39 +157,61 @@ const DiscoverStackNavi = () => {
           ),
         })}
       />
-      <DiscoverStack.Screen
+      <Stack.Screen
         name="Search"
         component={SearchScreen}
         options={({navigation}) => ({
           header: () => <CustomHeader navigation={navigation} />,
         })}
       />
-      <DiscoverStack.Group>
-        <DiscoverStack.Screen
-          name="View"
-          component={ViewScreen}
-          options={({navigation}) => ({
-            headerTransparent: true,
-            headerTitle: '',
-            headerLeft: () => (
-              <Icon
-                name="arrow-back-outline"
-                size={22}
-                color={theme.colors.text}
-                onPress={() => navigation.goBack()}
-              />
-            ),
-          })}
-        />
-        <DiscoverStack.Screen
-          name="WebView"
-          component={WebViewScreen}
-          options={{
-            ...commonOptions,
-          }}
-        />
-      </DiscoverStack.Group>
-    </DiscoverStack.Navigator>
+      <Stack.Screen
+        name="View"
+        component={ViewScreen}
+        options={({navigation}) => ({
+          headerTransparent: true,
+          headerTitle: '',
+          headerLeft: () => (
+            <Icon
+              name="arrow-back-outline"
+              size={22}
+              color={theme.colors.text}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="WebView"
+        component={WebViewScreen}
+        options={{
+          ...commonOptions,
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+const BookmarkStackNavi = () => {
+  const theme = useThemeColors();
+
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Bookmark"
+        component={BookmarkScreen}
+        options={({navigation}) => ({
+          ...commonOptions,
+          headerLeft: () => (
+            <Icon
+              name="menu-outline"
+              size={20}
+              color={theme.colors.text}
+              onPress={() => navigation.openDrawer()}
+            />
+          ),
+        })}
+      />
+    </Stack.Navigator>
   );
 };
 
@@ -279,6 +297,20 @@ const DrawerNavi = () => {
           drawerIcon: ({focused}) => (
             <Icon
               name="rocket-outline"
+              size={20}
+              color={focused ? theme.colors.primary : theme.colors.text}
+            />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Bookmark"
+        component={BookmarkStackNavi}
+        options={{
+          drawerLabel: 'BOOKMARKS',
+          drawerIcon: ({focused}) => (
+            <Icon
+              name="bookmark-outline"
               size={20}
               color={focused ? theme.colors.primary : theme.colors.text}
             />

@@ -1,13 +1,6 @@
 import {NavigatorScreenParams} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {IArticle} from '~/store/atom';
-
-export type DisCoverStackParamList = {
-  Discover: undefined;
-  View: {article: IArticle};
-  WebView: {url: string};
-  Search: undefined;
-};
+import {IArticle} from '~/types';
 
 export type MainStackParamList = {
   Home: undefined;
@@ -17,11 +10,12 @@ export type MainStackParamList = {
   Search: undefined;
   View: {article: IArticle};
   WebView: {url: string};
+  Bookmark: undefined;
+  Discover: undefined;
 };
 
 export type RootStackParamList = {
   MainNavi: NavigatorScreenParams<MainStackParamList>;
-  DiscoverNavi: NavigatorScreenParams<DisCoverStackParamList>;
 };
 
 export type HomeScreenProps = NativeStackScreenProps<
@@ -35,7 +29,7 @@ export type ProfileScreenProps = NativeStackScreenProps<
 >;
 
 export type DiscoverScreenProps = NativeStackScreenProps<
-  DisCoverStackParamList,
+  MainStackParamList,
   'Discover'
 >;
 
@@ -62,4 +56,9 @@ export type ViewScreenProps = NativeStackScreenProps<
 export type WebViewScreenProps = NativeStackScreenProps<
   MainStackParamList,
   'WebView'
+>;
+
+export type BookmarkScreenProps = NativeStackScreenProps<
+  MainStackParamList,
+  'Bookmark'
 >;

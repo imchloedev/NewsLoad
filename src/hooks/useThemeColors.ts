@@ -7,4 +7,5 @@ const useThemeColors = () => {
 
   return currentTheme;
 };
+
 export default useThemeColors;
