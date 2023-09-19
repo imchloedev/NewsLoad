@@ -7,7 +7,7 @@ import {FirstTab, SecondTab, ThirdTab, FourthTab} from '@components/Tabs';
 import {SearchInput, Title} from '@components/common';
 import useThemeColors from '@hooks/useThemeColors';
 import {DiscoverScreenProps} from '@screens/@types';
-import {IArticle} from '~/store/atom';
+import {IArticle} from '~/types';
 
 const DiscoverScreen = ({navigation}: DiscoverScreenProps) => {
   const theme = useThemeColors();

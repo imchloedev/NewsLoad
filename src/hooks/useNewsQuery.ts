@@ -1,7 +1,7 @@
 import {useQuery} from 'react-query';
 import {instance} from '~/apis/client';
 import Config from 'react-native-config';
-import {IArticle} from '~/store/atom';
+import {IArticle} from '~/types';
 
 export const getNews = async (): Promise<IArticle[]> => {
   const {data} = await instance.get(

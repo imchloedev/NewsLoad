@@ -6,7 +6,7 @@ import {ListFooter, CustomHeader} from '@components/common';
 import {useSearchNewsQuery} from '~/hooks/useSearchNewsQuery';
 import {loadMoreData} from '~/utils';
 import {SearchScreenProps} from './@types';
-import {IArticle} from '~/store/atom';
+import {IArticle} from '~/types';
 
 const SearchScreen = ({navigation}: SearchScreenProps) => {
   const [text, setText] = useState('');

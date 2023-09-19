@@ -1,9 +1,9 @@
 import React from 'react';
 import {Image} from 'react-native';
 import {styled} from 'styled-components/native';
-import {IArticle} from '~/store/atom';
 import {TOnMoveToScreen} from '@components/card/LargeCardSection';
 import {getCardStyle, windowHeight} from '~/utils';
+import {IArticle} from '~/types';
 
 interface ILargeCardItemProps {
   article: IArticle;

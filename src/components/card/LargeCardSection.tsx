@@ -10,7 +10,7 @@ import {
 import LargeCardItem from '~/components/card/LargeCardItem';
 import {useNewsQuery} from '~/hooks';
 import {getCardStyle} from '~/utils';
-import {IArticle} from '~/store/atom';
+import {IArticle} from '~/types';
 import useThemeColors from '~/hooks/useThemeColors';
 
 export type TOnMoveToScreen = (article: IArticle) => void;

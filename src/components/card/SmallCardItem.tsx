@@ -2,9 +2,9 @@ import React from 'react';
 import {View, Text, Image} from 'react-native';
 import {styled} from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {IArticle} from '~/store/atom';
 import {dateToString} from '~/utils/dateToString';
 import {TOnMoveToScreen} from '@components/card/LargeCardSection';
+import {IArticle} from '~/types';
 
 interface SSmallCardItemProps {
   article: IArticle;
