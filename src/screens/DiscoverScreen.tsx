@@ -5,10 +5,10 @@ import styled from 'styled-components/native';
 import {FirstTab, SecondTab, ThirdTab, FourthTab} from '@components/Tabs';
 import {SearchInput, Title} from '@components/common';
 import useThemeColors from '@hooks/useThemeColors';
-import {DiscoverScreenProps} from '@screens/@types';
+import {ScreenProps} from './@types';
 import {IArticle} from '~/types';
 
-const DiscoverScreen = ({navigation}: DiscoverScreenProps) => {
+const DiscoverScreen = ({navigation}: ScreenProps<'Discover'>) => {
   const theme = useThemeColors();
   const layout = useWindowDimensions();
   const [index, setIndex] = useState(0);

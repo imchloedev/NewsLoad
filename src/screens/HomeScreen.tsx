@@ -4,13 +4,11 @@ import styled from 'styled-components/native';
 import {LargeCardSection, SmallCardSection} from '@components/card';
 import {Title, ChannelItem} from '@components/common';
 import {Abc, Bbc, Cnn, Cbs, Fox, Nbc, Insider} from '@components/assets';
-import {HomeScreenProps} from '@screens/@types';
-import {IArticle} from '~/types';
 import {useThemeColors} from '~/hooks';
-import {DefaultTheme} from '@react-navigation/native';
-import {moveToViewScreen} from '~/utils/moveToScreen';
+import {ScreenProps} from './@types';
+import {IArticle} from '~/types';
 
-const HomeScreen = ({navigation}: HomeScreenProps) => {
+const HomeScreen = ({navigation}: ScreenProps<'Home'>) => {
   const theme = useThemeColors();
   const CHANNELS = [
     {

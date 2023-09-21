@@ -3,12 +3,12 @@ import {Animated, Image, TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import auth from '@react-native-firebase/auth';
-import {ViewScreenProps} from './@types';
 import {dateToString, showAlert, windowHeight, windowWidth} from '~/utils';
 import {useSaveMutation, useSavedNewsQuery} from '~/hooks';
+import {ScreenProps} from './@types';
 import {ISavedArticle} from '~/types';
 
-const ViewScreen = ({navigation, route}: ViewScreenProps) => {
+const ViewScreen = ({navigation, route}: ScreenProps<'View'>) => {
   const {title, author, publishedAt, urlToImage, description, url} =
     route.params.article;
   const currentUser = auth().currentUser;

@@ -4,10 +4,10 @@ import styled from 'styled-components/native';
 import WebView, {WebViewNavigation} from 'react-native-webview';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {windowWidth, windowHeight} from '~/utils';
-import {WebViewScreenProps} from './@types';
 import useThemeColors from '~/hooks/useThemeColors';
+import {ScreenProps} from './@types';
 
-const WebViewScreen = ({navigation, route}: WebViewScreenProps) => {
+const WebViewScreen = ({navigation, route}: ScreenProps<'View'>) => {
   const {url} = route.params;
   const ref = useRef<WebView | null>(null);
   const [nav, setNav] = useState<WebViewNavigation>();

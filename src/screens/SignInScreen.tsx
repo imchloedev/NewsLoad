@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import styled from 'styled-components/native';
-import {SignInScreenProps} from '@screens/@types';
 import {CustomButton, CustomInput} from '@components/auth';
 import {Title} from '@components/common';
 import {
@@ -9,8 +8,9 @@ import {
   onSignIn,
 } from '~/apis/auth';
 import {validateEmail, validatePassword, showAlert} from '~/utils';
+import {ScreenProps} from './@types';
 
-const SignInScreen = ({navigation}: SignInScreenProps) => {
+const SignInScreen = ({navigation}: ScreenProps<'SignIn'>) => {
   const [isLoading, setIsLoading] = useState(false);
   const [userInfo, setUserInfo] = useState({
     email: '',
@@ -42,11 +42,7 @@ const SignInScreen = ({navigation}: SignInScreenProps) => {
   return (
     <SContainer>
       <STitleWrapper>
-        <Title
-          titleRole="main"
-          title="Sign In"
-          styles={{textAlign: 'center'}}
-        />
+        <Title titleRole="main" title="Sign In" />
         <SSubCopy>To sign in please enter email and password</SSubCopy>
       </STitleWrapper>
 

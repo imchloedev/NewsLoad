@@ -9,9 +9,9 @@ import {
   isFirebaseAuthError,
   handleFirebaseAuthError,
 } from '~/apis/auth';
-import {SignUpScreenProps} from './@types';
+import {ScreenProps} from './@types';
 
-const SignUpScreen = ({navigation}: SignUpScreenProps) => {
+const SignUpScreen = ({navigation}: ScreenProps<'SignUp'>) => {
   const [isLoading, setIsLoading] = useState(false);
   const [userInfo, setUserInfo] = useState({
     fullName: '',
@@ -44,11 +44,7 @@ const SignUpScreen = ({navigation}: SignUpScreenProps) => {
   return (
     <SContainer>
       <STitleWrapper>
-        <Title
-          titleRole="main"
-          title="Create an account"
-          styles={{textAlign: 'center'}}
-        />
+        <Title titleRole="main" title="Create an account" />
       </STitleWrapper>
       <CustomInput
         name="name"

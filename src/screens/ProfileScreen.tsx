@@ -1,9 +1,9 @@
 import React from 'react';
 import {Button, Text, View} from 'react-native';
 import {onSignOut} from '~/apis/auth';
-import {ProfileScreenProps} from './@types';
+import {ScreenProps} from './@types';
 
-const ProfileScreen = ({navigation}: ProfileScreenProps) => {
+const ProfileScreen = ({navigation}: ScreenProps<'Profile'>) => {
   const onLeave = async () => {
     try {
       await onSignOut();

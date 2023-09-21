@@ -1,22 +1,19 @@
 import React from 'react';
-import {FlatList, Text, View} from 'react-native';
+import {FlatList, View} from 'react-native';
 import styled from 'styled-components/native';
-import {ChannelScreenProps} from './@types';
+import {SmallCardItem} from '@components/card';
+import {Title} from '@components/common';
 import {useNewsByChannelQuery} from '~/hooks';
-import {SmallCardItem} from '~/components/card';
-import {Title} from '~/components/common';
+import {ScreenProps} from './@types';
 
-const ChannelScreen = ({navigation, route}: ChannelScreenProps) => {
+const ChannelScreen = ({navigation, route}: ScreenProps<'Channel'>) => {
   const {channel} = route.params;
-  console.log(channel);
-
   const {news} = useNewsByChannelQuery(channel);
 
-  const getTitle = (channel: string) => {
-    const arr = channel.split('-');
+  const getTitle = (channelName: string) => {
+    const arr = channelName.split('-');
     return `${arr[0]} news`;
   };
-  console.log(getTitle(channel));
 
   return (
     <View style={{flex: 1}}>

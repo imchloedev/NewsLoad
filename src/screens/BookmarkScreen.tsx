@@ -6,11 +6,11 @@ import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {SmallCardItem} from '@components/card';
 import {ListFooter, Separator, Title} from '@components/common';
-import {IArticle} from '~/types';
 import {useThemeColors, useDeleteMutation, useSavedNewsQuery} from '~/hooks';
-import {BookmarkScreenProps} from './@types';
+import {ScreenProps} from './@types';
+import {IArticle} from '~/types';
 
-const BookmarkScreen = ({navigation}: BookmarkScreenProps) => {
+const BookmarkScreen = ({navigation}: ScreenProps<'Bookmark'>) => {
   const currentUser = auth().currentUser;
   const {saved, isLoading} = useSavedNewsQuery(currentUser);
   const theme = useThemeColors();

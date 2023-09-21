@@ -5,10 +5,10 @@ import {SmallCardItem} from '@components/card';
 import {ListFooter, CustomHeader} from '@components/common';
 import {useSearchNewsInfiniteQuery} from '~/hooks';
 import {loadMoreData} from '~/utils';
-import {SearchScreenProps} from './@types';
+import {ScreenProps} from './@types';
 import {IArticle} from '~/types';
 
-const SearchScreen = ({navigation}: SearchScreenProps) => {
+const SearchScreen = ({navigation}: ScreenProps<'Search'>) => {
   const [text, setText] = useState('');
   const {news, fetchNextPage, isLoading, isFetching, hasNextPage} =
     useSearchNewsInfiniteQuery(text);
