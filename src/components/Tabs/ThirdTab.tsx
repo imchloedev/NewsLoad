@@ -3,12 +3,12 @@ import {FlatList, ActivityIndicator} from 'react-native';
 import {ITabProps, STabContainer} from './FirstTab';
 import {SmallCardItem} from '@components/card';
 import {ListFooter, Separator} from '@components/common';
-import {useNewsInfiniteQuery} from '~/hooks';
+import {useNewsByCategoryInfiniteQuery} from '~/hooks';
 import {loadMoreData} from '~/utils';
 
 const ThirdTab = ({onMoveToScreen}: ITabProps) => {
   const {news, fetchNextPage, isLoading, isFetching, hasNextPage} =
-    useNewsInfiniteQuery('health');
+    useNewsByCategoryInfiniteQuery('health');
 
   return (
     <STabContainer>

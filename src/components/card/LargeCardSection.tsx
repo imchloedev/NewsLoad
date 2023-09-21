@@ -107,7 +107,6 @@ export default LargeCardSection;
 
 const SCardContainer = styled.View`
   overflow: hidden;
-  margin: 10px 0 0 0px;
 `;
 
 const SPaginationContainer = styled.View`

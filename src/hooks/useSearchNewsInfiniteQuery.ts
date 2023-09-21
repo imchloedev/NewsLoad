@@ -15,7 +15,7 @@ const getSearchResult = async ({query, pageParam}: IGetSearchResult) => {
   return data.articles;
 };
 
-export const useSearchNewsQuery = (query: string) => {
+export const useSearchNewsInfiniteQuery = (query: string) => {
   const {
     data: news,
     isLoading,

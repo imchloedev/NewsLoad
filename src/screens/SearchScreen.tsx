@@ -3,7 +3,7 @@ import {FlatList, ActivityIndicator} from 'react-native';
 import styled from 'styled-components/native';
 import {SmallCardItem} from '@components/card';
 import {ListFooter, CustomHeader} from '@components/common';
-import {useSearchNewsQuery} from '~/hooks/useSearchNewsQuery';
+import {useSearchNewsInfiniteQuery} from '~/hooks';
 import {loadMoreData} from '~/utils';
 import {SearchScreenProps} from './@types';
 import {IArticle} from '~/types';
@@ -11,7 +11,7 @@ import {IArticle} from '~/types';
 const SearchScreen = ({navigation}: SearchScreenProps) => {
   const [text, setText] = useState('');
   const {news, fetchNextPage, isLoading, isFetching, hasNextPage} =
-    useSearchNewsQuery(text);
+    useSearchNewsInfiniteQuery(text);
 
   const onMoveToScreen = (article: IArticle) => {
     navigation.push('View', {article});

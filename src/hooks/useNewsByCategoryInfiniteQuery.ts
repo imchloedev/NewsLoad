@@ -17,7 +17,7 @@ const getNewsByCategory = async ({pageParam, category}: IGetNewsByCategory) => {
 };
 
 // infiniteQuery hook
-export const useNewsInfiniteQuery = (category: string) => {
+export const useNewsByCategoryInfiniteQuery = (category: string) => {
   const {
     data: news,
     fetchNextPage,

@@ -4,7 +4,7 @@ import {styled} from 'styled-components/native';
 import {SmallCardItem} from '@components/card';
 import {ListFooter, Separator} from '@components/common';
 import {TOnMoveToScreen} from '@components/card/LargeCardSection';
-import {useNewsInfiniteQuery} from '~/hooks';
+import {useNewsByCategoryInfiniteQuery} from '~/hooks';
 import {loadMoreData} from '~/utils';
 
 export interface ITabProps {
@@ -13,7 +13,7 @@ export interface ITabProps {
 
 const FirstTab = ({onMoveToScreen}: ITabProps) => {
   const {news, fetchNextPage, isLoading, isFetching, hasNextPage} =
-    useNewsInfiniteQuery('business');
+    useNewsByCategoryInfiniteQuery('business');
 
   return (
     <STabContainer>

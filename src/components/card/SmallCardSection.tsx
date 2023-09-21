@@ -31,5 +31,5 @@ const SmallCardSection = ({onMoveToScreen}: ISmallCardSectionProps) => {
 export default SmallCardSection;
 
 const SCardItemWrapper = styled.View`
-  margin: 10px 0;
+  margin-bottom: 20px;
 `;
