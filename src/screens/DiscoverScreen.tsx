@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {Suspense, useState} from 'react';
 import {View, useWindowDimensions} from 'react-native';
 import {TabView, TabBar} from 'react-native-tab-view';
 import styled from 'styled-components/native';
 import {FirstTab, SecondTab, ThirdTab, FourthTab} from '@components/Tabs';
-import {SearchInput, Title} from '@components/common';
+import {SearchInput, Title, LoadingSpinner} from '@components/common';
+import RetryErrorBoundary from '@components/errorBoundaries/RetryErrorBoundary';
 import useThemeColors from '@hooks/useThemeColors';
 import {ScreenProps} from './@types';
 import {IArticle} from '~/types';
@@ -33,13 +34,37 @@ const DiscoverScreen = ({navigation}: ScreenProps<'Discover'>) => {
   const renderScene = ({route}: TRoute) => {
     switch (route.key) {
       case 'first':
-        return <FirstTab onMoveToScreen={onMoveToScreen} />;
+        return (
+          <RetryErrorBoundary>
+            <Suspense fallback={<LoadingSpinner />}>
+              <FirstTab onMoveToScreen={onMoveToScreen} />
+            </Suspense>
+          </RetryErrorBoundary>
+        );
       case 'second':
-        return <SecondTab onMoveToScreen={onMoveToScreen} />;
+        return (
+          <RetryErrorBoundary>
+            <Suspense fallback={<LoadingSpinner />}>
+              <SecondTab onMoveToScreen={onMoveToScreen} />
+            </Suspense>
+          </RetryErrorBoundary>
+        );
       case 'third':
-        return <ThirdTab onMoveToScreen={onMoveToScreen} />;
+        return (
+          <RetryErrorBoundary>
+            <Suspense fallback={<LoadingSpinner />}>
+              <ThirdTab onMoveToScreen={onMoveToScreen} />
+            </Suspense>
+          </RetryErrorBoundary>
+        );
       case 'fourth':
-        return <FourthTab onMoveToScreen={onMoveToScreen} />;
+        return (
+          <RetryErrorBoundary>
+            <Suspense fallback={<LoadingSpinner />}>
+              <FourthTab onMoveToScreen={onMoveToScreen} />
+            </Suspense>
+          </RetryErrorBoundary>
+        );
       default:
         return null;
     }

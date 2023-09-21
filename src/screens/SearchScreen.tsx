@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {FlatList, ActivityIndicator} from 'react-native';
 import styled from 'styled-components/native';
 import {SmallCardItem} from '@components/card';
-import {ListFooter, CustomHeader} from '@components/common';
+import {ListFooter, CustomHeader, Separator} from '@components/common';
 import {useSearchNewsInfiniteQuery} from '~/hooks';
 import {loadMoreData} from '~/utils';
 import {ScreenProps} from './@types';
@@ -23,6 +23,7 @@ const SearchScreen = ({navigation}: ScreenProps<'Search'>) => {
     });
   }, []);
 
+  // error 처리
   return (
     <SResultContainer>
       {news && (
@@ -30,6 +31,7 @@ const SearchScreen = ({navigation}: ScreenProps<'Search'>) => {
           data={news?.pages}
           onEndReached={() => loadMoreData(hasNextPage, fetchNextPage)}
           onEndReachedThreshold={0.5}
+          ItemSeparatorComponent={() => <Separator />}
           renderItem={({item}) => (
             <SmallCardItem article={item} onMoveToScreen={onMoveToScreen} />
           )}

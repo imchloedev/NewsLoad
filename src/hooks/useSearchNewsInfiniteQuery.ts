@@ -33,6 +33,8 @@ export const useSearchNewsInfiniteQuery = (query: string) => {
         pages: data.pages.map(page => page).flat(),
         pageParams: data.pageParams,
       }),
+      suspense: false,
+      useErrorBoundary: false,
     },
   );
 

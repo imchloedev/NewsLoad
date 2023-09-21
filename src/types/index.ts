@@ -22,3 +22,7 @@ export interface ISavedArticle {
   article: IArticle;
   isSaved: boolean;
 }
+
+export interface ChildrenProps {
+  children: React.JSX.Element;
+}

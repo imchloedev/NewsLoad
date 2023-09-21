@@ -1,9 +1,10 @@
-import React from 'react';
-import {FlatList, ScrollView, Text} from 'react-native';
+import React, {Suspense} from 'react';
+import {FlatList, ScrollView} from 'react-native';
 import styled from 'styled-components/native';
 import {LargeCardSection, SmallCardSection} from '@components/card';
-import {Title, ChannelItem} from '@components/common';
+import {Title, ChannelItem, LoadingSpinner} from '@components/common';
 import {Abc, Bbc, Cnn, Cbs, Fox, Nbc, Insider} from '@components/assets';
+import RetryErrorBoundary from '@components/errorBoundaries/RetryErrorBoundary';
 import {useThemeColors} from '~/hooks';
 import {ScreenProps} from './@types';
 import {IArticle} from '~/types';
@@ -55,7 +56,11 @@ const HomeScreen = ({navigation}: ScreenProps<'Home'>) => {
         <STitleWrapper>
           <Title titleRole="sub" title="Hottest News" />
         </STitleWrapper>
-        <LargeCardSection onMoveToScreen={onMoveToScreen} />
+        <RetryErrorBoundary>
+          <Suspense fallback={<LoadingSpinner />}>
+            <LargeCardSection onMoveToScreen={onMoveToScreen} />
+          </Suspense>
+        </RetryErrorBoundary>
       </SSection>
 
       <SSection>
@@ -63,7 +68,11 @@ const HomeScreen = ({navigation}: ScreenProps<'Home'>) => {
           <Title titleRole="sub" title="Today's Headlines" />
         </STitleWrapper>
         <SContentWrapper>
-          <SmallCardSection onMoveToScreen={onMoveToScreen} />
+          <RetryErrorBoundary>
+            <Suspense fallback={<LoadingSpinner />}>
+              <SmallCardSection onMoveToScreen={onMoveToScreen} />
+            </Suspense>
+          </RetryErrorBoundary>
         </SContentWrapper>
       </SSection>
 
