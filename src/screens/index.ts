@@ -7,3 +7,4 @@ export {default as ViewScreen} from '@screens/ViewScreen';
 export {default as SearchScreen} from '@screens/SearchScreen';
 export {default as WebViewScreen} from '@screens/WebViewScreen';
 export {default as BookmarkScreen} from '@screens/BookmarkScreen';
+export {default as ChannelScreen} from '@screens/ChannelScreen';
