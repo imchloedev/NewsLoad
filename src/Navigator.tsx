@@ -22,6 +22,7 @@ import {
   SearchScreen,
   WebViewScreen,
   BookmarkScreen,
+  ChannelScreen,
 } from '~/screens';
 import {MainStackParamList} from '@screens/@types';
 import {CustomHeader} from '@components/common';
@@ -86,10 +87,9 @@ const MainStackNavi = () => {
         <Stack.Screen
           name="Search"
           component={SearchScreen}
-          options={{
-            headerTitle: '',
-            presentation: 'transparentModal',
-          }}
+          options={({navigation}) => ({
+            header: () => <CustomHeader navigation={navigation} />,
+          })}
         />
       </Stack.Group>
       <Stack.Group>
@@ -113,8 +113,23 @@ const MainStackNavi = () => {
           name="WebView"
           component={WebViewScreen}
           options={{
-            headerTitle: '',
+            ...commonOptions,
           }}
+        />
+        <Stack.Screen
+          name="Channel"
+          component={ChannelScreen}
+          options={({navigation}) => ({
+            ...commonOptions,
+            headerLeft: () => (
+              <Icon
+                name="arrow-back-outline"
+                size={22}
+                color={theme.colors.text}
+                onPress={() => navigation.goBack()}
+              />
+            ),
+          })}
         />
       </Stack.Group>
       <Stack.Group
@@ -323,6 +338,7 @@ const DrawerNavi = () => {
 
 const commonOptions = {
   headerTitle: '',
+  headerShadowVisible: false,
   headerStyle: {
     backgroundColor: 'transparent',
   },

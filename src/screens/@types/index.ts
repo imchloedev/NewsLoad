@@ -12,6 +12,7 @@ export type MainStackParamList = {
   WebView: {url: string};
   Bookmark: undefined;
   Discover: undefined;
+  Channel: {channel: string};
 };
 
 export type RootStackParamList = {
@@ -61,4 +62,9 @@ export type WebViewScreenProps = NativeStackScreenProps<
 export type BookmarkScreenProps = NativeStackScreenProps<
   MainStackParamList,
   'Bookmark'
+>;
+
+export type ChannelScreenProps = NativeStackScreenProps<
+  MainStackParamList,
+  'Channel'
 >;
