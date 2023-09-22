@@ -7,7 +7,7 @@ import {windowWidth, windowHeight} from '~/utils';
 import useThemeColors from '~/hooks/useThemeColors';
 import {ScreenProps} from './@types';
 
-const WebViewScreen = ({navigation, route}: ScreenProps<'View'>) => {
+const WebViewScreen = ({navigation, route}: ScreenProps<'WebView'>) => {
   const {url} = route.params;
   const ref = useRef<WebView | null>(null);
   const [nav, setNav] = useState<WebViewNavigation>();

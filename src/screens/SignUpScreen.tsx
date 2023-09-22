@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import styled from 'styled-components/native';
 import {SContainer, STitleWrapper} from './SignInScreen';
 import {CustomButton, CustomInput} from '@components/auth';
-import {Title} from '@components/common';
+import {Title, LoadingSpinner} from '@components/common';
 import {showAlert, validateEmail, validatePassword} from '~/utils';
 import {
   onSignUp,
@@ -79,6 +79,17 @@ const SignUpScreen = ({navigation}: ScreenProps<'SignUp'>) => {
           onPress={isOkaySignUp ? handleSignUp : undefined}
         />
       </SButtonWrapper>
+      {isLoading && (
+        <LoadingSpinner
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0,
+          }}
+        />
+      )}
     </SContainer>
   );
 };

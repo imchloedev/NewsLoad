@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import styled from 'styled-components/native';
 import {CustomButton, CustomInput} from '@components/auth';
-import {Title} from '@components/common';
+import {LoadingSpinner, Title} from '@components/common';
 import {
   handleFirebaseAuthError,
   isFirebaseAuthError,
@@ -75,6 +75,17 @@ const SignInScreen = ({navigation}: ScreenProps<'SignIn'>) => {
           onPress={() => navigation.navigate('SignUp')}
         />
       </SButtonGroup>
+      {isLoading && (
+        <LoadingSpinner
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0,
+          }}
+        />
+      )}
     </SContainer>
   );
 };
@@ -84,14 +95,12 @@ export default SignInScreen;
 export const SContainer = styled.View`
   flex: 1;
   justify-content: center;
-  align-items: center;
 `;
 
 const SSubCopy = styled.Text`
   font-family: 'Poppins-Regular';
   margin-top: 5px;
   color: ${({theme}) => theme.style.colors.text};
-  text-align: center;
 `;
 
 export const STitleWrapper = styled.View`

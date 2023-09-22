@@ -16,7 +16,7 @@ const SmallCardSection = ({onMoveToScreen}: ISmallCardSectionProps) => {
     <View>
       {news &&
         news.map((article, idx) => (
-          <SCardItemWrapper>
+          <SCardItemWrapper key={idx}>
             <SmallCardItem
               key={`${article.title}+${idx}`}
               article={article}

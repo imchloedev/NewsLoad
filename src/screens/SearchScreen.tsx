@@ -36,7 +36,11 @@ const SearchScreen = ({navigation}: ScreenProps<'Search'>) => {
             <SmallCardItem article={item} onMoveToScreen={onMoveToScreen} />
           )}
           ListFooterComponent={() =>
-            !isLoading && !hasNextPage && <ListFooter>None found </ListFooter>
+            news?.pages.length !== 0 && !isLoading && !hasNextPage ? (
+              <ListFooter>All articles loaded.</ListFooter>
+            ) : (
+              <ListFooter>None Found</ListFooter>
+            )
           }
         />
       )}
