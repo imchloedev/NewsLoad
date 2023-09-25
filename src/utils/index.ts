@@ -4,3 +4,4 @@ export * from './getCardStyle';
 export * from './validateAuth';
 export * from './loadMoreData';
 export * from './showAltert';
+export * from './createQueryKey';

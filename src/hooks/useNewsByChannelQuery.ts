@@ -1,7 +1,8 @@
 import {useQuery} from 'react-query';
 import {instance} from '~/apis/client';
 import Config from 'react-native-config';
-import {IArticle} from '~/types';
+import {IArticle, TUser} from '~/types';
+import {createUserNewsByChannelQueryKey} from '~/utils';
 
 export const getNewsByChannel = async (
   channel: string,
@@ -13,9 +14,9 @@ export const getNewsByChannel = async (
   return data.articles;
 };
 
-export const useNewsByChannelQuery = (channel: string) => {
+export const useNewsByChannelQuery = (channel: string, user: TUser) => {
   const {data: news} = useQuery(
-    ['news', channel],
+    createUserNewsByChannelQueryKey(user, channel),
     () => getNewsByChannel(channel),
     {
       onSuccess: () => console.log('DD'),

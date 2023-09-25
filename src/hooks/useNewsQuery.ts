@@ -13,6 +13,8 @@ export const getNews = async (): Promise<IArticle[]> => {
 
 export const useNewsQuery = (start?: number, total?: number) => {
   const {data: news} = useQuery(['news'], getNews, {
+    staleTime: 5 * 60 * 1000,
+    cacheTime: 10 * 6 * 1000,
     select: data => {
       if (total) {
         return data.slice(start, total);

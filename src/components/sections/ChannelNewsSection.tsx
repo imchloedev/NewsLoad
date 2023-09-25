@@ -1,6 +1,7 @@
 import React from 'react';
 import {FlatList, View} from 'react-native';
 import styled from 'styled-components/native';
+import auth from '@react-native-firebase/auth';
 import {SmallCardItem} from '@components/card';
 import {Title} from '@components/common';
 import {useNewsByChannelQuery} from '~/hooks';
@@ -10,7 +11,8 @@ interface IChannelNewsSectionProps {
 }
 
 const ChannelNewsSection = ({channelName}: IChannelNewsSectionProps) => {
-  const {news} = useNewsByChannelQuery(channelName);
+  const currentUser = auth().currentUser;
+  const {news} = useNewsByChannelQuery(channelName, currentUser);
 
   const getTitle = (name: string) => {
     const arr = name.split('-');

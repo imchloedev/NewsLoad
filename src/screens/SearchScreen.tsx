@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {FlatList, ActivityIndicator} from 'react-native';
 import styled from 'styled-components/native';
+import auth from '@react-native-firebase/auth';
 import {SmallCardItem} from '@components/card';
 import {ListFooter, CustomHeader, Separator} from '@components/common';
 import {useSearchNewsInfiniteQuery} from '~/hooks';
@@ -10,8 +11,9 @@ import {IArticle} from '~/types';
 
 const SearchScreen = ({navigation}: ScreenProps<'Search'>) => {
   const [text, setText] = useState('');
+  const currentUser = auth().currentUser;
   const {news, fetchNextPage, isLoading, isFetching, hasNextPage} =
-    useSearchNewsInfiniteQuery(text);
+    useSearchNewsInfiniteQuery(text, currentUser);
 
   const onMoveToScreen = (article: IArticle) => {
     navigation.push('View', {article});

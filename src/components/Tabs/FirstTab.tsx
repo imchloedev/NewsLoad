@@ -1,6 +1,7 @@
 import React from 'react';
 import {ActivityIndicator, FlatList} from 'react-native';
 import {styled} from 'styled-components/native';
+import auth from '@react-native-firebase/auth';
 import {SmallCardItem} from '@components/card';
 import {ListFooter, Separator} from '@components/common';
 import {TOnMoveToScreen} from '@components/card/LargeCardSection';
@@ -12,8 +13,9 @@ export interface ITabProps {
 }
 
 const FirstTab = ({onMoveToScreen}: ITabProps) => {
+  const currentUser = auth().currentUser;
   const {news, fetchNextPage, isLoading, isFetching, hasNextPage} =
-    useNewsByCategoryInfiniteQuery('business');
+    useNewsByCategoryInfiniteQuery('business', currentUser);
 
   return (
     <STabContainer>

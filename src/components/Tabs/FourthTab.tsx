@@ -1,5 +1,6 @@
 import React from 'react';
 import {FlatList, ActivityIndicator} from 'react-native';
+import auth from '@react-native-firebase/auth';
 import {SmallCardItem} from '@components/card';
 import {ListFooter, Separator} from '@components/common';
 import {useNewsByCategoryInfiniteQuery} from '~/hooks';
@@ -7,8 +8,9 @@ import {ITabProps, STabContainer} from './FirstTab';
 import {loadMoreData} from '~/utils';
 
 const FourthTab = ({onMoveToScreen}: ITabProps) => {
+  const currentUser = auth().currentUser;
   const {news, fetchNextPage, isLoading, isFetching, hasNextPage} =
-    useNewsByCategoryInfiniteQuery('science');
+    useNewsByCategoryInfiniteQuery('science', currentUser);
 
   return (
     <STabContainer>
