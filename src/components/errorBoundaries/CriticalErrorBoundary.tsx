@@ -29,13 +29,12 @@ const SErrorContainer = styled.SafeAreaView`
 `;
 
 const SErrorTitle = styled.Text`
-  font-family: 'Poppins-Regular';
-  font-weight: 700;
+  font-family: 'Poppins-Bold';
   font-size: 24px;
   padding: 10px 18px;
 `;
 
 const SErrorCopy = styled(SErrorTitle)`
-  font-weight: 400;
+  font-family: 'Poppins-Bold';
   font-size: 16px;
 `;

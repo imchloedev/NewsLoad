@@ -43,7 +43,6 @@ const CustomInput = ({
 export default CustomInput;
 
 const SInputWrapper = styled.View<{isValid: boolean}>`
-  border-style: 'solid';
   border-bottom-width: 1px;
   margin: 10px 18px;
   border-bottom-color: ${({theme, isValid}) =>

@@ -12,9 +12,8 @@ const Title = ({titleRole, title}: ISubTitleProps) => {
 
 export default Title;
 
-const STitleCopy = styled.Text<{titleRole: string}>`
-  font-family: 'Poppins-Regular';
+export const STitleCopy = styled.Text<{titleRole: string}>`
+  font-family: 'Poppins-Bold';
   font-size: ${({titleRole}) => (titleRole === 'main' ? '24px' : '18px')};
-  font-weight: bold;
   color: ${({theme}) => theme.style.colors.text};
 `;

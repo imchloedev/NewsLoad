@@ -23,15 +23,18 @@ export default SearchInput;
 const SInputWrapper = styled.View`
   ${({theme}) => theme.variables.flex('row', 'flex-start', 'center')}
   gap: 10px;
+  height: 50px;
 `;
 
 const SSearchInput = styled.TextInput.attrs({
   placeholder: 'Search',
   color: 'gray',
+  numberOfLines: 1,
 })`
+  ${({theme}) => theme.variables.flex('row', 'flex-start', 'center')}
   font-family: 'Poppins-Regular';
   flex-grow: 1;
   flex-shrink: 1;
-  height: 40px;
   color: ${({theme}) => theme.style.colors.text};
+  height: 50px;
 `;
