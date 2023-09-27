@@ -10,24 +10,20 @@ interface IChannelItem {
 
 const ChannelItem = ({channel, children, onMoveToChannel}: IChannelItem) => {
   return (
-    <SChannelWrapper onPress={() => onMoveToChannel(channel)}>
-      <SChannelInner>{children}</SChannelInner>
-    </SChannelWrapper>
+    <SChannelItem onPress={() => onMoveToChannel(channel)}>
+      {children}
+    </SChannelItem>
   );
 };
 
 export default ChannelItem;
 
-const SChannelWrapper = styled.TouchableOpacity`
-  width: ${windowWidth / 5.7 + 18}px;
-  height: ${windowWidth / 5.7}px;
+const SChannelItem = styled.TouchableOpacity`
+  flex-shrink: 0;
+  flex-basis: ${((windowWidth - 18 * 2) * 33.3) / 100 - 12}px;
+  flex-grow: 0;
   ${({theme}) => theme.variables.flex('row', 'center', 'center')}
-`;
-
-const SChannelInner = styled.View`
-  width: ${windowWidth / 5.7}px;
-  height: ${windowWidth / 5.7}px;
   background-color: ${({theme}) => theme.style.colors.card};
-  border-radius: 100px;
-  ${({theme}) => theme.variables.flex('column', 'center', 'center')}
+  padding: 16px;
+  border-radius: 20px;
 `;

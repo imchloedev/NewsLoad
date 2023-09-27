@@ -64,6 +64,6 @@ const SCardItemWrapper = styled.View`
 const SChannelCopy = styled(SText)`
   margin-top: 10px;
   font-size: 14px;
-  font-weight: 600;
+  font-family: 'Poppins-SemiBold';
   color: ${({theme}) => theme.style.colors.primary};
 `;

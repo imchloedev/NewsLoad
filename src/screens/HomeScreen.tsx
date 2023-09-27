@@ -1,5 +1,5 @@
 import React, {Suspense} from 'react';
-import {FlatList, ScrollView} from 'react-native';
+import {ScrollView} from 'react-native';
 import styled from 'styled-components/native';
 import {LargeCardSection, SmallCardSection} from '@components/card';
 import {Title, ChannelItem, LoadingSpinner} from '@components/common';
@@ -11,6 +11,7 @@ import {IArticle} from '~/types';
 
 const HomeScreen = ({navigation}: ScreenProps<'Home'>) => {
   const theme = useThemeColors();
+
   const CHANNELS = [
     {
       name: 'abc-news',
@@ -80,22 +81,13 @@ const HomeScreen = ({navigation}: ScreenProps<'Home'>) => {
         <STitleWrapper>
           <Title titleRole="sub" title="Explore Channels" />
         </STitleWrapper>
-        <SChannelCarousel>
-          <FlatList
-            data={CHANNELS}
-            horizontal
-            pagingEnabled
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{paddingRight: 18 / 2}}
-            renderItem={({item}) => (
-              <ChannelItem
-                channel={item.name}
-                onMoveToChannel={onMoveToChannel}>
-                {item.component}
-              </ChannelItem>
-            )}
-          />
-        </SChannelCarousel>
+        <SChannelsContainer>
+          {CHANNELS.map(({name, component}) => (
+            <ChannelItem channel={name} onMoveToChannel={onMoveToChannel}>
+              {component}
+            </ChannelItem>
+          ))}
+        </SChannelsContainer>
       </SSection>
     </ScrollView>
   );
@@ -115,7 +107,10 @@ const STitleWrapper = styled.View`
   padding: 20px 18px;
 `;
 
-const SChannelCarousel = styled.View`
-  margin-left: 9px;
-  margin-bottom: 80px;
+const SChannelsContainer = styled.View`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 18px;
+  padding: 20px 18px;
 `;
