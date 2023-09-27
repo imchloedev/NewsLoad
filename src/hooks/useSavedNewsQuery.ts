@@ -1,6 +1,6 @@
 import {useQuery} from 'react-query';
 import {bookmarksCollection} from '~/apis/database';
-import {TUser} from '~/types';
+import {ISavedArticle, TUser} from '~/types';
 import {createUserSavedNewsQueryKey} from '~/utils';
 
 const getSavedNews = async (user: TUser) => {
@@ -13,7 +13,7 @@ const getSavedNews = async (user: TUser) => {
     .orderBy('createdAt', 'desc')
     .get();
 
-  const data: any = querySnapshot.docs.map(documentSnapshot => {
+  const data: ISavedArticle[] = querySnapshot.docs.map(documentSnapshot => {
     const docData = documentSnapshot.data();
     return {
       id: documentSnapshot.id,
@@ -29,7 +29,11 @@ export const useSavedNewsQuery = (user: TUser) => {
   const {data: saved, isLoading} = useQuery(
     createUserSavedNewsQueryKey(user),
     () => getSavedNews(user),
-    {select: data => (user ? data : undefined)},
+    {
+      staleTime: Infinity,
+      cacheTime: Infinity,
+      select: data => (user ? data : undefined),
+    },
   );
 
   return {saved, isLoading};

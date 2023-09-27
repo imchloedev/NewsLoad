@@ -19,7 +19,8 @@ export const useNewsByChannelQuery = (channel: string, user: TUser) => {
     createUserNewsByChannelQueryKey(user, channel),
     () => getNewsByChannel(channel),
     {
-      onSuccess: () => console.log('DD'),
+      staleTime: 5 * 60 * 1000,
+      cacheTime: 10 * 60 * 1000,
     },
   );
 

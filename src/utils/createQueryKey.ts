@@ -21,3 +21,7 @@ export const createUserSavedNewsQueryKey = (user: TUser) => {
 export const createUserSearchQueryKey = (user: TUser, query: string) => {
   return ['news', 'headlines', {keyword: query}, {userId: user?.uid}];
 };
+
+export const createUserViewedNewsQueryKey = (user: TUser) => {
+  return ['news', 'viewed', {userId: user?.uid}];
+};
