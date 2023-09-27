@@ -14,7 +14,7 @@ export default Title;
 
 const STitleCopy = styled.Text<{titleRole: string}>`
   font-family: 'Poppins-Regular';
-  font-size: ${({titleRole}) => (titleRole === 'main' ? '24px' : '20px')};
+  font-size: ${({titleRole}) => (titleRole === 'main' ? '24px' : '18px')};
   font-weight: bold;
   color: ${({theme}) => theme.style.colors.text};
 `;

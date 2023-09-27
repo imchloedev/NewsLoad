@@ -10,10 +10,13 @@ declare module 'styled-components/native' {
         text: string;
         primary: string;
         gray: string;
+        lightGray: string;
         middleGray: string;
         darkGray: string;
         white: string;
         black: string;
+        toast: string;
+        toastText: string;
         inactive: string;
       };
     };
@@ -24,10 +27,13 @@ declare module 'styled-components/native' {
         text: string;
         primary: string;
         gray: string;
+        lightGray: string;
         middleGray: string;
         darkGray: string;
         white: string;
         black: string;
+        toast: string;
+        toastText: string;
         inactive: string;
       };
     };

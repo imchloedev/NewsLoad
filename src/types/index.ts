@@ -17,10 +17,17 @@ export interface IArticle {
 export type TUser = FirebaseAuthTypes.User | null;
 
 export interface ISavedArticle {
-  id: string;
+  id: string | undefined;
   userId: string;
   article: IArticle;
   isSaved: boolean;
+}
+
+export interface IAddedArticle {
+  userId: string | undefined;
+  createdAt: number;
+  article: IArticle;
+  isSaved?: boolean;
 }
 
 export interface ChildrenProps {
