@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android:dev": "react-native run-android --variant=develop",
-    "android:prod": "react-native run-android --variant=product",
+    "android:dev": "react-native run-android --mode=develop",
+    "android:prod": "react-native run-android --mode=product",
     "ios": "react-native run-ios --scheme Develop",
     "ios:prod": "react-native run-ios --scheme Production",
     "lint": "eslint .",
