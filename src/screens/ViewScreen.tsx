@@ -1,38 +1,50 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Animated, Image, TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import auth from '@react-native-firebase/auth';
+import {Toast} from '@components/common';
 import {dateToString, showAlert, windowHeight, windowWidth} from '~/utils';
 import {useSaveMutation, useSavedNewsQuery} from '~/hooks';
 import {ScreenProps} from './@types';
 import {ISavedArticle} from '~/types';
+import {
+  useAddViewedListMutation,
+  useUpdateViewListMutation,
+  useViewedNewsQuery,
+} from '~/hooks';
 
 const ViewScreen = ({navigation, route}: ScreenProps<'View'>) => {
-  const {title, author, publishedAt, urlToImage, description, url} =
-    route.params.article;
   const currentUser = auth().currentUser;
   const scrollY = useRef(new Animated.Value(0)).current;
-  const {mutation: onSaveArticle} = useSaveMutation();
+  const [snackBarVisible, setSnackBarVisible] = useState(false);
+  // query
+  const {viewed} = useViewedNewsQuery(currentUser);
   const {saved} = useSavedNewsQuery(currentUser);
+  // mutation
+  const {mutation: onSaveArticle} = useSaveMutation(currentUser);
+  const {mutation: onAddViewedList} = useAddViewedListMutation(currentUser);
+  const {mutation: onUpdateViewedList} = useUpdateViewListMutation(currentUser);
+
+  const {title, author, publishedAt, urlToImage, description, url} =
+    route.params.article;
   const isArticleSaved =
     saved && saved.some((list: ISavedArticle) => list.article.title === title);
+  const addedArticle = {
+    userId: currentUser?.uid,
+    createdAt: Date.now(),
+    article: route.params.article,
+  };
 
   const handleScroll = Animated.event(
     [{nativeEvent: {contentOffset: {y: scrollY}}}],
     {useNativeDriver: false},
   );
 
-  const handleBookmark = () => {
-    const savedArticle = {
-      userId: currentUser?.uid,
-      createdAt: Date.now(),
-      article: route.params.article,
-      isSaved: true,
-    };
-
+  const handleBookmark = async () => {
     if (!isArticleSaved) {
-      onSaveArticle.mutate(savedArticle);
+      await onSaveArticle.mutate({...addedArticle, isSaved: true});
+      setSnackBarVisible(true);
     } else {
       showAlert('Alert', 'This article was already in your bookmark list');
     }
@@ -54,49 +66,70 @@ const ViewScreen = ({navigation, route}: ScreenProps<'View'>) => {
     });
   }, [isArticleSaved]);
 
-  return (
-    <SContainer onScroll={handleScroll} scrollEventThrottle={16}>
-      <Animated.View
-        style={{
-          height: scrollY.interpolate({
-            inputRange: [0, windowHeight / 2],
-            outputRange: [windowHeight / 2, 0],
-            extrapolate: 'clamp',
-          }),
-        }}>
-        <Image
-          source={{uri: urlToImage}}
-          style={{
-            width: windowWidth,
-            height: windowHeight / 2,
-            resizeMode: 'cover',
-          }}
-        />
-      </Animated.View>
-      <SInfoWrapper>
-        <SInfoHeader>
-          <STitle>{title}</STitle>
-          <SAuthor>Written by {author}</SAuthor>
-          <SDate>Published at {dateToString(publishedAt)}</SDate>
-        </SInfoHeader>
+  useEffect(() => {
+    if (!currentUser || !route.params.article) {
+      return;
+    } else if (
+      viewed?.find(list => list.article.title === route.params.article.title)
+    ) {
+      const item = viewed?.filter(
+        list => list.article.title === route.params.article.title,
+      )[0];
+      const id = item?.id;
+      const updated = {...addedArticle, createdAt: Date.now()};
+      onUpdateViewedList.mutate({id, updated});
+    } else {
+      onAddViewedList.mutate(addedArticle);
+    }
+  }, []);
 
-        <SContent>{description}</SContent>
-        <SContent>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in the 1960s with
-          the release of Letraset sheets containing Lorem Ipsum passages, and
-          more recently with desktop publishing software like Aldus PageMaker
-          including versions of Lorem Ipsum.
-        </SContent>
-        <TouchableOpacity onPress={() => navigation.navigate('WebView', {url})}>
-          <SUrlBtnCopy>To keep reading this article, Click here!</SUrlBtnCopy>
-        </TouchableOpacity>
-      </SInfoWrapper>
-    </SContainer>
+  return (
+    <>
+      {snackBarVisible && <Toast text="Saved to bookmark list." />}
+      <SContainer onScroll={handleScroll} scrollEventThrottle={16}>
+        <Animated.View
+          style={{
+            height: scrollY.interpolate({
+              inputRange: [0, windowHeight / 2],
+              outputRange: [windowHeight / 2, 0],
+              extrapolate: 'clamp',
+            }),
+          }}>
+          <Image
+            source={{uri: urlToImage}}
+            style={{
+              width: windowWidth,
+              height: windowHeight / 2,
+              resizeMode: 'cover',
+            }}
+          />
+        </Animated.View>
+        <SInfoWrapper>
+          <SInfoHeader>
+            <STitle>{title}</STitle>
+            <SAuthor>Written by {author}</SAuthor>
+            <SDate>Published at {dateToString(publishedAt)}</SDate>
+          </SInfoHeader>
+
+          <SContent>{description}</SContent>
+          <SContent>
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book. It has survived not
+            only five centuries, but also the leap into electronic typesetting,
+            remaining essentially unchanged. It was popularised in the 1960s
+            with the release of Letraset sheets containing Lorem Ipsum passages,
+            and more recently with desktop publishing software like Aldus
+            PageMaker including versions of Lorem Ipsum.
+          </SContent>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('WebView', {url})}>
+            <SUrlBtnCopy>To keep reading this article, Click here!</SUrlBtnCopy>
+          </TouchableOpacity>
+        </SInfoWrapper>
+      </SContainer>
+    </>
   );
 };
 
@@ -124,19 +157,17 @@ const SText = styled.Text`
 
 const STitle = styled(SText)`
   font-size: 24px;
-  font-weight: 700;
+  font-family: 'Poppins-Bold';
   padding-bottom: 20px;
 `;
 
 const SAuthor = styled(SText)`
   font-size: 14px;
-  font-weight: 400;
   color: ${({theme}) => theme.style.colors.gray};
 `;
 
 const SDate = styled(SText)`
   font-size: 14px;
-  font-weight: 400;
   color: ${({theme}) => theme.style.colors.gray};
 `;
 
@@ -150,5 +181,5 @@ const SUrlBtnCopy = styled(SText)`
   color: ${({theme}) => theme.style.colors.primary};
   text-align: center;
   padding: 10px 0;
-  font-weight: 700;
+  font-family: 'Poppins-Bold';
 `;

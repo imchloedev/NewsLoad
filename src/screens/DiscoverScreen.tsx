@@ -76,8 +76,8 @@ const DiscoverScreen = ({navigation}: ScreenProps<'Discover'>) => {
         <Title titleRole="main" title="Discover" />
       </STtileWrapper>
 
-      <SInputContainer>
-        <SearchInput onPressIn={() => navigation.navigate('Search')} />
+      <SInputContainer onPress={() => navigation.navigate('Search')}>
+        <SearchInput editable={false} />
       </SInputContainer>
 
       <TabView
@@ -114,7 +114,7 @@ const STtileWrapper = styled.View`
   padding: 20px 18px;
 `;
 
-const SInputContainer = styled.View`
+const SInputContainer = styled.TouchableOpacity`
   background-color: ${({theme}) => theme.style.colors.card};
   border-radius: 20px;
   margin: 10px 18px 20px 18px;

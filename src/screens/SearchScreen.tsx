@@ -1,9 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, ActivityIndicator} from 'react-native';
+import {FlatList} from 'react-native';
 import styled from 'styled-components/native';
 import auth from '@react-native-firebase/auth';
 import {SmallCardItem} from '@components/card';
-import {ListFooter, CustomHeader, Separator} from '@components/common';
+import {
+  ListFooter,
+  CustomHeader,
+  Separator,
+  LoadingSpinner,
+} from '@components/common';
 import {useSearchNewsInfiniteQuery} from '~/hooks';
 import {loadMoreData} from '~/utils';
 import {ScreenProps} from './@types';
@@ -12,7 +17,7 @@ import {IArticle} from '~/types';
 const SearchScreen = ({navigation}: ScreenProps<'Search'>) => {
   const [text, setText] = useState('');
   const currentUser = auth().currentUser;
-  const {news, fetchNextPage, isLoading, isFetching, hasNextPage} =
+  const {news, fetchNextPage, isFetching, hasNextPage} =
     useSearchNewsInfiniteQuery(text, currentUser);
 
   const onMoveToScreen = (article: IArticle) => {
@@ -25,7 +30,6 @@ const SearchScreen = ({navigation}: ScreenProps<'Search'>) => {
     });
   }, []);
 
-  // error 처리
   return (
     <SResultContainer>
       {news && (
@@ -37,16 +41,16 @@ const SearchScreen = ({navigation}: ScreenProps<'Search'>) => {
           renderItem={({item}) => (
             <SmallCardItem article={item} onMoveToScreen={onMoveToScreen} />
           )}
-          ListFooterComponent={() =>
-            news?.pages.length !== 0 && !isLoading && !hasNextPage ? (
-              <ListFooter>All articles loaded.</ListFooter>
-            ) : (
-              <ListFooter>None Found</ListFooter>
-            )
-          }
+          ListFooterComponent={() => {
+            if (news?.pages.length % 10 > 0) {
+              return <ListFooter>All articles loaded.</ListFooter>;
+            } else if (news.pages.length === 0) {
+              return <ListFooter>None Found</ListFooter>;
+            }
+          }}
         />
       )}
-      {isFetching && <ActivityIndicator />}
+      {isFetching && <LoadingSpinner />}
     </SResultContainer>
   );
 };

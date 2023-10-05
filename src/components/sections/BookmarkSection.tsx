@@ -23,7 +23,7 @@ interface IBookmarkSectionProps {
 const BookmarkSection = ({onMoveToScreen}: IBookmarkSectionProps) => {
   const currentUser = auth().currentUser;
   const {saved} = useSavedNewsQuery(currentUser);
-  const {mutation: onDeleteArticle} = useDeleteMutation();
+  const {mutation: onDeleteArticle} = useDeleteMutation(currentUser);
   const theme = useThemeColors();
 
   const renderRightActions = (
@@ -70,9 +70,12 @@ const BookmarkSection = ({onMoveToScreen}: IBookmarkSectionProps) => {
             <SSavedItemContainer>
               <GestureHandlerRootView>
                 <Swipeable
-                  renderRightActions={dragX =>
-                    renderRightActions(dragX, item.id)
-                  }>
+                  renderRightActions={dragX => {
+                    if (!item.id) {
+                      return;
+                    }
+                    return renderRightActions(dragX, item.id);
+                  }}>
                   <Suspense fallback={<ActivityIndicator />}>
                     <SmallCardItem
                       article={item.article}
