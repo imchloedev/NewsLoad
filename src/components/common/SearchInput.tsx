@@ -3,17 +3,17 @@ import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 interface ISearchInput {
-  onPressIn?: () => void;
+  editable?: boolean;
   onChangeText?: any;
   autoFocus?: boolean;
   autoCapitalize?: any;
 }
 
-const SearchInput = ({onPressIn, ...others}: ISearchInput) => {
+const SearchInput = ({...others}: ISearchInput) => {
   return (
     <SInputWrapper>
       <Icon name="search-outline" size={16} color={'gray'} />
-      <SSearchInput onPressIn={onPressIn} {...others} />
+      <SSearchInput {...others} />
     </SInputWrapper>
   );
 };
@@ -23,7 +23,7 @@ export default SearchInput;
 const SInputWrapper = styled.View`
   ${({theme}) => theme.variables.flex('row', 'flex-start', 'center')}
   gap: 10px;
-  height: 50px;
+  height: 44x;
 `;
 
 const SSearchInput = styled.TextInput.attrs({
@@ -36,5 +36,5 @@ const SSearchInput = styled.TextInput.attrs({
   flex-grow: 1;
   flex-shrink: 1;
   color: ${({theme}) => theme.style.colors.text};
-  height: 50px;
+  height: 44px;
 `;

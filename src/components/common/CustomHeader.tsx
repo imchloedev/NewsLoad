@@ -1,15 +1,12 @@
 import React from 'react';
 import {StatusBar, Platform} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
 import styled from 'styled-components/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {SearchInput} from '@components/common';
 import useThemeColors from '~/hooks/useThemeColors';
 import {MainStackParamList} from '@screens/@types';
-
-const statusBarHeight =
-  Platform.OS === 'ios' ? getStatusBarHeight(true) : StatusBar.currentHeight;
 
 interface ICustomHeaderProps {
   navigation: NativeStackNavigationProp<MainStackParamList, 'Search'>;
@@ -18,6 +15,10 @@ interface ICustomHeaderProps {
 
 const CustomHeader = ({navigation, setText}: ICustomHeaderProps) => {
   const theme = useThemeColors();
+  const inset = useSafeAreaInsets();
+  const statusBarHeight =
+    Platform.OS === 'ios' ? inset.top : StatusBar.currentHeight;
+
   return (
     <SHeader statusBarHeight={statusBarHeight}>
       <Icon
@@ -42,7 +43,8 @@ export default CustomHeader;
 const SHeader = styled.View<{statusBarHeight: number | undefined}>`
   width: 100%;
   height: ${({statusBarHeight}) => statusBarHeight && statusBarHeight + 50}px;
-  padding: 50px 18px 0 18px;
+  padding: ${({statusBarHeight}) =>
+    statusBarHeight && `${statusBarHeight}px 18px 0 18px`};
   ${({theme}) => theme.variables.flex('row', 'flex-start', 'center')};
   gap: 20px;
   background-color: ${({theme}) => theme.style.colors.background};

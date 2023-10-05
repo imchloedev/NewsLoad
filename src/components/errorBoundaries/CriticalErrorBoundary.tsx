@@ -35,6 +35,6 @@ const SErrorTitle = styled.Text`
 `;
 
 const SErrorCopy = styled(SErrorTitle)`
-  font-family: 'Poppins-Bold';
+  font-family: 'Poppins-Regular';
   font-size: 16px;
 `;
