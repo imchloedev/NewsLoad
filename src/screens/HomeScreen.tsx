@@ -83,7 +83,10 @@ const HomeScreen = ({navigation}: ScreenProps<'Home'>) => {
         </STitleWrapper>
         <SChannelsContainer>
           {CHANNELS.map(({name, component}) => (
-            <ChannelItem channel={name} onMoveToChannel={onMoveToChannel}>
+            <ChannelItem
+              key={name}
+              channel={name}
+              onMoveToChannel={onMoveToChannel}>
               {component}
             </ChannelItem>
           ))}

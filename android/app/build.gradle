@@ -1,4 +1,5 @@
 apply plugin: "com.android.application"
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 apply plugin: "com.facebook.react"
 apply plugin: 'com.google.gms.google-services'
 
@@ -71,9 +72,10 @@ def jscFlavor = 'org.webkit:android-jsc:+'
 
 
 project.ext.envConfigFiles = [
-    develope: "env/.env.development",
-    product: "env/.env.producttion",
-    anothercustombuild: ".env",
+    developdebug: "env/.env.development",
+    developrelease: "env/.env.develop", 
+    productdebug: "env/.env.producttion",
+    productrelease: "env/.env.product",
 ]
 
 
@@ -89,6 +91,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        resValue "string", "build_config_package", "com.newsload"
     }
     signingConfigs {
         debug {
@@ -144,5 +147,4 @@ dependencies {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
-apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
