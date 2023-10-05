@@ -11,7 +11,7 @@ interface ILargeCardItemProps {
 }
 
 const LargeCardItem = ({article, onMoveToScreen}: ILargeCardItemProps) => {
-  const {cardWidth, pageWidth} = getCardStyle();
+  const {cardWidth, pageWidth} = getCardStyle(18, 36);
 
   return (
     <SCard pageWidth={pageWidth}>

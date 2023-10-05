@@ -83,7 +83,21 @@ const MainStackNavi = () => {
             ),
           })}
         />
-        <Stack.Screen name="Profile" component={ProfileScreen} />
+        <Stack.Screen
+          name="Profile"
+          component={ProfileScreen}
+          options={({navigation}) => ({
+            ...commonOptions,
+            headerLeft: () => (
+              <Icon
+                name="arrow-back-outline"
+                size={22}
+                color={theme.colors.text}
+                onPress={() => navigation.goBack()}
+              />
+            ),
+          })}
+        />
         <Stack.Screen
           name="Search"
           component={SearchScreen}
@@ -256,13 +270,13 @@ const CustomDrawer = (props: DrawerContentComponentProps) => {
         {user ? (
           <DrawerItem
             label="Sign out"
-            labelStyle={{fontFamily: 'Poppins-Regular'}}
+            labelStyle={{fontFamily: 'Poppins-SemiBold'}}
             onPress={handleLogout}
           />
         ) : (
           <DrawerItem
             label="Sign In"
-            labelStyle={{fontFamily: 'Poppins-Regular'}}
+            labelStyle={{fontFamily: 'Poppins-SemiBold'}}
             onPress={() => props.navigation.navigate('SignIn')}
           />
         )}
@@ -287,7 +301,7 @@ const DrawerNavi = () => {
           width: '70%',
         },
         drawerLabelStyle: {
-          fontFamily: 'Poppins-Regular',
+          fontFamily: 'Poppins-SemiBold',
         },
       }}>
       <Drawer.Screen

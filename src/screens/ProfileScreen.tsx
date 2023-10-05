@@ -1,23 +1,12 @@
-import React from 'react';
-import {Button, FlatList, Text, View} from 'react-native';
-import {onSignOut} from '~/apis/auth';
-import {ScreenProps} from './@types';
+import React, {Suspense} from 'react';
+import {ScrollView} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import styled from 'styled-components/native';
-import {Title} from '~/components/common';
-import ListItem from '~/components/common/ListItem';
-
-const LIST = [
-  {id: 1, text: 'ddd'},
-  {id: 2, text: 'ddd'},
-  {id: 3, text: 'ddd'},
-  {id: 4, text: 'ddd'},
-  {id: 5, text: 'ddd'},
-  {id: 6, text: 'ddd'},
-  {id: 7, text: 'ddd'},
-  {id: 8, text: 'ddd'},
-  {id: 9, text: 'ddd'},
-];
+import {LoadingSpinner, Title, History} from '@components/common';
+import {CustomButton} from '@components/auth';
+import {onSignOut} from '~/apis/auth';
+import {ScreenProps} from './@types';
+import {showAlert} from '~/utils';
 
 const ProfileScreen = ({navigation}: ScreenProps<'Profile'>) => {
   const currentUser = auth().currentUser;
@@ -27,35 +16,32 @@ const ProfileScreen = ({navigation}: ScreenProps<'Profile'>) => {
       await onSignOut();
       navigation.navigate('Home');
     } catch (error: unknown) {
-      // showAlert('Error', 'Please try again later');
+      showAlert('Error', 'Please try again later');
     }
   };
 
   return (
-    <View>
+    <ScrollView>
       <STitleWrapper>
         <Title titleRole="main" title="Profile" />
       </STitleWrapper>
 
       <STextWrapper>
-        <SText>Hello,</SText>
+        <SText>Welcome!</SText>
         <SEmailCopy>{currentUser?.email?.split('@')[0]}</SEmailCopy>
       </STextWrapper>
 
       <STitleWrapper>
         <Title titleRole="sub" title="Recently viewed" />
       </STitleWrapper>
+      <Suspense fallback={<LoadingSpinner />}>
+        <History navigation={navigation} />
+      </Suspense>
 
-      <SListWrapper>
-        <FlatList
-          data={LIST}
-          renderItem={({item}) => <ListItem />}
-          ItemSeparatorComponent={() => <SSeparator />}
-        />
-      </SListWrapper>
-
-      <Button title="log out" onPress={onLeave} />
-    </View>
+      <SBtnWrapper>
+        <CustomButton title="Sign out" onPress={onLeave} active={false} />
+      </SBtnWrapper>
+    </ScrollView>
   );
 };
 
@@ -66,28 +52,23 @@ const STitleWrapper = styled.View`
 `;
 
 const STextWrapper = styled.View`
-  ${({theme}) => theme.variables.flex('row', 'flex-start', 'center')}
+  ${({theme}) => theme.variables.flex('column', 'center', 'center')}
   gap: 10px;
-  padding: 10px 18px;
+  padding: 20px 18px 40px 18px;
 `;
 
 const SText = styled.Text`
-  font-size: 18px;
+  font-size: 14px;
   font-family: 'Poppins-Regular';
+  color: ${({theme}) => theme.style.colors.text};
 `;
 
 const SEmailCopy = styled(SText)`
-  font-weight: 700;
+  font-family: 'Poppins-Bold';
   text-transform: capitalize;
+  font-size: 18px;
 `;
 
-const SListWrapper = styled.View`
-  padding: 20px 18px;
-`;
-
-const SSeparator = styled.View`
-  width: 100%;
-  height: 1px;
-  margin: 10px 0;
-  background-color: ${({theme}) => theme.style.colors.gray};
+const SBtnWrapper = styled.View`
+  padding-top: 60px;
 `;

@@ -6,3 +6,6 @@ export * from './useSavedNewsQuery';
 export * from './useDeleteMutation';
 export * from './useNewsByChannelQuery';
 export * from './useSearchNewsInfiniteQuery';
+export * from './useViewedNewsQuery';
+export * from './useAddViewedListMutation';
+export * from './useUpdateViewedListMutation';

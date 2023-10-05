@@ -23,7 +23,7 @@ const LargeCardSection = ({onMoveToScreen}: ILargeCardSectionProps) => {
   const {news} = useNewsQuery(0, 5);
   const [currentPage, setCurrentPage] = useState<number>(0);
   const flatListRef = useRef<FlatList | null>(null);
-  const {gap, pageWidth} = getCardStyle();
+  const {gap, pageWidth} = getCardStyle(18, 36);
   const theme = useThemeColors();
 
   const scrollToPage = (pageIndex: number) => {
