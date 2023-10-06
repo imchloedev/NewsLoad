@@ -10,6 +10,8 @@ import {RecoilRoot} from 'recoil';
 import Navigator from './Navigator';
 import {LogBox, useColorScheme} from 'react-native';
 import {ThemeProvider} from 'styled-components/native';
+import SplashScreen from 'react-native-splash-screen';
+
 import {darkTheme, lightTheme, variables} from '~/styles/theme';
 import {useEffect, useState} from 'react';
 LogBox.ignoreLogs(['Sending']);
@@ -43,6 +45,12 @@ function App() {
     });
 
     return handleUser;
+  }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      SplashScreen.hide();
+    }, 2000);
   }, []);
 
   return (

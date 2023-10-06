@@ -4,6 +4,19 @@
     <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="android:editTextBackground">@drawable/rn_edit_text_material</item>
+        <item name="android:windowIsTranslucent">true</item> 
+    </style>
+
+        <!-- light mode theme -->
+    <style name="LightTheme" parent="AppTheme">
+        <item name="backgroundColor">#ffffff</item>
+        <item name="launchImage">@drawable/light_splash</item>
+    </style>
+
+        <!-- Dark mode theme-->
+    <style name="DarkTheme" parent="AppTheme">
+        <item name="backgroundColor">#000000</item>
+        <item name="launchImage">@drawable/dark_splash</item>
     </style>
 
 </resources>
