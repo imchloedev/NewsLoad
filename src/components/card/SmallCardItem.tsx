@@ -14,16 +14,16 @@ interface SSmallCardItemProps {
 const SmallCardItem = ({article, onMoveToScreen}: SSmallCardItemProps) => {
   return (
     <SSmallCardWrapper onPress={() => onMoveToScreen(article)}>
-      <SImageWrapper>
+      <SArticleImageWrapper>
         {article.urlToImage ? (
           <Image
             source={{uri: article.urlToImage}}
             style={{width: 100, height: 100, resizeMode: 'cover'}}
           />
         ) : (
-          <SImageCopy>Image not provided</SImageCopy>
+          <SArticleImageCopy>Image not provided</SArticleImageCopy>
         )}
-      </SImageWrapper>
+      </SArticleImageWrapper>
 
       <SArticleInfo>
         <SArticleTitle>{article.title}</SArticleTitle>
@@ -58,7 +58,7 @@ const SSmallCardWrapper = styled.TouchableOpacity`
   border-radius: 20px;
 `;
 
-const SImageWrapper = styled.View`
+const SArticleImageWrapper = styled.View`
   width: 100px;
   height: 100px;
   border-radius: 10px;
@@ -100,8 +100,9 @@ const SAuthorCopy = styled.Text.attrs({numberOfLines: 1})`
   flex-shrink: 1;
 `;
 
-const SImageCopy = styled.Text`
+export const SArticleImageCopy = styled.Text`
   color: gray;
   font-size: 12px;
   text-align: center;
+  font-family: 'Poppins-Regular';
 `;

@@ -2,16 +2,16 @@ import React, {useEffect, useRef, useState} from 'react';
 import {BackHandler, TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
 import WebView, {WebViewNavigation} from 'react-native-webview';
-import Icon from 'react-native-vector-icons/Ionicons';
+import Clipboard from '@react-native-clipboard/clipboard';
+import {WebViewHeader, Toast} from '@components/common';
 import {windowWidth, windowHeight} from '~/utils';
-import useThemeColors from '~/hooks/useThemeColors';
 import {ScreenProps} from './@types';
 
 const WebViewScreen = ({navigation, route}: ScreenProps<'WebView'>) => {
   const {url} = route.params;
+  const [isToastVisible, setIsToastVisible] = useState(false);
   const ref = useRef<WebView | null>(null);
   const [nav, setNav] = useState<WebViewNavigation>();
-  const theme = useThemeColors();
 
   useEffect(() => {
     if (!nav) {
@@ -30,24 +30,20 @@ const WebViewScreen = ({navigation, route}: ScreenProps<'WebView'>) => {
       }
     };
 
+    const copyToClipboard = () => {
+      Clipboard.setString(url);
+      setIsToastVisible(true);
+    };
+
     navigation.setOptions({
-      headerTitle: () => <SUrlCopy>{url}</SUrlCopy>,
-      headerLeft: () =>
-        canGoBack ? (
-          <Icon
-            name="arrow-back-outline"
-            size={22}
-            color={theme.colors.text}
-            onPress={onPress}
-          />
-        ) : (
-          <Icon
-            name="close-outline"
-            size={22}
-            color={theme.colors.text}
-            onPress={onPress}
-          />
-        ),
+      header: () => (
+        <WebViewHeader
+          onPress={onPress}
+          url={url}
+          canGoBack={canGoBack}
+          copyToClipboard={copyToClipboard}
+        />
+      ),
     });
 
     BackHandler.addEventListener('hardwareBackPress', onPress);
@@ -57,6 +53,14 @@ const WebViewScreen = ({navigation, route}: ScreenProps<'WebView'>) => {
 
   return (
     <SContainer>
+      {isToastVisible && (
+        <Toast
+          text="Link copied to clipboard"
+          onClose={() => setIsToastVisible(false)}
+          bottom={100}
+          isWrapped={false}
+        />
+      )}
       {url ? (
         <WebView
           ref={ref}
@@ -100,14 +104,4 @@ const SErrorCopy = styled.Text`
 const SReturnCopy = styled(SErrorCopy)`
   font-size: 14px;
   color: ${({theme}) => theme.style.colors.primary};
-`;
-
-const SUrlCopy = styled.Text.attrs({
-  numberOfLines: 1,
-})`
-  width: 70%;
-  font-family: 'Poppins-Regular';
-  font-size: 12px;
-  color: ${({theme}) => theme.style.colors.text};
-  text-align: center;
 `;

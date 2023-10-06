@@ -1,17 +1,24 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import styled from 'styled-components/native';
 import {Animated} from 'react-native';
 
 interface IToastProps {
   text: string;
-  visible?: boolean;
-  setVisible?: () => void;
+  bottom: number;
+  onClose: () => void;
+  isWrapped: boolean;
 }
 
-const Toast = ({text}: IToastProps) => {
+const Toast = ({text, onClose, bottom, isWrapped}: IToastProps) => {
+  const [isToastVisible, setIsToastVisible] = useState(true);
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsToastVisible(false);
+      onClose();
+    }, 2100);
+
     Animated.sequence([
       Animated.timing(fadeAnim, {
         toValue: 1,
@@ -20,36 +27,40 @@ const Toast = ({text}: IToastProps) => {
       }),
       Animated.timing(fadeAnim, {
         toValue: 0,
-        duration: 2000,
+        duration: 1000,
         useNativeDriver: true,
       }),
     ]).start();
+
+    return () => clearTimeout(timer);
   }, []);
 
   return (
-    <SToastContainer style={{opacity: fadeAnim}}>
-      <SToastWrapper>
-        <SToastCopy>{text}</SToastCopy>
-      </SToastWrapper>
+    <SToastContainer bottom={bottom} isWrapped={isWrapped}>
+      {isToastVisible && (
+        <SToastWrapper style={{opacity: fadeAnim}}>
+          <SToastCopy>{text}</SToastCopy>
+        </SToastWrapper>
+      )}
     </SToastContainer>
   );
 };
 
 export default Toast;
 
-const SToastContainer = styled(Animated.View)`
+const SToastContainer = styled.View<{bottom: number; isWrapped: boolean}>`
   width: 100%;
   height: auto;
   position: absolute;
-  bottom: 50px;
+  bottom: ${({bottom}) => bottom}px;
   left: 0;
   right: 0;
   z-index: 100;
   background-color: transparent;
+  padding: ${({isWrapped}) => (isWrapped ? 0 : '0 18px')};
 `;
 
-const SToastWrapper = styled.View`
-  margin: 0 18px;
+const SToastWrapper = styled(Animated.View)`
   background-color: ${({theme}) => theme.style.colors.toast};
   border-radius: 10px;
   padding: 18px;

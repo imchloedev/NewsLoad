@@ -1212,6 +1212,8 @@ PODS:
     - React-logger (= 0.72.4)
     - React-perflogger (= 0.72.4)
   - RecaptchaInterop (100.0.0)
+  - RNCClipboard (1.12.1):
+    - React-Core
   - RNFBApp (18.4.0):
     - Firebase/CoreOnly (= 10.14.0)
     - React-Core
@@ -1313,6 +1315,7 @@ DEPENDENCIES:
   - React-runtimescheduler (from `../node_modules/react-native/ReactCommon/react/renderer/runtimescheduler`)
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - "RNCClipboard (from `../node_modules/@react-native-clipboard/clipboard`)"
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - "RNFBAuth (from `../node_modules/@react-native-firebase/auth`)"
   - "RNFBFirestore (from `../node_modules/@react-native-firebase/firestore`)"
@@ -1434,6 +1437,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/react/utils"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNCClipboard:
+    :path: "../node_modules/@react-native-clipboard/clipboard"
   RNFBApp:
     :path: "../node_modules/@react-native-firebase/app"
   RNFBAuth:
@@ -1514,6 +1519,7 @@ SPEC CHECKSUMS:
   React-utils: e174d6f20610d60583c99177f4cb23673ed4c817
   ReactCommon: b5d6af97e48dfbb85ea5786337bd7f7acbc0e585
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
+  RNCClipboard: d77213bfa269013bf4b857b7a9ca37ee062d8ef1
   RNFBApp: a0bc818210d2c452461842f7a0a4e456c11ed831
   RNFBAuth: a304236349f219f95b5334977596253a04209fbf
   RNFBFirestore: b24cacb31d8aaa9634cb7c06e539d9bf2ac8bdc9

@@ -1,4 +1,4 @@
-import React, {Suspense} from 'react';
+import React, {Suspense, useState} from 'react';
 import {
   FlatList,
   Text,
@@ -12,7 +12,7 @@ import styled from 'styled-components/native';
 import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {SmallCardItem} from '@components/card';
-import {ListFooter, Separator, Title} from '@components/common';
+import {ListFooter, Separator, Title, Toast} from '@components/common';
 import {useThemeColors, useDeleteMutation, useSavedNewsQuery} from '~/hooks';
 import {IArticle} from '~/types';
 
@@ -21,6 +21,7 @@ interface IBookmarkSectionProps {
 }
 
 const BookmarkSection = ({onMoveToScreen}: IBookmarkSectionProps) => {
+  const [isToastVisible, setIsToastVisible] = useState(false);
   const currentUser = auth().currentUser;
   const {saved} = useSavedNewsQuery(currentUser);
   const {mutation: onDeleteArticle} = useDeleteMutation(currentUser);
@@ -36,7 +37,11 @@ const BookmarkSection = ({onMoveToScreen}: IBookmarkSectionProps) => {
     });
 
     return (
-      <Pressable onPress={() => onDeleteArticle.mutate(id)}>
+      <Pressable
+        onPress={() => {
+          onDeleteArticle.mutate(id);
+          setIsToastVisible(true);
+        }}>
         <Animated.View
           style={{
             backgroundColor: 'red',
@@ -56,6 +61,15 @@ const BookmarkSection = ({onMoveToScreen}: IBookmarkSectionProps) => {
 
   return (
     <View style={{flex: 1}}>
+      {isToastVisible && (
+        <Toast
+          text="Removed from the bookmark list"
+          onClose={() => setIsToastVisible(false)}
+          bottom={50}
+          isWrapped={true}
+        />
+      )}
+
       {saved && (
         <FlatList
           ListHeaderComponent={() => (

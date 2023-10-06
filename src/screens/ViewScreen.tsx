@@ -4,6 +4,7 @@ import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import auth from '@react-native-firebase/auth';
 import {Toast} from '@components/common';
+import {SArticleImageCopy} from '@components/card/SmallCardItem';
 import {dateToString, showAlert, windowHeight, windowWidth} from '~/utils';
 import {useSaveMutation, useSavedNewsQuery} from '~/hooks';
 import {ScreenProps} from './@types';
@@ -17,7 +18,7 @@ import {
 const ViewScreen = ({navigation, route}: ScreenProps<'View'>) => {
   const currentUser = auth().currentUser;
   const scrollY = useRef(new Animated.Value(0)).current;
-  const [snackBarVisible, setSnackBarVisible] = useState(false);
+  const [isToastVisible, setIsToastVisible] = useState(false);
   // query
   const {viewed} = useViewedNewsQuery(currentUser);
   const {saved} = useSavedNewsQuery(currentUser);
@@ -44,7 +45,7 @@ const ViewScreen = ({navigation, route}: ScreenProps<'View'>) => {
   const handleBookmark = async () => {
     if (!isArticleSaved) {
       await onSaveArticle.mutate({...addedArticle, isSaved: true});
-      setSnackBarVisible(true);
+      setIsToastVisible(true);
     } else {
       showAlert('Alert', 'This article was already in your bookmark list');
     }
@@ -85,7 +86,14 @@ const ViewScreen = ({navigation, route}: ScreenProps<'View'>) => {
 
   return (
     <>
-      {snackBarVisible && <Toast text="Saved to bookmark list." />}
+      {isToastVisible && (
+        <Toast
+          text="Saved to bookmark list."
+          onClose={() => setIsToastVisible(false)}
+          bottom={50}
+          isWrapped={false}
+        />
+      )}
       <SContainer onScroll={handleScroll} scrollEventThrottle={16}>
         <Animated.View
           style={{
@@ -95,14 +103,20 @@ const ViewScreen = ({navigation, route}: ScreenProps<'View'>) => {
               extrapolate: 'clamp',
             }),
           }}>
-          <Image
-            source={{uri: urlToImage}}
-            style={{
-              width: windowWidth,
-              height: windowHeight / 2,
-              resizeMode: 'cover',
-            }}
-          />
+          <SImageWrapper>
+            {urlToImage ? (
+              <Image
+                source={{uri: urlToImage}}
+                style={{
+                  width: windowWidth,
+                  height: windowHeight / 2,
+                  resizeMode: 'cover',
+                }}
+              />
+            ) : (
+              <SArticleImageCopy>Image not provided</SArticleImageCopy>
+            )}
+          </SImageWrapper>
         </Animated.View>
         <SInfoWrapper>
           <SInfoHeader>
@@ -182,4 +196,10 @@ const SUrlBtnCopy = styled(SText)`
   text-align: center;
   padding: 10px 0;
   font-family: 'Poppins-Bold';
+`;
+
+const SImageWrapper = styled.View`
+  width: ${windowWidth}px;
+  height: ${windowHeight / 2}px;
+  ${({theme}) => theme.variables.flex('row', 'center', 'center')}
 `;

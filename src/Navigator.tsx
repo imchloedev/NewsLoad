@@ -128,6 +128,8 @@ const MainStackNavi = () => {
           component={WebViewScreen}
           options={{
             ...commonOptions,
+            headerBackVisible: false,
+            headerLeft: () => null,
           }}
         />
         <Stack.Screen
@@ -214,6 +216,8 @@ const DiscoverStackNavi = () => {
         component={WebViewScreen}
         options={{
           ...commonOptions,
+          headerBackVisible: false,
+          headerLeft: () => null,
         }}
       />
     </Stack.Navigator>

@@ -4,28 +4,33 @@ import styled from 'styled-components/native';
 import {TOnMoveToScreen} from '@components/card/LargeCardSection';
 import {getCardStyle, windowHeight} from '~/utils';
 import {IArticle} from '~/types';
+import {SArticleImageCopy} from './SmallCardItem';
 
 interface ILargeCardItemProps {
   article: IArticle;
   onMoveToScreen: TOnMoveToScreen;
 }
 
-const LargeCardItem = ({article, onMoveToScreen}: ILargeCardItemProps) => {
-  const {cardWidth, pageWidth} = getCardStyle(18, 36);
+const {cardWidth, pageWidth} = getCardStyle(18, 36);
 
+const LargeCardItem = ({article, onMoveToScreen}: ILargeCardItemProps) => {
   return (
-    <SCard pageWidth={pageWidth}>
-      <SCardWrapper
-        cardWidth={cardWidth}
-        onPress={() => onMoveToScreen(article)}>
-        <Image
-          source={{uri: article.urlToImage}}
-          style={{
-            width: cardWidth,
-            height: windowHeight / 3,
-            resizeMode: 'cover',
-          }}
-        />
+    <SCard>
+      <SCardWrapper onPress={() => onMoveToScreen(article)}>
+        <SImageWrapper>
+          {article.urlToImage ? (
+            <Image
+              source={{uri: article.urlToImage}}
+              style={{
+                width: cardWidth,
+                height: windowHeight / 3,
+                resizeMode: 'cover',
+              }}
+            />
+          ) : (
+            <SArticleImageCopy>Image not provided</SArticleImageCopy>
+          )}
+        </SImageWrapper>
         <SArticleTitleContainer>
           <SArticleTitle>{article.title}</SArticleTitle>
         </SArticleTitleContainer>
@@ -36,16 +41,22 @@ const LargeCardItem = ({article, onMoveToScreen}: ILargeCardItemProps) => {
 
 export default LargeCardItem;
 
-const SCard = styled.View<{pageWidth: number}>`
-  width: ${({pageWidth}) => pageWidth}px;
+const SCard = styled.View`
+  width: ${pageWidth}px;
   ${({theme}) => theme.variables.flex('column', 'flex-start', 'center')}
 `;
 
-const SCardWrapper = styled.TouchableOpacity<{cardWidth: number}>`
-  width: ${({cardWidth}) => cardWidth}px;
+const SCardWrapper = styled.TouchableOpacity`
+  width: ${cardWidth}px;
   overflow: hidden;
   background-color: ${({theme}) => theme.style.colors.card};
   border-radius: 20px;
+`;
+
+const SImageWrapper = styled.View`
+  width: ${cardWidth}px;
+  height: ${windowHeight / 3}px;
+  ${({theme}) => theme.variables.flex('row', 'center', 'center')}
 `;
 
 const SArticleTitleContainer = styled.View`
