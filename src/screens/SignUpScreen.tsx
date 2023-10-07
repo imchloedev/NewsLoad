@@ -19,7 +19,9 @@ const SignUpScreen = ({navigation}: ScreenProps<'SignUp'>) => {
     password: '',
   });
   const {fullName, email, password} = userInfo;
-  const isOkaySignUp = validateEmail(email) && validatePassword(password);
+  const isNameValid = fullName.length > 0;
+  const isOkaySignUp =
+    isNameValid && validateEmail(email) && validatePassword(password);
 
   const handleChange = (text: string, name: string) => {
     setUserInfo({...userInfo, [name]: text});
@@ -47,8 +49,8 @@ const SignUpScreen = ({navigation}: ScreenProps<'SignUp'>) => {
         <Title titleRole="main" title="Create an account" />
       </STitleWrapper>
       <CustomInput
-        name="name"
-        isValid={fullName.length > 0}
+        name="fullName"
+        isValid={isNameValid}
         placeholder="Full Name"
         handleChange={handleChange}
         secureTextEntry={false}

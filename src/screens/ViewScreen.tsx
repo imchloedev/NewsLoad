@@ -6,7 +6,7 @@ import auth from '@react-native-firebase/auth';
 import {Toast} from '@components/common';
 import {SArticleImageCopy} from '@components/card/SmallCardItem';
 import {dateToString, showAlert, windowHeight, windowWidth} from '~/utils';
-import {useSaveMutation, useSavedNewsQuery} from '~/hooks';
+import {useSaveMutation, useSavedNewsQuery, useThemeColors} from '~/hooks';
 import {ScreenProps} from './@types';
 import {ISavedArticle} from '~/types';
 import {
@@ -19,6 +19,7 @@ const ViewScreen = ({navigation, route}: ScreenProps<'View'>) => {
   const currentUser = auth().currentUser;
   const scrollY = useRef(new Animated.Value(0)).current;
   const [isToastVisible, setIsToastVisible] = useState(false);
+  const theme = useThemeColors();
   // query
   const {viewed} = useViewedNewsQuery(currentUser);
   const {saved} = useSavedNewsQuery(currentUser);
@@ -57,6 +58,7 @@ const ViewScreen = ({navigation, route}: ScreenProps<'View'>) => {
         <Icon
           name={isArticleSaved ? 'bookmark' : 'bookmark-outline'}
           size={20}
+          color={theme.colors.text}
           onPress={() =>
             currentUser
               ? handleBookmark()

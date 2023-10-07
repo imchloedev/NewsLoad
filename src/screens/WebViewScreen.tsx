@@ -57,7 +57,7 @@ const WebViewScreen = ({navigation, route}: ScreenProps<'WebView'>) => {
         <Toast
           text="Link copied to clipboard"
           onClose={() => setIsToastVisible(false)}
-          bottom={100}
+          bottom={150}
           isWrapped={false}
         />
       )}

@@ -42,7 +42,7 @@ const SearchScreen = ({navigation}: ScreenProps<'Search'>) => {
             <SmallCardItem article={item} onMoveToScreen={onMoveToScreen} />
           )}
           ListFooterComponent={() => {
-            if (news?.pages.length % 10 > 0) {
+            if (!hasNextPage) {
               return <ListFooter>All articles loaded.</ListFooter>;
             } else if (news.pages.length === 0) {
               return <ListFooter>None Found</ListFooter>;

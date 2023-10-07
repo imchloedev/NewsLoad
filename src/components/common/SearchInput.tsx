@@ -7,6 +7,7 @@ interface ISearchInput {
   onChangeText?: any;
   autoFocus?: boolean;
   autoCapitalize?: any;
+  onPressIn?: () => void;
 }
 
 const SearchInput = ({...others}: ISearchInput) => {
@@ -23,7 +24,7 @@ export default SearchInput;
 const SInputWrapper = styled.View`
   ${({theme}) => theme.variables.flex('row', 'flex-start', 'center')}
   gap: 10px;
-  height: 44x;
+  height: 44px;
 `;
 
 const SSearchInput = styled.TextInput.attrs({
