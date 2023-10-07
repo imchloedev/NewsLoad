@@ -6,7 +6,6 @@
  */
 
 import {QueryClient, QueryClientProvider} from 'react-query';
-import {RecoilRoot} from 'recoil';
 import Navigator from './Navigator';
 import {LogBox, useColorScheme} from 'react-native';
 import {ThemeProvider} from 'styled-components/native';
@@ -55,18 +54,16 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <RecoilRoot>
-        <ThemeProvider
-          theme={
-            scheme === 'dark'
-              ? {style: darkTheme, variables}
-              : {style: lightTheme, variables}
-          }>
-          <CriticalErrorBoundary>
-            <Navigator />
-          </CriticalErrorBoundary>
-        </ThemeProvider>
-      </RecoilRoot>
+      <ThemeProvider
+        theme={
+          scheme === 'dark'
+            ? {style: darkTheme, variables}
+            : {style: lightTheme, variables}
+        }>
+        <CriticalErrorBoundary>
+          <Navigator />
+        </CriticalErrorBoundary>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }
