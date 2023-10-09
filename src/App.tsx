@@ -47,9 +47,11 @@ function App() {
   }, []);
 
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       SplashScreen.hide();
     }, 2000);
+
+    return () => clearTimeout(timer);
   }, []);
 
   return (
