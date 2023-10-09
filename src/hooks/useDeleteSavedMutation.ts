@@ -7,7 +7,7 @@ export const deleteArticle = async (id: any) => {
   await bookmarksCollection.doc(id).delete();
 };
 
-export const useDeleteMutation = (user: TUser) => {
+export const useDeleteSavedMutation = (user: TUser) => {
   const queryClient = useQueryClient();
   const mutation = useMutation(deleteArticle, {
     onSuccess: () => {

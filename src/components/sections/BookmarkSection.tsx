@@ -13,7 +13,11 @@ import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {SmallCardItem} from '@components/card';
 import {ListFooter, Separator, Title, Toast} from '@components/common';
-import {useThemeColors, useDeleteMutation, useSavedNewsQuery} from '~/hooks';
+import {
+  useThemeColors,
+  useDeleteSavedMutation,
+  useSavedNewsQuery,
+} from '~/hooks';
 import {IArticle} from '~/types';
 
 interface IBookmarkSectionProps {
@@ -24,7 +28,7 @@ const BookmarkSection = ({onMoveToScreen}: IBookmarkSectionProps) => {
   const [isToastVisible, setIsToastVisible] = useState(false);
   const currentUser = auth().currentUser;
   const {saved} = useSavedNewsQuery(currentUser);
-  const {mutation: onDeleteArticle} = useDeleteMutation(currentUser);
+  const {mutation: onDeleteArticle} = useDeleteSavedMutation(currentUser);
   const theme = useThemeColors();
 
   const renderRightActions = (
