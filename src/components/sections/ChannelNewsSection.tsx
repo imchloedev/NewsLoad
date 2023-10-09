@@ -5,12 +5,17 @@ import auth from '@react-native-firebase/auth';
 import {SmallCardItem} from '@components/card';
 import {Title} from '@components/common';
 import {useNewsByChannelQuery} from '~/hooks';
+import {IArticle} from '~/types';
 
 interface IChannelNewsSectionProps {
   channelName: string;
+  onMoveToScreen: (article: IArticle) => void;
 }
 
-const ChannelNewsSection = ({channelName}: IChannelNewsSectionProps) => {
+const ChannelNewsSection = ({
+  channelName,
+  onMoveToScreen,
+}: IChannelNewsSectionProps) => {
   const currentUser = auth().currentUser;
   const {news} = useNewsByChannelQuery(channelName, currentUser);
 
@@ -35,10 +40,7 @@ const ChannelNewsSection = ({channelName}: IChannelNewsSectionProps) => {
           )}
           renderItem={({item}) => (
             <SCardItemWrapper>
-              <SmallCardItem
-                article={item}
-                onMoveToScreen={() => console.log('DD')}
-              />
+              <SmallCardItem article={item} onMoveToScreen={onMoveToScreen} />
             </SCardItemWrapper>
           )}
         />
