@@ -15,5 +15,5 @@ const SListFooterCopy = styled.Text`
   text-align: center;
   padding: 20px 0;
   font-family: 'Poppins-Regular';
-  color: ${({theme}) => theme.style.colors.text};
+  color: ${({theme}) => theme.style.colors.middleGray};
 `;

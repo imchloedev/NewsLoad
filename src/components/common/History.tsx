@@ -2,7 +2,7 @@ import React from 'react';
 import {FlatList} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import HistoryItem from './HistoryItem';
+import {ListFooter, HistoryItem} from '@components/common';
 import {useViewedNewsQuery} from '~/hooks/useViewedNewsQuery';
 import {getCardStyle, windowWidth} from '~/utils';
 import {MainStackParamList} from '~/screens/@types';
@@ -17,27 +17,30 @@ const History = ({navigation}: IHistoryProps) => {
   const {gap, pageWidth} = getCardStyle(18, windowWidth / 3);
 
   return (
-    <FlatList
-      data={viewed}
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      pagingEnabled
-      snapToInterval={pageWidth}
-      decelerationRate="fast"
-      snapToAlignment="start"
-      contentContainerStyle={{
-        paddingRight: gap,
-        marginLeft: gap / 2,
-      }}
-      renderItem={({item}) => (
-        <HistoryItem
-          article={item.article}
-          onMoveToScreen={() =>
-            navigation.navigate('View', {article: item.article})
-          }
-        />
-      )}
-    />
+    <>
+      <FlatList
+        data={viewed}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        pagingEnabled
+        snapToInterval={pageWidth}
+        decelerationRate="fast"
+        snapToAlignment="start"
+        contentContainerStyle={{
+          paddingRight: gap,
+          marginLeft: gap / 2,
+        }}
+        renderItem={({item}) => (
+          <HistoryItem
+            article={item.article}
+            onMoveToScreen={() =>
+              navigation.navigate('View', {article: item.article})
+            }
+          />
+        )}
+      />
+      {viewed?.length === 0 && <ListFooter>empty</ListFooter>}
+    </>
   );
 };
 
