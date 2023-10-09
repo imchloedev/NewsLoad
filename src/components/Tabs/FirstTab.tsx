@@ -1,9 +1,9 @@
 import React from 'react';
-import {ActivityIndicator, FlatList} from 'react-native';
+import {FlatList} from 'react-native';
 import {styled} from 'styled-components/native';
 import auth from '@react-native-firebase/auth';
 import {SmallCardItem} from '@components/card';
-import {ListFooter, Separator} from '@components/common';
+import {ListFooter, LoadingSpinner, Separator} from '@components/common';
 import {TOnMoveToScreen} from '@components/card/LargeCardSection';
 import {useNewsByCategoryInfiniteQuery} from '~/hooks';
 import {loadMoreData} from '~/utils';
@@ -32,7 +32,7 @@ const FirstTab = ({onMoveToScreen}: ITabProps) => {
         }
         ItemSeparatorComponent={() => <Separator />}
       />
-      {isFetching && <ActivityIndicator />}
+      {isFetching && <LoadingSpinner style={{paddingVertical: 10}} />}
     </STabContainer>
   );
 };

@@ -1,9 +1,9 @@
 import React from 'react';
-import {FlatList, ActivityIndicator} from 'react-native';
+import {FlatList} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {ITabProps, STabContainer} from './FirstTab';
 import {SmallCardItem} from '@components/card';
-import {ListFooter, Separator} from '@components/common';
+import {ListFooter, LoadingSpinner, Separator} from '@components/common';
 import {useNewsByCategoryInfiniteQuery} from '~/hooks';
 import {loadMoreData} from '~/utils';
 
@@ -27,7 +27,7 @@ const SecondTab = ({onMoveToScreen}: ITabProps) => {
         }
         ItemSeparatorComponent={() => <Separator />}
       />
-      {isFetching && <ActivityIndicator />}
+      {isFetching && <LoadingSpinner style={{paddingVertical: 10}} />}
     </STabContainer>
   );
 };
