@@ -4,9 +4,9 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import styled from 'styled-components/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {SearchInput} from '@components/common';
-import useThemeColors from '~/hooks/useThemeColors';
 import {MainStackParamList} from '@screens/@types';
+import {SearchInput} from '@components/common';
+import useThemeColors from '@lib/hooks/common/useThemeColors';
 
 interface ICustomHeaderProps {
   navigation: NativeStackNavigationProp<MainStackParamList, 'Search'>;

@@ -1,7 +1,7 @@
 import {useQuery} from 'react-query';
 import {viewedListCollection} from '~/apis/database';
-import {TUser} from '~/types';
-import {createUserViewedNewsQueryKey} from '~/utils';
+import {TUser} from '@lib/types';
+import {newsQueryKeys} from '@lib/factories/newsQueryKeys';
 
 const getViewedNews = async (user: TUser) => {
   if (!user || !user.uid) {
@@ -26,7 +26,7 @@ const getViewedNews = async (user: TUser) => {
 };
 
 export const useViewedNewsQuery = (user: TUser) => {
-  const {data: viewed} = useQuery(createUserViewedNewsQueryKey(user), () =>
+  const {data: viewed} = useQuery(newsQueryKeys.history(user), () =>
     getViewedNews(user),
   );
   return {viewed};

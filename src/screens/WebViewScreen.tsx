@@ -4,7 +4,7 @@ import styled from 'styled-components/native';
 import WebView, {WebViewNavigation} from 'react-native-webview';
 import Clipboard from '@react-native-clipboard/clipboard';
 import {WebViewHeader, Toast} from '@components/common';
-import {windowWidth, windowHeight} from '~/utils';
+import {windowWidth, windowHeight} from '@lib/utils';
 import {ScreenProps} from './@types';
 
 const WebViewScreen = ({navigation, route}: ScreenProps<'WebView'>) => {

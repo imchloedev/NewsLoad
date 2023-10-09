@@ -4,8 +4,8 @@ import styled from 'styled-components/native';
 import auth from '@react-native-firebase/auth';
 import {SmallCardItem} from '@components/card';
 import {Title} from '@components/common';
-import {useNewsByChannelQuery} from '~/hooks';
-import {IArticle} from '~/types';
+import {useNewsByChannelQuery} from '@lib/hooks/queries';
+import {IArticle} from '@lib/types';
 
 interface IChannelNewsSectionProps {
   channelName: string;

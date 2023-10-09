@@ -6,8 +6,8 @@ import {LoadingSpinner, Title, History} from '@components/common';
 import {CustomButton} from '@components/auth';
 import {onSignOut} from '~/apis/auth';
 import {ScreenProps} from './@types';
-import {showAlert} from '~/utils';
-import {useDeleteHistoryMutation} from '~/hooks';
+import {showAlert} from '@lib/utils';
+import {useDeleteHistoryMutation} from '@lib/hooks/mutations';
 
 const ProfileScreen = ({navigation}: ScreenProps<'Profile'>) => {
   const currentUser = auth().currentUser;

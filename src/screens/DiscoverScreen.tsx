@@ -5,9 +5,9 @@ import styled from 'styled-components/native';
 import {FirstTab, SecondTab, ThirdTab, FourthTab} from '@components/Tabs';
 import {SearchInput, Title, LoadingSpinner} from '@components/common';
 import RetryErrorBoundary from '@components/errorBoundaries/RetryErrorBoundary';
-import useThemeColors from '@hooks/useThemeColors';
 import {ScreenProps} from './@types';
-import {IArticle} from '~/types';
+import useThemeColors from '@lib/hooks/common/useThemeColors';
+import {IArticle} from '@lib/types';
 
 const DiscoverScreen = ({navigation}: ScreenProps<'Discover'>) => {
   const theme = useThemeColors();

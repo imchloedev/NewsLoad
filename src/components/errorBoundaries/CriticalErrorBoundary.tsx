@@ -1,6 +1,6 @@
 import ErrorBoundary from 'react-native-error-boundary';
 import styled from 'styled-components/native';
-import {ChildrenProps} from '~/types';
+import {ChildrenProps} from '@lib/types';
 
 const CriticalErrorBoundary = ({children}: ChildrenProps) => {
   return (

@@ -1,8 +1,8 @@
 import {useQuery} from 'react-query';
 import {instance} from '~/apis/client';
 import Config from 'react-native-config';
-import {IArticle, TUser} from '~/types';
-import {createUserNewsByChannelQueryKey} from '~/utils';
+import {IArticle, TUser} from '@lib/types';
+import {newsQueryKeys} from '@lib/factories/newsQueryKeys';
 
 export const getNewsByChannel = async (
   channel: string,
@@ -16,7 +16,7 @@ export const getNewsByChannel = async (
 
 export const useNewsByChannelQuery = (channel: string, user: TUser) => {
   const {data: news} = useQuery(
-    createUserNewsByChannelQueryKey(user, channel),
+    newsQueryKeys.channel(channel, user),
     () => getNewsByChannel(channel),
     {
       staleTime: 5 * 60 * 1000,

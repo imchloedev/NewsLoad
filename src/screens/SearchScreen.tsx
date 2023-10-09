@@ -9,10 +9,10 @@ import {
   Separator,
   LoadingSpinner,
 } from '@components/common';
-import {useSearchNewsInfiniteQuery} from '~/hooks';
-import {loadMoreData} from '~/utils';
+import {useSearchNewsInfiniteQuery} from '@lib/hooks/queries';
+import {loadMoreData} from '@lib/utils';
+import {IArticle} from '@lib/types';
 import {ScreenProps} from './@types';
-import {IArticle} from '~/types';
 
 const SearchScreen = ({navigation}: ScreenProps<'Search'>) => {
   const [text, setText] = useState('');

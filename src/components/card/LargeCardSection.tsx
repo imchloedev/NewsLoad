@@ -8,10 +8,10 @@ import {
   NativeScrollEvent,
 } from 'react-native';
 import LargeCardItem from '~/components/card/LargeCardItem';
-import {useNewsQuery} from '~/hooks';
-import {getCardStyle} from '~/utils';
-import {IArticle} from '~/types';
-import useThemeColors from '~/hooks/useThemeColors';
+import {useNewsQuery} from '@lib/hooks/queries';
+import useThemeColors from '@lib/hooks/common/useThemeColors';
+import {getCardStyle} from '@lib/utils';
+import {IArticle} from '@lib/types';
 
 export type TOnMoveToScreen = (article: IArticle) => void;
 

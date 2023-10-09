@@ -1,7 +1,7 @@
 import {useQuery} from 'react-query';
 import {bookmarksCollection} from '~/apis/database';
-import {ISavedArticle, TUser} from '~/types';
-import {createUserSavedNewsQueryKey} from '~/utils';
+import {ISavedArticle, TUser} from '@lib/types';
+import {newsQueryKeys} from '@lib/factories/newsQueryKeys';
 
 const getSavedNews = async (user: TUser) => {
   if (!user || !user.uid) {
@@ -27,7 +27,7 @@ const getSavedNews = async (user: TUser) => {
 
 export const useSavedNewsQuery = (user: TUser) => {
   const {data: saved, isLoading} = useQuery(
-    createUserSavedNewsQueryKey(user),
+    newsQueryKeys.bookmark(user),
     () => getSavedNews(user),
     {
       staleTime: Infinity,

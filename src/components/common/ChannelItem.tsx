@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import {windowWidth} from '~/utils';
+import {windowWidth} from '@lib/utils';
 
 interface IChannelItem {
   children: React.ReactNode;

@@ -3,7 +3,7 @@ import {Platform, StatusBar} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styled from 'styled-components/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import useThemeColors from '~/hooks/useThemeColors';
+import useThemeColors from '@lib/hooks/common/useThemeColors';
 
 interface IWebViewHeaderProps {
   onPress: () => void;

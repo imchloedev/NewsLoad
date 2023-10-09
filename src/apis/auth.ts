@@ -1,5 +1,5 @@
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
-import {TUser} from '~/types';
+import {TUser} from '~/lib/types';
 
 export const onSignUp = async (email: string, password: string) => {
   return await auth().createUserWithEmailAndPassword(email, password);

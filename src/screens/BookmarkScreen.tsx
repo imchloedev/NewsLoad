@@ -7,8 +7,8 @@ import BookmarkSection from '@components/sections/BookmarkSection';
 import RetryErrorBoundary from '@components/errorBoundaries/RetryErrorBoundary';
 import {LoadingSpinner} from '@components/common';
 import {ScreenProps} from './@types';
-import {IArticle} from '~/types';
-import {useThemeColors} from '~/hooks';
+import {IArticle} from '@lib/types';
+import useThemeColors from '@lib/hooks/common/useThemeColors';
 
 const BookmarkScreen = ({navigation}: ScreenProps<'Bookmark'>) => {
   const [user, setUser] = useState(auth().currentUser);

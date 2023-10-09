@@ -3,9 +3,9 @@ import {FlatList} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {SmallCardItem} from '@components/card';
 import {ListFooter, LoadingSpinner, Separator} from '@components/common';
-import {useNewsByCategoryInfiniteQuery} from '~/hooks';
 import {ITabProps, STabContainer} from './FirstTab';
-import {loadMoreData} from '~/utils';
+import {useNewsByCategoryInfiniteQuery} from '@lib/hooks/queries';
+import {loadMoreData} from '@lib/utils';
 
 const FourthTab = ({onMoveToScreen}: ITabProps) => {
   const currentUser = auth().currentUser;

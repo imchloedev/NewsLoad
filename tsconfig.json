@@ -17,7 +17,7 @@
       "@components/*": ["./components/*"],
       "@screens/*": ["./screens/*"],
       "@hooks/*": ["./hooks/*"],
-      "@config/*": ["./config/*"]
+      "@lib/*": ["./lib/*"]
     }
   },
   "exclude": [
@@ -33,6 +33,7 @@
     "babel.config.js",
     "metro.config.js",
     "jest.config.js",
-    "declarations.d.ts"
-, "src/components/assets/index.tsc"  ]
+    "declarations.d.ts",
+    "src/components/assets/index.tsc"
+  ]
 }

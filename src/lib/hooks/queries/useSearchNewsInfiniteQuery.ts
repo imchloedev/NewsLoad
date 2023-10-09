@@ -1,8 +1,8 @@
 import Config from 'react-native-config';
 import {useInfiniteQuery} from 'react-query';
 import {instance} from '~/apis/client';
-import {TUser} from '~/types';
-import {createUserSearchQueryKey} from '~/utils';
+import {TUser} from '@lib/types';
+import {newsQueryKeys} from '@lib/factories/newsQueryKeys';
 
 interface IGetSearchResult {
   query: string;
@@ -25,7 +25,7 @@ export const useSearchNewsInfiniteQuery = (query: string, user: TUser) => {
     isFetching,
     hasNextPage,
   } = useInfiniteQuery(
-    createUserSearchQueryKey(user, query),
+    newsQueryKeys.search(query, user),
     ({pageParam = 1}) => getSearchResult({pageParam, query}),
     {
       getNextPageParam: (lastPage, allPages) =>

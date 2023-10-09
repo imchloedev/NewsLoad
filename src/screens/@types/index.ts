@@ -3,7 +3,7 @@ import {
   NativeStackNavigationProp,
   NativeStackScreenProps,
 } from '@react-navigation/native-stack';
-import {IArticle} from '~/types';
+import {IArticle} from '~/lib/types';
 
 export type MainStackParamList = {
   Home: undefined;

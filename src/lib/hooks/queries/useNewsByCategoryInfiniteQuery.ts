@@ -1,8 +1,8 @@
 import {instance} from '~/apis/client';
 import Config from 'react-native-config';
 import {useInfiniteQuery} from 'react-query';
-import {TUser} from '~/types';
-import {createUserNewsByCategoryQueryKey} from '~/utils';
+import {TUser} from '@lib/types';
+import {newsQueryKeys} from '@lib/factories/newsQueryKeys';
 
 interface IGetNewsByCategory {
   pageParam?: number;
@@ -30,7 +30,7 @@ export const useNewsByCategoryInfiniteQuery = (
     isLoading,
     hasNextPage,
   } = useInfiniteQuery(
-    createUserNewsByCategoryQueryKey(currentUser, category),
+    newsQueryKeys.category(category, currentUser),
     ({pageParam = 1}) => getNewsByCategory({pageParam, category}),
     {
       getNextPageParam: (lastPage, allPages) => {

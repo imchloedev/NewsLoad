@@ -2,7 +2,7 @@ import ErrorBoundary from 'react-native-error-boundary';
 import {isAxiosError} from 'axios';
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {ChildrenProps} from '~/types';
+import {ChildrenProps} from '@lib/types';
 
 const RetryErrorBoundary = ({children}: ChildrenProps) => {
   return (

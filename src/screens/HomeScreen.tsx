@@ -5,9 +5,9 @@ import {LargeCardSection, SmallCardSection} from '@components/card';
 import {Title, ChannelItem, LoadingSpinner} from '@components/common';
 import {Abc, Bbc, Cnn, Cbs, Fox, Nbc, Insider} from '@components/assets';
 import RetryErrorBoundary from '@components/errorBoundaries/RetryErrorBoundary';
-import {useThemeColors} from '~/hooks';
 import {ScreenProps} from './@types';
-import {IArticle} from '~/types';
+import useThemeColors from '@lib/hooks/common/useThemeColors';
+import {IArticle} from '@lib/types';
 
 const HomeScreen = ({navigation}: ScreenProps<'Home'>) => {
   const theme = useThemeColors();

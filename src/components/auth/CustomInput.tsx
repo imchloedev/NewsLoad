@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {ReturnKeyType} from 'react-native';
-import useThemeColors from '~/hooks/useThemeColors';
+import useThemeColors from '~/lib/hooks/common/useThemeColors';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styled from 'styled-components/native';
 
@@ -20,17 +20,11 @@ const CustomInput = ({
   isValid,
   ...others
 }: ICustomInput) => {
-  const [isFocused, setIsFocused] = useState(false);
   const theme = useThemeColors();
 
   return (
     <SInputWrapper isValid={isValid}>
-      <STextInput
-        onChangeText={txt => handleChange(txt, name)}
-        onBlur={() => setIsFocused(false)}
-        onFocus={() => setIsFocused(true)}
-        {...others}
-      />
+      <STextInput onChangeText={txt => handleChange(txt, name)} {...others} />
       <Icon
         name="checkmark-outline"
         size={20}

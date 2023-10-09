@@ -1,7 +1,8 @@
 import {useQuery} from 'react-query';
 import {instance} from '~/apis/client';
 import Config from 'react-native-config';
-import {IArticle} from '~/types';
+import {IArticle} from '@lib/types';
+import {newsQueryKeys} from '@lib/factories/newsQueryKeys';
 
 export const getNews = async (): Promise<IArticle[]> => {
   const {data} = await instance.get(
@@ -12,7 +13,7 @@ export const getNews = async (): Promise<IArticle[]> => {
 };
 
 export const useNewsQuery = (start?: number, total?: number) => {
-  const {data: news} = useQuery(['news'], getNews, {
+  const {data: news} = useQuery(newsQueryKeys.headlines(), getNews, {
     staleTime: 5 * 60 * 1000,
     cacheTime: 10 * 6 * 1000,
     select: data => {

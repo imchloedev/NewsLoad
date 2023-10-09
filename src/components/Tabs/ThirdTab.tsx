@@ -4,8 +4,8 @@ import auth from '@react-native-firebase/auth';
 import {ITabProps, STabContainer} from './FirstTab';
 import {SmallCardItem} from '@components/card';
 import {ListFooter, LoadingSpinner, Separator} from '@components/common';
-import {useNewsByCategoryInfiniteQuery} from '~/hooks';
-import {loadMoreData} from '~/utils';
+import {useNewsByCategoryInfiniteQuery} from '@lib/hooks/queries';
+import {loadMoreData} from '@lib/utils';
 
 const ThirdTab = ({onMoveToScreen}: ITabProps) => {
   const currentUser = auth().currentUser;

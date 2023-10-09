@@ -2,8 +2,8 @@ import React from 'react';
 import {Image} from 'react-native';
 import styled from 'styled-components/native';
 import {SArticleImageCopy} from '@components/card/SmallCardItem';
-import {IArticle} from '~/types';
-import {windowWidth, getCardStyle} from '~/utils';
+import {IArticle} from '@lib/types';
+import {windowWidth, getCardStyle} from '@lib/utils';
 
 interface IHistoryItemProps {
   article: IArticle;

@@ -2,10 +2,10 @@ import React from 'react';
 import {FlatList} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {MainStackParamList} from '@screens/@types';
 import {ListFooter, HistoryItem} from '@components/common';
-import {useViewedNewsQuery} from '~/hooks/useViewedNewsQuery';
-import {getCardStyle, windowWidth} from '~/utils';
-import {MainStackParamList} from '~/screens/@types';
+import {useViewedNewsQuery} from '@lib/hooks/queries';
+import {getCardStyle, windowWidth} from '@lib/utils';
 
 interface IHistoryProps {
   navigation: NativeStackNavigationProp<MainStackParamList, 'Profile'>;

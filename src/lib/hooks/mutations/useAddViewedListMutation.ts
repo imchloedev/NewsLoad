@@ -1,7 +1,7 @@
 import {useMutation, useQueryClient} from 'react-query';
 import {viewedListCollection} from '~/apis/database';
-import {IAddedArticle, TUser} from '~/types';
-import {createUserViewedNewsQueryKey} from '~/utils';
+import {IAddedArticle, TUser} from '@lib/types';
+import {newsQueryKeys} from '@lib/factories/newsQueryKeys';
 
 // add
 const addViewedList = async (newArticle: IAddedArticle) => {
@@ -12,7 +12,7 @@ export const useAddViewedListMutation = (user: TUser) => {
   const queryClient = useQueryClient();
   const mutation = useMutation(addViewedList, {
     onSuccess: () => {
-      queryClient.invalidateQueries(createUserViewedNewsQueryKey(user));
+      queryClient.invalidateQueries(newsQueryKeys.history(user));
     },
   });
 

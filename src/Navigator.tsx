@@ -26,13 +26,13 @@ import {
 } from '~/screens';
 import {MainStackParamList} from '@screens/@types';
 import {CustomHeader} from '@components/common';
-import useThemeColors from '~/hooks/useThemeColors';
+import useThemeColors from '@lib/hooks/common/useThemeColors';
 import {
   handleFirebaseAuthError,
   isFirebaseAuthError,
   onSignOut,
 } from '~/apis/auth';
-import {showAlert} from '~/utils';
+import {showAlert} from '@lib/utils';
 
 const Stack = createNativeStackNavigator<MainStackParamList>();
 const Drawer = createDrawerNavigator();

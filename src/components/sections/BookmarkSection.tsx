@@ -13,12 +13,10 @@ import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {SmallCardItem} from '@components/card';
 import {ListFooter, Separator, Title, Toast} from '@components/common';
-import {
-  useThemeColors,
-  useDeleteSavedMutation,
-  useSavedNewsQuery,
-} from '~/hooks';
-import {IArticle} from '~/types';
+import {useSavedNewsQuery} from '@lib/hooks/queries';
+import {useDeleteSavedMutation} from '@lib/hooks/mutations';
+import useThemeColors from '@lib/hooks/common/useThemeColors';
+import {IArticle} from '@lib/types';
 
 interface IBookmarkSectionProps {
   onMoveToScreen: (article: IArticle) => void;

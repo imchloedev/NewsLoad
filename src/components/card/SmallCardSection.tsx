@@ -1,9 +1,9 @@
 import React from 'react';
 import {View} from 'react-native';
 import styled from 'styled-components/native';
-import {useNewsQuery} from '~/hooks/useNewsQuery';
 import {SmallCardItem} from '@components/card';
 import {TOnMoveToScreen} from '@components/card/LargeCardSection';
+import {useNewsQuery} from '@lib/hooks/queries';
 
 interface ISmallCardSectionProps {
   onMoveToScreen: TOnMoveToScreen;

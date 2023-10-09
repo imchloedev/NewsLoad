@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 import {SContainer, STitleWrapper} from './SignInScreen';
 import {CustomButton, CustomInput} from '@components/auth';
 import {Title, LoadingSpinner} from '@components/common';
-import {showAlert, validateEmail, validatePassword} from '~/utils';
+import {showAlert, validateEmail, validatePassword} from '@lib/utils';
 import {
   onSignUp,
   isFirebaseAuthError,

@@ -1,7 +1,7 @@
 import {useMutation, useQueryClient} from 'react-query';
 import {viewedListCollection} from '~/apis/database';
-import {IAddedArticle, TUser} from '~/types';
-import {createUserViewedNewsQueryKey} from '~/utils';
+import {IAddedArticle, TUser} from '@lib/types';
+import {newsQueryKeys} from '@lib/factories/newsQueryKeys';
 
 interface IUpdateParams {
   id: string;
@@ -17,7 +17,7 @@ export const useUpdateViewListMutation = (user: TUser) => {
   const queryClient = useQueryClient();
   const mutation = useMutation(updateViewedList, {
     onSuccess: () => {
-      queryClient.invalidateQueries(createUserViewedNewsQueryKey(user));
+      queryClient.invalidateQueries(newsQueryKeys.bookmark(user));
     },
   });
 

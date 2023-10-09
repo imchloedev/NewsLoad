@@ -7,7 +7,7 @@ import {
   isFirebaseAuthError,
   onSignIn,
 } from '~/apis/auth';
-import {validateEmail, validatePassword, showAlert} from '~/utils';
+import {validateEmail, validatePassword, showAlert} from '@lib/utils';
 import {ScreenProps} from './@types';
 
 const SignInScreen = ({navigation}: ScreenProps<'SignIn'>) => {

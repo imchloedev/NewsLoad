@@ -5,15 +5,16 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import auth from '@react-native-firebase/auth';
 import {Toast} from '@components/common';
 import {SArticleImageCopy} from '@components/card/SmallCardItem';
-import {dateToString, showAlert, windowHeight, windowWidth} from '~/utils';
-import {useSaveMutation, useSavedNewsQuery, useThemeColors} from '~/hooks';
-import {ScreenProps} from './@types';
-import {ISavedArticle} from '~/types';
+import {dateToString, showAlert, windowHeight, windowWidth} from '~/lib/utils';
+import {useSavedNewsQuery, useViewedNewsQuery} from '@lib/hooks/queries';
 import {
   useAddViewedListMutation,
   useUpdateViewListMutation,
-  useViewedNewsQuery,
-} from '~/hooks';
+  useSaveMutation,
+} from '@lib/hooks/mutations';
+import useThemeColors from '@lib/hooks/common/useThemeColors';
+import {ScreenProps} from './@types';
+import {ISavedArticle} from '@lib/types';
 
 const ViewScreen = ({navigation, route}: ScreenProps<'View'>) => {
   const currentUser = auth().currentUser;
