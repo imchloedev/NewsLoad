@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, useColorScheme} from 'react-native';
+import {Text, View, useColorScheme} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {DarkTheme, DefaultTheme} from '@react-navigation/native';
@@ -12,6 +12,7 @@ import {
 } from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/Ionicons';
 import auth from '@react-native-firebase/auth';
+import Toast, {ToastConfig} from 'react-native-toast-message';
 import {
   HomeScreen,
   SignInScreen,
@@ -32,18 +33,46 @@ import {
   isFirebaseAuthError,
   onSignOut,
 } from '~/apis/auth';
-import {showAlert} from '@lib/utils';
+import {showAlert, windowWidth} from '@lib/utils';
 
 const Stack = createNativeStackNavigator<MainStackParamList>();
 const Drawer = createDrawerNavigator();
 
 const Navigator = () => {
   const scheme = useColorScheme();
+  const theme = useThemeColors();
+
+  const toastConfig: ToastConfig = {
+    selectedToast: ({text1}) => (
+      <View
+        style={{
+          flex: 1,
+          flexDirection: 'row',
+          alignItems: 'center',
+          height: 60,
+          width: windowWidth - 30,
+          backgroundColor: theme.colors.toast,
+          padding: 10,
+          borderRadius: 18,
+        }}>
+        <Text
+          style={{
+            color: theme.colors.toastText,
+            fontFamily: 'Poppins-Regular',
+          }}>
+          {text1}
+        </Text>
+      </View>
+    ),
+  };
 
   return (
-    <NavigationContainer theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <DrawerNavi />
-    </NavigationContainer>
+    <>
+      <NavigationContainer theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <DrawerNavi />
+      </NavigationContainer>
+      <Toast config={toastConfig} />
+    </>
   );
 };
 

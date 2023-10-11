@@ -7,5 +7,4 @@ export {default as Separator} from '@components/common/Separator';
 export {default as LoadingSpinner} from '@components/common/LoadingSpinner';
 export {default as History} from '@components/common/History';
 export {default as HistoryItem} from '@components/common/HistoryItem';
-export {default as Toast} from '@components/common/Toast';
 export {default as WebViewHeader} from '@components/common/WebViewHeader';

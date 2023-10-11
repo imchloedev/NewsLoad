@@ -1,11 +1,16 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {Animated, Image, TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import auth from '@react-native-firebase/auth';
-import {Toast} from '@components/common';
 import {SArticleImageCopy} from '@components/card/SmallCardItem';
-import {dateToString, showAlert, windowHeight, windowWidth} from '~/lib/utils';
+import {
+  dateToString,
+  showAlert,
+  windowHeight,
+  windowWidth,
+  showToast,
+} from '~/lib/utils';
 import {useSavedNewsQuery, useViewedNewsQuery} from '@lib/hooks/queries';
 import {
   useAddViewedListMutation,
@@ -19,7 +24,6 @@ import {ISavedArticle} from '@lib/types';
 const ViewScreen = ({navigation, route}: ScreenProps<'View'>) => {
   const currentUser = auth().currentUser;
   const scrollY = useRef(new Animated.Value(0)).current;
-  const [isToastVisible, setIsToastVisible] = useState(false);
   const theme = useThemeColors();
   // query
   const {viewed} = useViewedNewsQuery(currentUser);
@@ -47,7 +51,7 @@ const ViewScreen = ({navigation, route}: ScreenProps<'View'>) => {
   const handleBookmark = async () => {
     if (!isArticleSaved) {
       await onSaveArticle.mutate({...addedArticle, isSaved: true});
-      setIsToastVisible(true);
+      showToast('Saved to bookmark list.');
     } else {
       showAlert('Alert', 'This article was already in your bookmark list');
     }
@@ -88,65 +92,54 @@ const ViewScreen = ({navigation, route}: ScreenProps<'View'>) => {
   }, []);
 
   return (
-    <>
-      {isToastVisible && (
-        <Toast
-          text="Saved to bookmark list."
-          onClose={() => setIsToastVisible(false)}
-          bottom={50}
-          isWrapped={false}
-        />
-      )}
-      <SContainer onScroll={handleScroll} scrollEventThrottle={16}>
-        <Animated.View
-          style={{
-            height: scrollY.interpolate({
-              inputRange: [0, windowHeight / 2],
-              outputRange: [windowHeight / 2, 0],
-              extrapolate: 'clamp',
-            }),
-          }}>
-          <SImageWrapper>
-            {urlToImage ? (
-              <Image
-                source={{uri: urlToImage}}
-                style={{
-                  width: windowWidth,
-                  height: windowHeight / 2,
-                  resizeMode: 'cover',
-                }}
-              />
-            ) : (
-              <SArticleImageCopy>Image not provided</SArticleImageCopy>
-            )}
-          </SImageWrapper>
-        </Animated.View>
-        <SInfoWrapper>
-          <SInfoHeader>
-            <STitle>{title}</STitle>
-            <SAuthor>Written by {author}</SAuthor>
-            <SDate>Published at {dateToString(publishedAt)}</SDate>
-          </SInfoHeader>
+    <SContainer onScroll={handleScroll} scrollEventThrottle={16}>
+      <Animated.View
+        style={{
+          height: scrollY.interpolate({
+            inputRange: [0, windowHeight / 2],
+            outputRange: [windowHeight / 2, 0],
+            extrapolate: 'clamp',
+          }),
+        }}>
+        <SImageWrapper>
+          {urlToImage ? (
+            <Image
+              source={{uri: urlToImage}}
+              style={{
+                width: windowWidth,
+                height: windowHeight / 2,
+                resizeMode: 'cover',
+              }}
+            />
+          ) : (
+            <SArticleImageCopy>Image not provided</SArticleImageCopy>
+          )}
+        </SImageWrapper>
+      </Animated.View>
+      <SInfoWrapper>
+        <SInfoHeader>
+          <STitle>{title}</STitle>
+          <SAuthor>Written by {author}</SAuthor>
+          <SDate>Published at {dateToString(publishedAt)}</SDate>
+        </SInfoHeader>
 
-          <SContent>{description}</SContent>
-          <SContent>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged. It was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages,
-            and more recently with desktop publishing software like Aldus
-            PageMaker including versions of Lorem Ipsum.
-          </SContent>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('WebView', {url})}>
-            <SUrlBtnCopy>To keep reading this article, Click here!</SUrlBtnCopy>
-          </TouchableOpacity>
-        </SInfoWrapper>
-      </SContainer>
-    </>
+        <SContent>{description}</SContent>
+        <SContent>
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry's standard dummy text ever
+          since the 1500s, when an unknown printer took a galley of type and
+          scrambled it to make a type specimen book. It has survived not only
+          five centuries, but also the leap into electronic typesetting,
+          remaining essentially unchanged. It was popularised in the 1960s with
+          the release of Letraset sheets containing Lorem Ipsum passages, and
+          more recently with desktop publishing software like Aldus PageMaker
+          including versions of Lorem Ipsum.
+        </SContent>
+        <TouchableOpacity onPress={() => navigation.navigate('WebView', {url})}>
+          <SUrlBtnCopy>To keep reading this article, Click here!</SUrlBtnCopy>
+        </TouchableOpacity>
+      </SInfoWrapper>
+    </SContainer>
   );
 };
 

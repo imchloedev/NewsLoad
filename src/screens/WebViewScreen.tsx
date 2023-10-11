@@ -3,13 +3,12 @@ import {BackHandler, TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
 import WebView, {WebViewNavigation} from 'react-native-webview';
 import Clipboard from '@react-native-clipboard/clipboard';
-import {WebViewHeader, Toast} from '@components/common';
-import {windowWidth, windowHeight} from '@lib/utils';
+import {WebViewHeader} from '@components/common';
+import {windowWidth, windowHeight, showToast} from '@lib/utils';
 import {ScreenProps} from './@types';
 
 const WebViewScreen = ({navigation, route}: ScreenProps<'WebView'>) => {
   const {url} = route.params;
-  const [isToastVisible, setIsToastVisible] = useState(false);
   const ref = useRef<WebView | null>(null);
   const [nav, setNav] = useState<WebViewNavigation>();
 
@@ -32,7 +31,7 @@ const WebViewScreen = ({navigation, route}: ScreenProps<'WebView'>) => {
 
     const copyToClipboard = () => {
       Clipboard.setString(url);
-      setIsToastVisible(true);
+      showToast('Link copied to clipboard');
     };
 
     navigation.setOptions({
@@ -53,14 +52,6 @@ const WebViewScreen = ({navigation, route}: ScreenProps<'WebView'>) => {
 
   return (
     <SContainer>
-      {isToastVisible && (
-        <Toast
-          text="Link copied to clipboard"
-          onClose={() => setIsToastVisible(false)}
-          bottom={150}
-          isWrapped={false}
-        />
-      )}
       {url ? (
         <WebView
           ref={ref}

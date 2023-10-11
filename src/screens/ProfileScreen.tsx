@@ -6,7 +6,7 @@ import {LoadingSpinner, Title, History} from '@components/common';
 import {CustomButton} from '@components/auth';
 import {onSignOut} from '~/apis/auth';
 import {ScreenProps} from './@types';
-import {showAlert} from '@lib/utils';
+import {showAlert, showToast} from '@lib/utils';
 import {useDeleteHistoryMutation} from '@lib/hooks/mutations';
 
 const ProfileScreen = ({navigation}: ScreenProps<'Profile'>) => {
@@ -35,7 +35,11 @@ const ProfileScreen = ({navigation}: ScreenProps<'Profile'>) => {
 
       <SHistoryTitleWrapper>
         <Title titleRole="sub" title="Recently viewed" />
-        <TouchableOpacity onPress={() => onClearHistory.mutate(currentUser)}>
+        <TouchableOpacity
+          onPress={() => {
+            onClearHistory.mutate(currentUser);
+            showToast('removed all recently viewed list');
+          }}>
           <SClearText>clear</SClearText>
         </TouchableOpacity>
       </SHistoryTitleWrapper>
