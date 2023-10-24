@@ -1,4 +1,4 @@
-import React, {Suspense} from 'react';
+import React, {Suspense, useCallback} from 'react';
 import {LoadingSpinner} from '@components/common';
 import {ScreenProps} from './@types';
 import ChannelNewsSection from '@components/sections/ChannelNewsSection';
@@ -8,9 +8,9 @@ import {IArticle} from '@lib/types';
 const ChannelScreen = ({navigation, route}: ScreenProps<'Channel'>) => {
   const {channel} = route.params;
 
-  const onMoveToScreen = (article: IArticle) => {
+  const onMoveToScreen = useCallback((article: IArticle) => {
     navigation.navigate('View', {article});
-  };
+  }, []);
 
   return (
     <RetryErrorBoundary>

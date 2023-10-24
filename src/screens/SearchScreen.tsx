@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {FlatList} from 'react-native';
 import styled from 'styled-components/native';
 import auth from '@react-native-firebase/auth';
@@ -20,9 +20,9 @@ const SearchScreen = ({navigation}: ScreenProps<'Search'>) => {
   const {news, fetchNextPage, isFetching, hasNextPage} =
     useSearchNewsInfiniteQuery(text, currentUser);
 
-  const onMoveToScreen = (article: IArticle) => {
+  const onMoveToScreen = useCallback((article: IArticle) => {
     navigation.push('View', {article});
-  };
+  }, []);
 
   useEffect(() => {
     navigation.setOptions({

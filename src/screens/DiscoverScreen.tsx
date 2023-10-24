@@ -1,4 +1,4 @@
-import React, {Suspense, useState} from 'react';
+import React, {Suspense, useCallback, useState} from 'react';
 import {View, useWindowDimensions} from 'react-native';
 import {TabView, TabBar} from 'react-native-tab-view';
 import styled from 'styled-components/native';
@@ -20,9 +20,9 @@ const DiscoverScreen = ({navigation}: ScreenProps<'Discover'>) => {
     {key: 'fourth', title: 'Science'},
   ]);
 
-  const onMoveToScreen = (article: IArticle) => {
+  const onMoveToScreen = useCallback((article: IArticle) => {
     navigation.navigate('View', {article});
-  };
+  }, []);
 
   type TRoute = {
     route: {

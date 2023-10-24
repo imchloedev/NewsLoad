@@ -1,8 +1,5 @@
 import {NavigatorScreenParams} from '@react-navigation/native';
-import {
-  NativeStackNavigationProp,
-  NativeStackScreenProps,
-} from '@react-navigation/native-stack';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {IArticle} from '~/lib/types';
 
 export type MainStackParamList = {

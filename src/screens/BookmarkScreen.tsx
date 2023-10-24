@@ -1,4 +1,4 @@
-import React, {Suspense, useEffect, useState} from 'react';
+import React, {Suspense, useCallback, useEffect, useState} from 'react';
 import {useIsFocused} from '@react-navigation/native';
 import styled from 'styled-components/native';
 import auth from '@react-native-firebase/auth';
@@ -15,9 +15,9 @@ const BookmarkScreen = ({navigation}: ScreenProps<'Bookmark'>) => {
   const isFocused = useIsFocused();
   const theme = useThemeColors();
 
-  const onMoveToScreen = (article: IArticle) => {
+  const onMoveToScreen = useCallback((article: IArticle) => {
     navigation.navigate('View', {article});
-  };
+  }, []);
 
   useEffect(() => {
     setUser(auth().currentUser);

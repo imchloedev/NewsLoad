@@ -1,4 +1,4 @@
-import React, {Suspense} from 'react';
+import React, {Suspense, useCallback} from 'react';
 import {ScrollView} from 'react-native';
 import styled from 'styled-components/native';
 import {LargeCardSection, SmallCardSection} from '@components/card';
@@ -43,13 +43,13 @@ const HomeScreen = ({navigation}: ScreenProps<'Home'>) => {
     },
   ];
 
-  const onMoveToScreen = (article: IArticle) => {
+  const onMoveToScreen = useCallback((article: IArticle) => {
     navigation.navigate('View', {article});
-  };
+  }, []);
 
-  const onMoveToChannel = (channel: string) => {
+  const onMoveToChannel = useCallback((channel: string) => {
     navigation.navigate('Channel', {channel: channel});
-  };
+  }, []);
 
   return (
     <ScrollView>
