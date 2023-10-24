@@ -52,7 +52,7 @@ const Navigator = () => {
           height: 60,
           width: windowWidth - 30,
           backgroundColor: theme.colors.toast,
-          padding: 10,
+          paddingHorizontal: 18,
           borderRadius: 18,
         }}>
         <Text

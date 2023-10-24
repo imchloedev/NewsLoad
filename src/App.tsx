@@ -13,11 +13,6 @@ import SplashScreen from 'react-native-splash-screen';
 import {darkTheme, lightTheme, variables} from '~/styles/theme';
 import {useEffect, useState} from 'react';
 LogBox.ignoreLogs(['Sending']);
-import Toast, {
-  BaseToast,
-  ErrorToast,
-  ToastOptions,
-} from 'react-native-toast-message';
 import {subscribeAuth} from './apis/auth';
 import CriticalErrorBoundary from '@components/errorBoundaries/CriticalErrorBoundary';
 
